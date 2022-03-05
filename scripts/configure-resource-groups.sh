@@ -9,5 +9,6 @@ az deployment sub create \
     --name "configure-resource-groups" \
     --location "$RESOURCE_GROUP_LOCATION" \
     --template-file "${SCRIPT_DIR}/../infra/resource-groups.bicep" \
-    --parameters "resourceGroupName=$RESOURCE_GROUP_NAME" \
+    --parameters "computeResourceGroupName=$COMPUTE_RESOURCE_GROUP_NAME" \
+    --parameters "storeResourceGroupName=$STORE_RESOURCE_GROUP_NAME" \
     --parameters "resourceGroupLocation=$RESOURCE_GROUP_LOCATION"

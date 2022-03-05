@@ -7,6 +7,6 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 az deployment group create \
     --name "configure-functions" \
-    --resource-group "$RESOURCE_GROUP_NAME" \
+    --resource-group "$COMPUTE_RESOURCE_GROUP_NAME" \
     --template-file "${SCRIPT_DIR}/../infra/functions.bicep" \
     --parameters appName="$FUNCTIONAPP_NAME"
