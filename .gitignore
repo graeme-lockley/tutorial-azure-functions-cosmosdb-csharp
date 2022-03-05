@@ -265,3 +265,9 @@ __pycache__/
 
 src/output
 infra/*.json
+
+.ionide
+
+*.zip
+src/Functions/output/HttpExample/function.json
+src/Functions/output/CoreLibrary.deps.json
