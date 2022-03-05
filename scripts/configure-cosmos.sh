@@ -10,5 +10,7 @@ az deployment group create \
     --resource-group "$STORE_RESOURCE_GROUP_NAME" \
     --template-file "${SCRIPT_DIR}/../infra/cosmos.bicep" \
     --parameters accountName="$COSMOS_ACCOUNT_NAME" \
-    --parameters location="$RESOURCE_GROUP_LOCATION" \
-    --parameters databaseName="$COSMOS_DATABASE_NAME"
+    --parameters location="$RESOURCE_GROUP_LOCATION" 
+
+    # \
+    # --parameters databaseName="$COSMOS_DATABASE_NAME"
