@@ -8,7 +8,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 az deployment group create \
     --name "tafcc-configure-cosmos" \
     --resource-group "tutorialAzureFuncCosmosCSC" \
-    --template-file "../infra/cosmos.bicep" \
+    --template-file "$SCRIPT_DIR/../infra/cosmos.bicep" \
     --parameters accountName="tafccdb" \
     --parameters location="westus" 
 
