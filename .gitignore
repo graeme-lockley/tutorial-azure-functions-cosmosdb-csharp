@@ -269,5 +269,4 @@ infra/*.json
 .ionide
 
 *.zip
-src/Functions/output/HttpExample/function.json
-src/Functions/output/CoreLibrary.deps.json
+src/Functions/output
