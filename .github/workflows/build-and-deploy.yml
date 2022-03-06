@@ -102,3 +102,6 @@ jobs:
           app-name: ${{ env.FUNCTIONAPP_NAME }}
           package: ${{ env.BUILD_PACKAGE_PATH_FILE_NAME }}
           publish-profile: ${{ steps.webapp.outputs.profile }}
+
+      - name: Populate CosmosDB content
+        run: ./scripts/build-database-content.sh
