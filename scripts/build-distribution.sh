@@ -10,7 +10,7 @@ OUTPUT_FILE_NAME="$SCRIPT_DIR"/../"$BUILD_PACKAGE_PATH_FILE_NAME"
 
 mkdir -p "$OUTPUT_PATH"
 
-cd "$SCRIPT_DIR"/../src || exit 1
+cd "$SCRIPT_DIR"/../src/Functions || exit 1
 dotnet publish --configuration Release --output "$OUTPUT_PATH"
 
 cd "$OUTPUT_PATH" || exit 1
