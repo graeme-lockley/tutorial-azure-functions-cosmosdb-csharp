@@ -15,12 +15,12 @@ namespace CoreLibrary
 
         private ILogger? log;
 
-        public Connection(string endpointUrl, string primaryKey, string databaseId = "FamilyDatabase", string containerId = "FamilyContainer", ILogger? log = null)
+        public Connection(string endpointUrl, string primaryKey, ILogger? log = null)
         {
             this.endpointUrl = endpointUrl;
             this.primaryKey = primaryKey;
-            this.databaseId = databaseId;
-            this.containerId = containerId;
+            this.databaseId = "FamilyDatabase";
+            this.containerId = "FamilyContainer";
             this.log = log;
         }
 
