@@ -96,6 +96,26 @@ namespace My.Functions
             return new OkObjectResult(JsonConvert.SerializeObject(results));
         }
 
+        [FunctionName("family2")]
+        public static async Task<IActionResult> Family2(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
+             [CosmosDB(databaseName: "FamilyDatabase", collectionName: "FamilyContainer")] Container container,
+            ILogger log)
+        {
+            log.LogInformation("family2: C# HTTP trigger function processed a request.");
+
+            string name = req.Query["name"];
+
+            log.LogInformation($"name is '{name}'");
+
+            var tasks = new Tasks(State.instance(log).Connection());
+            var results = await tasks.QueryItemsAsyncOnLastName(name);
+
+            log.LogInformation(results.ToString());
+
+            return new OkObjectResult(JsonConvert.SerializeObject(results));
+        }
+
         [FunctionName("stuff")]
         public static IActionResult Stuff(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
