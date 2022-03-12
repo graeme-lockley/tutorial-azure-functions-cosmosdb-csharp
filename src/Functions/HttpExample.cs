@@ -24,6 +24,10 @@ namespace My.Functions
             var endpointUrl = Environment.GetEnvironmentVariable("COSMOSDB_ENDPOINT_URL") ?? "https://tafccdb.documents.azure.com:443/";
             var primaryKey = Environment.GetEnvironmentVariable("COSMOSDB_PRIMARY_KEY") ?? "";
 
+            if (primaryKey.Equals("")) {
+                log.LogInformation("primaryKey not set");
+            }
+
             _instance.connection = new Connection(endpointUrl, primaryKey, log);
         }
 
