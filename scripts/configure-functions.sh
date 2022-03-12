@@ -14,5 +14,5 @@ az deployment group create \
     --name "tafcccf" \
     --resource-group "$RESOURCE_GROUP_NAME" \
     --template-file "${SCRIPT_DIR}/../infra/functions.bicep" \
-    --parameters appName="$FUNCTIONAPP_NAME"
+    --parameters appName="$FUNCTIONAPP_NAME" \
     --parameters cosmosPrimaryMasterKey="$COSMOSDB_PRIMARY_KEY"
