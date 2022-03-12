@@ -24,9 +24,12 @@ namespace My.Functions
             var endpointUrl = Environment.GetEnvironmentVariable("COSMOSDB_ENDPOINT_URL") ?? "https://tafccdb.documents.azure.com:443/";
             var primaryKey = Environment.GetEnvironmentVariable("COSMOSDB_PRIMARY_KEY") ?? "";
 
-            if (primaryKey.Equals("")) {
+            if (primaryKey.Equals(""))
+            {
                 log.LogInformation("primaryKey not set");
-            } else {
+            }
+            else
+            {
                 log.LogInformation("primaryKey is set");
             }
 
@@ -83,7 +86,7 @@ namespace My.Functions
 
             string name = req.Query["name"];
 
-            log.LogInformation($"name is {name}");
+            log.LogInformation($"name is '{name}'");
 
             var tasks = new Tasks(State.instance(log).Connection());
             var results = await tasks.QueryItemsAsyncOnLastName(name);
@@ -93,5 +96,12 @@ namespace My.Functions
             return new OkObjectResult(JsonConvert.SerializeObject(results));
         }
 
+        [FunctionName("stuff")]
+        public static IActionResult Stuff(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
+            ILogger log)
+        {
+            return new OkObjectResult(Environment.GetEnvironmentVariable("COSMOSDB_PRIMARY_KEY"));
+        }
     }
 }
