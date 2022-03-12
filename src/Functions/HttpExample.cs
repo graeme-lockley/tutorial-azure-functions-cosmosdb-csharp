@@ -26,9 +26,11 @@ namespace My.Functions
 
             if (primaryKey.Equals("")) {
                 log.LogInformation("primaryKey not set");
+            } else {
+                log.LogInformation("primaryKey is set");
             }
 
-            _instance.connection = new Connection(endpointUrl, primaryKey, log);
+            connection = new Connection(endpointUrl, primaryKey, log);
         }
 
         public static State instance(ILogger log)
@@ -80,6 +82,8 @@ namespace My.Functions
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             string name = req.Query["name"];
+
+            log.LogInformation($"name is {name}");
 
             var tasks = new Tasks(State.instance(log).Connection());
             var results = await tasks.QueryItemsAsyncOnLastName(name);
