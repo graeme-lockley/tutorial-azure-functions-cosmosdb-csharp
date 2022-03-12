@@ -3,6 +3,8 @@ param appName string
 
 param location string = resourceGroup().location
 
+param cosmosPrimaryMasterKey string
+
 var storageAccountName = '${substring(appName, 0, min(10, length(appName)))}${uniqueString(resourceGroup().id)}'
 var hostingPlanName = '${appName}${uniqueString(resourceGroup().id)}'
 var appInsightsName = '${appName}${uniqueString(resourceGroup().id)}'
@@ -69,6 +71,10 @@ resource functionApp 'Microsoft.Web/sites@2020-06-01' = {
         {
           name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
           value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${listKeys(storageAccount.id, storageAccount.apiVersion).keys[0].value}'
+        }
+        {
+          name: 'COSMOSDB_PRIMARY_KEY'
+          value: cosmosPrimaryMasterKey
         }
         // WEBSITE_RUN_FROM_PACKAGE will be set to 1 by func azure functionapp publish
         {

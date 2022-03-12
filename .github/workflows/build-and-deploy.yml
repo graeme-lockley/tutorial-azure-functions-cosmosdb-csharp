@@ -47,11 +47,11 @@ jobs:
       - name: Setup resource groups
         run: ./scripts/configure-resource-groups.sh
 
-      - name: Setup functions
-        run: ./scripts/configure-functions.sh
-
       - name: Setup cosmos
         run: ./scripts/configure-cosmos.sh
+
+      - name: Setup functions
+        run: ./scripts/configure-functions.sh
 
   build-deploy-functions:
     runs-on: ubuntu-latest
