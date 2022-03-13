@@ -6,10 +6,10 @@ using System;
 public class Friend
 {
     [JsonProperty(PropertyName = "id")]
-    public string Id { get; set; }
-    public string LastName { get; set; }
-    public string FirstName { get; set; }
-    public string? KnownAs { get; set; }
+    public string Id { get; }
+    public string LastName { get; }
+    public string FirstName { get; }
+    public string? KnownAs { get; }
 
     public Friend(string Id, string LastName, string FirstName, string? KnownAs)
     {
