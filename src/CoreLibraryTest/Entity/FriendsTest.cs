@@ -22,7 +22,7 @@ public class FriendsTest
 
         var newFriend = friends.Get(friend.Id);
 
-        Assert.AreNotEqual(friend.Id, newFriend.Id);
+        Assert.AreEqual(friend.Id, newFriend.Id);
         Assert.AreEqual(friend.LastName, newFriend.LastName);
         Assert.AreEqual(friend.FirstName, newFriend.FirstName);
         Assert.AreEqual(friend.KnownAs, newFriend.KnownAs);
