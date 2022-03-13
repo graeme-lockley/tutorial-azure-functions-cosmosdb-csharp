@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functions", "Functions\Func
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CLI", "CLI\CLI.csproj", "{CF95C55C-97F2-441A-AD9D-69F29333B968}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreLibraryTest", "CoreLibraryTest\CoreLibraryTest.csproj", "{942E8FF5-5969-483B-8597-9E29C685FE4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{CF95C55C-97F2-441A-AD9D-69F29333B968}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF95C55C-97F2-441A-AD9D-69F29333B968}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF95C55C-97F2-441A-AD9D-69F29333B968}.Release|Any CPU.Build.0 = Release|Any CPU
+		{942E8FF5-5969-483B-8597-9E29C685FE4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{942E8FF5-5969-483B-8597-9E29C685FE4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{942E8FF5-5969-483B-8597-9E29C685FE4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{942E8FF5-5969-483B-8597-9E29C685FE4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -79,6 +79,9 @@ jobs:
       - name: Compile source
         run: ./scripts/build-compile.sh
 
+      - name: Unit tests
+        run: ./scripts/build-unit-tests.sh
+        
       - name: Create distribution
         run: ./scripts/build-distribution.sh
 
