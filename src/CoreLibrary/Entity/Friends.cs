@@ -11,12 +11,19 @@ public class Friends
         this.repository = repository;
     }
 
-    public Friend AddFriend(string lastName, string firstName, string? knownAs) =>
+    public Task<Friend> AddFriend(string lastName, string firstName, string? knownAs) =>
         repository.AddFriend(lastName, firstName, knownAs);
 
-    public Friend Get(string id) =>
-        repository.GetFriend(id) ?? throw new FriendNotFoundException($"id=${id}");
+    public async Task<Friend> Get(string id)
+    {
+        var friend = await repository.GetFriend(id);
 
-    public List<Friend> FindOnLastName(string lastName) =>
+        if (friend == null)
+            throw new FriendNotFoundException($"id=${id}");
+
+        return friend;
+    }
+
+    public Task<List<Friend>> FindOnLastName(string lastName) =>
         repository.FindFriendOnLastName(lastName);
 }

@@ -3,6 +3,7 @@ namespace CoreLibraryTest.Entity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using CoreLibrary.Entity;
 using CoreLibrary.Ports.Out;
@@ -14,13 +15,19 @@ public class FriendsTest
     private const string FIRST_NAME = "Graeme";
     private const string KNOWN_AS = "Lockers";
 
-    [TestMethod]
-    public void GivenFriends_WhenAddValidFriend_NewFriendIsInRepository()
-    {
-        var friends = new Friends(new TestRepository());
-        var friend = friends.AddFriend(LAST_NAME, FIRST_NAME, KNOWN_AS);
+    private Friends Friends = new Friends(new TestRepository());
 
-        var newFriend = friends.Get(friend.Id);
+    [TestInitialize]
+    public void Init()
+    {
+        Friends = new Friends(new TestRepository());
+    }
+
+    [TestMethod]
+    public async Task GivenFriends_WhenAddValidFriend_NewFriendIsInRepository()
+    {
+        var friend = await Friends.AddFriend(LAST_NAME, FIRST_NAME, KNOWN_AS);
+        var newFriend = await Friends.Get(friend.Id);
 
         Assert.AreEqual(friend.Id, newFriend.Id);
         Assert.AreEqual(friend.LastName, newFriend.LastName);
@@ -29,23 +36,27 @@ public class FriendsTest
     }
 
     [TestMethod]
-    public void GivenFriends_WhenGetOnInvalidID_ExceptionThrown()
+    public async Task GivenFriends_WhenGetOnInvalidID_ExceptionThrown()
     {
-        var friends = new Friends(new TestRepository());
-
-        Assert.ThrowsException<FriendNotFoundException>(() => friends.Get(""));
+        try
+        {
+            await Friends.Get("");
+            Assert.IsTrue(false);
+        }
+        catch (FriendNotFoundException)
+        {
+            // Happy days
+        }
     }
 
     [TestMethod]
-    public void GivenFriends_WhenFindOnLastName_ReturnsMatches()
+    public async Task GivenFriends_WhenFindOnLastName_ReturnsMatches()
     {
-        var friends = new Friends(new TestRepository());
+        await Friends.AddFriend(LAST_NAME, "Graeme", null);
+        await Friends.AddFriend(LAST_NAME, "David", null);
 
-        friends.AddFriend(LAST_NAME, "Graeme", null);
-        friends.AddFriend(LAST_NAME, "David", null);
-
-        Assert.AreEqual(friends.FindOnLastName(LAST_NAME).Count, 2);
-        Assert.AreEqual(friends.FindOnLastName("Smith").Count, 0);
+        Assert.AreEqual((await Friends.FindOnLastName(LAST_NAME)).Count, 2);
+        Assert.AreEqual((await Friends.FindOnLastName("Smith")).Count, 0);
     }
 }
 
@@ -59,25 +70,35 @@ public class TestRepository : IRepository
 
     }
 
-    public Friend AddFriend(string lastName, string firstName, string? knownAs)
+    public async Task<Friend> AddFriend(string lastName, string firstName, string? knownAs)
     {
-        var id = IdCounter;
-        var friend = new Friend(id.ToString(), lastName, firstName, knownAs);
+        return await Task.Run(() =>
+        {
 
-        IdCounter += 1;
+            var id = IdCounter;
+            var friend = new Friend(id.ToString(), lastName, firstName, knownAs);
 
-        Friends.Add(friend);
+            IdCounter += 1;
 
-        return friend;
+            Friends.Add(friend);
+
+            return friend;
+        });
     }
 
-    public Friend? GetFriend(string id)
+    public async Task<Friend?> GetFriend(string id)
     {
-        return Friends.Find(p => p.Id == id);
+        return await Task.Run(() =>
+        {
+            return Friends.Find(p => p.Id == id);
+        });
     }
 
-    public List<Friend> FindFriendOnLastName(string lastName)
+    public async Task<List<Friend>> FindFriendOnLastName(string lastName)
     {
-        return Friends.FindAll(p => p.LastName == lastName);
+        return await Task.Run(() =>
+        {
+            return Friends.FindAll(p => p.LastName == lastName);
+        });
     }
 }
