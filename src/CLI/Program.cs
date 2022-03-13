@@ -1,7 +1,4 @@
-﻿using Microsoft.Azure.Cosmos;
-using Microsoft.Extensions.Logging;
-
-using CoreLibrary;
+﻿using CoreLibrary;
 
 var endpointUrl = Environment.GetEnvironmentVariable("COSMOSDB_ENDPOINT_URL") ?? "https://tafccdb.documents.azure.com:443/";
 var primaryKey = Environment.GetEnvironmentVariable("COSMOSDB_PRIMARY_KEY") ?? "";
