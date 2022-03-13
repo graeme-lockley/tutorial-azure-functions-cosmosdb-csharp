@@ -14,15 +14,8 @@ public class Friends
     public Friend AddFriend(string lastName, string firstName, string? knownAs) =>
         repository.AddFriend(lastName, firstName, knownAs);
 
-    public Friend Get(string id)
-    {
-        var friend = repository.GetFriend(id);
-
-        if (friend == null)
-            throw new FriendNotFoundException($"id=${id}");
-
-        return friend;
-    }
+    public Friend Get(string id) =>
+        repository.GetFriend(id) ?? throw new FriendNotFoundException($"id=${id}");
 
     public List<Friend> FindOnLastName(string lastName) =>
         repository.FindFriendOnLastName(lastName);

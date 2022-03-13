@@ -35,6 +35,18 @@ public class FriendsTest
 
         Assert.ThrowsException<FriendNotFoundException>(() => friends.Get(""));
     }
+
+    [TestMethod]
+    public void GivenFriends_WhenFindOnLastName_ReturnsMatches()
+    {
+        var friends = new Friends(new TestRepository());
+
+        friends.AddFriend(LAST_NAME, "Graeme", null);
+        friends.AddFriend(LAST_NAME, "David", null);
+
+        Assert.AreEqual(friends.FindOnLastName(LAST_NAME).Count, 2);
+        Assert.AreEqual(friends.FindOnLastName("Smith").Count, 0);
+    }
 }
 
 public class TestRepository : IRepository
@@ -64,7 +76,8 @@ public class TestRepository : IRepository
         return Friends.Find(p => p.Id == id);
     }
 
-    public List<Friend> FindFriendOnLastName(string lastName) {
+    public List<Friend> FindFriendOnLastName(string lastName)
+    {
         return Friends.FindAll(p => p.LastName == lastName);
     }
 }
