@@ -1,7 +1,6 @@
 namespace CoreLibraryTest.Entity;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 
 using CoreLibrary.Entity;
 
@@ -45,9 +44,9 @@ public class FriendTest
     public void ToStringAndFromStringAreReversable()
     {
         var friend = new Friend(ID, LAST_NAME, FIRST_NAME, KNOWN_AS);
-        var friendJson = friend.ToString();
-        var newFriend = JsonConvert.DeserializeObject<Friend>(friendJson)!;
-        var newFriendJson = newFriend.ToString();
+        var friendJson = friend.ToJSON();
+        var newFriend = Friend.FromJSON(friendJson);
+        var newFriendJson = newFriend.ToJSON();
 
         Assert.AreEqual(friend.Id, newFriend.Id);
         Assert.AreEqual(friend.LastName, newFriend.LastName);

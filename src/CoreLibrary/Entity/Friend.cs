@@ -31,9 +31,9 @@ public class Friend
         this.KnownAs = KnownAs;
     }
 
-    // The ToString() method is used to format the output, it's used for demo purpose only. It's not required by Azure Cosmos DB
-    public override string ToString()
-    {
-        return JsonConvert.SerializeObject(this);
-    }
+    public string ToJSON() =>
+         JsonConvert.SerializeObject(this);
+
+    public static Friend FromJSON(string friendJson) =>
+        JsonConvert.DeserializeObject<Friend>(friendJson)!;
 }
