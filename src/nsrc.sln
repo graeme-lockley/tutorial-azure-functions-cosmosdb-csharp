@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortInMemoryRepository", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortInMemoryRepositoryTest", "PortInMemoryRepositoryTest\PortInMemoryRepositoryTest.csproj", "{FA1DB321-329C-4C59-9A97-E8E305C3D8C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortRepositoryTest", "PortRepositoryTest\PortRepositoryTest.csproj", "{3A8B6C8D-A4AC-4986-BF7C-77E3FB6FF95A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,5 +56,9 @@ Global
 		{FA1DB321-329C-4C59-9A97-E8E305C3D8C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA1DB321-329C-4C59-9A97-E8E305C3D8C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA1DB321-329C-4C59-9A97-E8E305C3D8C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A8B6C8D-A4AC-4986-BF7C-77E3FB6FF95A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A8B6C8D-A4AC-4986-BF7C-77E3FB6FF95A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A8B6C8D-A4AC-4986-BF7C-77E3FB6FF95A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A8B6C8D-A4AC-4986-BF7C-77E3FB6FF95A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
