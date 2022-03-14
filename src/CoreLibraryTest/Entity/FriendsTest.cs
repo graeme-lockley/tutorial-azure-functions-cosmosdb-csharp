@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using CoreLibrary.Entity;
 using CoreLibrary.Ports.Out;
+using PortInMemoryRepository;
 
 [TestClass]
 public class FriendsTest
@@ -15,12 +16,12 @@ public class FriendsTest
     private const string FIRST_NAME = "Graeme";
     private const string KNOWN_AS = "Lockers";
 
-    private Friends Friends = new Friends(new TestRepository());
+    private Friends Friends = new Friends(new Repository());
 
     [TestInitialize]
     public void Init()
     {
-        Friends = new Friends(new TestRepository());
+        Friends = new Friends(new Repository());
     }
 
     [TestMethod]
@@ -57,48 +58,5 @@ public class FriendsTest
 
         Assert.AreEqual((await Friends.FindOnLastName(LAST_NAME)).Count, 2);
         Assert.AreEqual((await Friends.FindOnLastName("Smith")).Count, 0);
-    }
-}
-
-public class TestRepository : IRepository
-{
-    private int IdCounter = 0;
-    private List<Friend> Friends = new List<Friend>();
-
-    public TestRepository()
-    {
-
-    }
-
-    public async Task<Friend> AddFriend(string lastName, string firstName, string? knownAs)
-    {
-        return await Task.Run(() =>
-        {
-
-            var id = IdCounter;
-            var friend = new Friend(id.ToString(), lastName, firstName, knownAs);
-
-            IdCounter += 1;
-
-            Friends.Add(friend);
-
-            return friend;
-        });
-    }
-
-    public async Task<Friend?> GetFriend(string id)
-    {
-        return await Task.Run(() =>
-        {
-            return Friends.Find(p => p.Id == id);
-        });
-    }
-
-    public async Task<List<Friend>> FindFriendOnLastName(string lastName)
-    {
-        return await Task.Run(() =>
-        {
-            return Friends.FindAll(p => p.LastName == lastName);
-        });
     }
 }
