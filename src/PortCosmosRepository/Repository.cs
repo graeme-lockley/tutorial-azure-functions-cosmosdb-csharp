@@ -10,9 +10,9 @@ public class Repository : IRepository
 {
     private Connection Connection;
 
-    public Repository(Connection connection)
+    public Repository(Connection? connection = null)
     {
-        this.Connection = connection;
+        this.Connection = connection ?? new Connection();
     }
 
     public async Task<int> Count()
@@ -36,11 +36,8 @@ public class Repository : IRepository
         return count;
     }
 
-    public async Task Truncate() {
-        var container = await Connection.Container();
-        
-        container.DeleteContainerAsync();
-    }
+    public Task Truncate() =>
+        Connection.TruncateContainer();
 
     public async Task<Friend> AddFriend(string lastName, string firstName, string? knownAs)
     {

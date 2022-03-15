@@ -15,10 +15,10 @@ namespace PortCosmosRepository
 
         private ILogger? log;
 
-        public Connection(string endpointUrl, string primaryKey, ILogger? log = null)
+        public Connection(string? endpointUrl = null, string? primaryKey = null, ILogger? log = null)
         {
-            this.endpointUrl = endpointUrl;
-            this.primaryKey = primaryKey;
+            this.endpointUrl = endpointUrl ?? Environment.GetEnvironmentVariable("COSMOSDB_ENDPOINT_URL") ?? "https://tafccdb.documents.azure.com:443/";
+            this.primaryKey = primaryKey ?? Environment.GetEnvironmentVariable("COSMOSDB_PRIMARY_KEY") ?? "";
             this.databaseId = "FriendDatabase";
             this.containerId = "FriendContainer";
             this.log = log;
@@ -57,6 +57,13 @@ namespace PortCosmosRepository
             }
 
             return container;
+        }
+
+        public async Task TruncateContainer()
+        {
+            var c = await Container();
+            await c.DeleteContainerAsync();
+            this.container = null;
         }
 
         public void LogInformation(string message, params object?[] args)
