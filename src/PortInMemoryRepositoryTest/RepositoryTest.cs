@@ -13,4 +13,3 @@ public class RepositoryTest : AbstractRepositoryTest
     public override async Task<IRepository> newRepository() =>
         await Task.Run(() => new Repository());
 }
-
