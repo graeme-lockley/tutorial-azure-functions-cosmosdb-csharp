@@ -95,13 +95,5 @@ namespace My.Functions
 
             return new OkObjectResult(JsonConvert.SerializeObject(results));
         }
-
-        [FunctionName("stuff")]
-        public static IActionResult Stuff(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            return new OkObjectResult(Environment.GetEnvironmentVariable("COSMOSDB_PRIMARY_KEY"));
-        }
     }
 }
