@@ -15,6 +15,33 @@ public class Repository : IRepository
         this.Connection = connection;
     }
 
+    public async Task<int> Count()
+    {
+        QueryDefinition queryDefinition = new QueryDefinition("SELECT VALUE COUNT(1) FROM C");
+        var container = await Connection.Container();
+        var count = 0;
+
+        FeedIterator<int> queryResultSetIterator = container.GetItemQueryIterator<int>(queryDefinition);
+
+        while (queryResultSetIterator.HasMoreResults)
+        {
+            FeedResponse<int> currentResultSet = await queryResultSetIterator.ReadNextAsync();
+            foreach (int n in currentResultSet)
+            {
+                count = n;
+                LogInformation("\tRead {0}\n", n);
+            }
+        }
+
+        return count;
+    }
+
+    public async Task Truncate() {
+        var container = await Connection.Container();
+        
+        container.DeleteContainerAsync();
+    }
+
     public async Task<Friend> AddFriend(string lastName, string firstName, string? knownAs)
     {
         Guid id = Guid.NewGuid();
