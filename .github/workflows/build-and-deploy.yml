@@ -94,21 +94,17 @@ jobs:
 
       - name: Setup variable
         run: |
-          DATE_TIME=`date +"%Y%m%d%H%M%S"`
-          echo "RESOURCE_GROUP_NAME=rg_test_$DATE_TIME" >> $GITHUB_ENV
-          echo "COSMOS_ACCOUNT_NAME=cdb_test_$DATE_TIME" >> $GITHUB_ENV
+          echo "RESOURCE_TIMESTAMP=`date +"%Y%m%d%H%M%S"`" >> $GITHUB_ENV
 
       - name: Unit tests
         run: ./scripts/build-unit-tests.sh
         
       - name: Setup test resource group
-        run: ./scripts/configure-resource-groups.sh
-
-      - name: Setup test cosmos
-        run: ./scripts/configure-cosmos.sh
+        run: ./scripts/configure-test-environment.sh $RESOURCE_TIMESTAMP
 
       - name: Destroy test resource group
-        run: az group delete --name "$RESOURCE_GROUP_NAME"
+        if: always()
+        run: ./scripts/destroy-test-environment.sh $RESOURCE_TIMESTAMP
 
   deploy-system:
     runs-on: ubuntu-latest
