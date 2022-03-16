@@ -96,12 +96,15 @@ jobs:
         run: |
           echo "RESOURCE_TIMESTAMP=`date +"%Y%m%d%H%M%S"`" >> $GITHUB_ENV
 
-      - name: Unit tests
+      - name: Run unit tests
         run: ./scripts/build-unit-tests.sh
         
       - name: Setup test resource group
         run: ./scripts/configure-test-environment.sh $RESOURCE_TIMESTAMP
 
+      - name: Run integration tests
+        run: ./scripts/build-integration-tests.sh $RESOURCE_TIMESTAMP
+        
       - name: Destroy test resource group
         if: always()
         run: ./scripts/destroy-test-environment.sh $RESOURCE_TIMESTAMP
