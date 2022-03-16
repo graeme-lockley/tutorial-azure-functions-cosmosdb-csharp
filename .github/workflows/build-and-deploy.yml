@@ -92,20 +92,20 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Setup variable
+      - name: Setup RESOURCE_TIMESTAMP
         run: |
           echo "RESOURCE_TIMESTAMP=`date +"%Y%m%d%H%M%S"`" >> $GITHUB_ENV
 
       - name: Run unit tests
         run: ./scripts/build-unit-tests.sh
         
-      - name: Setup test resource group
+      - name: Setup test environment
         run: ./scripts/configure-test-environment.sh $RESOURCE_TIMESTAMP
 
       - name: Run integration tests
         run: ./scripts/build-integration-tests.sh $RESOURCE_TIMESTAMP
         
-      - name: Destroy test resource group
+      - name: Destroy test environment
         if: always()
         run: ./scripts/destroy-test-environment.sh $RESOURCE_TIMESTAMP
 
