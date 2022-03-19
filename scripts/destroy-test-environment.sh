@@ -10,6 +10,7 @@ TIMESTAMP="$1"
 if [[ "$TIMESTAMP" == "" ]]
 then
     echo "Error: no timestamp supplied"
+    exit 1
 fi
 
 RESOURCE_GROUP_NAME="rg_test_$TIMESTAMP"

@@ -1,10 +1,13 @@
-﻿using CoreLibrary;
+﻿using CoreLibrary.Ports.In;
+using PortCosmosRepository;
 
-var endpointUrl = Environment.GetEnvironmentVariable("COSMOSDB_ENDPOINT_URL") ?? "https://tafccdb.documents.azure.com:443/";
-var primaryKey = Environment.GetEnvironmentVariable("COSMOSDB_PRIMARY_KEY") ?? "";
+var repository = new Repository();
+var facade = new Facade(repository);
 
-var connection = new Connection(endpointUrl, primaryKey);
-var tasks = new Tasks(connection);
+await facade.AddFriend("Lockley", "Graeme", "Lockers");
+await facade.AddFriend("Lockley", "David");
 
-await tasks.AddItemsToContainerAsync();
-await tasks.QueryItemsAsyncOnLastName("Andersen");
+var friends = await facade.FindOnLastName("Lockley");
+friends.ForEach(friend => {
+    Console.WriteLine($"{friend.LastName}, ${friend.FirstName}");
+});

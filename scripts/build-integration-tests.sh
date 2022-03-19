@@ -10,6 +10,7 @@ TIMESTAMP="$1"
 if [[ "$TIMESTAMP" == "" ]]
 then
     echo "Error: no timestamp supplied"
+    exit 1
 fi
 
 RESOURCE_GROUP_NAME="rg_test_$TIMESTAMP"
@@ -26,6 +27,12 @@ export COSMOSDB_ENDPOINT_URL
 
 COSMOSDB_PRIMARY_KEY=$(az cosmosdb keys list --name "$COSMOS_ACCOUNT_NAME" --resource-group "$RESOURCE_GROUP_NAME" --query primaryMasterKey --output tsv)
 export COSMOSDB_PRIMARY_KEY
+
+if [[ "$COSMOSDB_PRIMARY_KEY" == "" ]]
+then
+    echo "Error: Unable to access primary master key for $TIMESTAMP"
+    exit 1
+fi
 
 cd "$SCRIPT_DIR"/../src/PortCosmosRepositoryTest || exit 1
 dotnet test || exit 1
