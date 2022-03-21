@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 using CoreLibrary.Ports.In;
-using PortCosmosRepository;
 
 namespace Functions
 {
@@ -19,7 +18,7 @@ namespace Functions
 
         private State()
         {
-            facade = new Facade(new Repository());
+            facade = new Facade(new PortCosmosRepository.Repository());
         }
 
         public static State instance()

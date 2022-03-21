@@ -4,12 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 
 using CoreLibrary.Ports.Out;
-using PortInMemoryRepository;
-using PortRepositoryTest;
 
 [TestClass]
-public class RepositoryTest : AbstractRepositoryTest
+public class RepositoryTest : PortRepositoryTest.AbstractRepositoryTest
 {
     public override async Task<IRepository> newRepository() =>
-        await Task.Run(() => new Repository());
+        await Task.Run(() => new PortInMemoryRepository.Repository());
 }
