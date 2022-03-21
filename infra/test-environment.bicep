@@ -2,58 +2,28 @@ targetScope = 'subscription'
 
 @minLength(3)
 @maxLength(30)
-param computeResourceGroupName string
+param resourceGroupName string
 
-param computeResourceGroupLocation string = 'centralus'
+param resourceGroupLocation string = 'westus'
 
-@minLength(3)
-@maxLength(30)
-param storeResourceGroupName string
-
-param storeResourceGroupLocation string = 'westus'
-
-module computeRG './resource-group.bicep' = {
-  name: 'computeRG'
-  params: {
-    resourceGroupName: computeResourceGroupName
-    resourceGroupLocation: computeResourceGroupLocation
-  }
-}
+param cosmosAccountName string
 
 module storeRG './resource-group.bicep' = {
   name: 'storeRG'
   params: {
-    resourceGroupName: storeResourceGroupName
-    resourceGroupLocation: storeResourceGroupLocation
+    resourceGroupName: resourceGroupName
+    resourceGroupLocation: resourceGroupLocation
   }
 }
 
 module cosmosDB './cosmos.bicep' = {
   name: 'cosmosDB'
-  scope: resourceGroup(storeResourceGroupName)
+  scope: resourceGroup(resourceGroupName)
   params: {
-    accountName: 'tafccdb'
+    accountName: cosmosAccountName
     location: storeRG.outputs.rgLocation
   }
   dependsOn: [
     storeRG
-  ]
-}
-
-resource cosmosDBR 'Microsoft.DocumentDB/databaseAccounts@2021-10-15' existing = {
-  name: 'tafccdb'
-  scope: resourceGroup(storeResourceGroupName)
-}
-
-module functions './functions.bicep' = {
-  name: 'functions'
-  scope: resourceGroup(computeResourceGroupName)
-  params: {
-    appName: 'tafcc'
-    location: computeRG.outputs.rgLocation
-    cosmosPrimaryMasterKey: cosmosDBR.listKeys().primaryMasterKey
-  }
-  dependsOn: [
-    computeRG
   ]
 }

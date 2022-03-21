@@ -23,15 +23,9 @@ echo "Resource Group Name: $RESOURCE_GROUP_NAME"
 echo "Cosmos Account Name: $COSMOS_ACCOUNT_NAME"
 
 az deployment sub create \
-    --name "tafcc-configure-resource-groups" \
-    --location "$RESOURCE_GROUP_LOCATION" \
-    --template-file "${SCRIPT_DIR}/../infra/resource-groups.bicep" \
+    --name "tafcc-configure-test-environment-$TIMESTAMP" \
+    --location "$STORE_RESOURCE_GROUP_LOCATION" \
+    --template-file "${SCRIPT_DIR}/../infra/test-environment.bicep" \
     --parameters "resourceGroupName=$RESOURCE_GROUP_NAME" \
-    --parameters "resourceGroupLocation=$RESOURCE_GROUP_LOCATION"
-
-az deployment group create \
-    --name "tafcc-configure-cosmos" \
-    --resource-group "$RESOURCE_GROUP_NAME" \
-    --template-file "$SCRIPT_DIR/../infra/cosmos.bicep" \
-    --parameters accountName="$COSMOS_ACCOUNT_NAME" \
-    --parameters location="westus" 
+    --parameters "resourceGroupLocation=$STORE_RESOURCE_GROUP_LOCATION" \
+    --parameters "cosmosAccountName=$COSMOS_ACCOUNT_NAME"
