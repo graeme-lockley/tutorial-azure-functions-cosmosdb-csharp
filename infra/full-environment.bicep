@@ -32,4 +32,9 @@ module resources './full-environment-resources.bicep' = {
     computeResourceGroupLocation: computeResourceGroupLocation
     storeResourceGroupLocation: storeResourceGroupLocation
   }
+  
+  dependsOn: [
+    computeRG
+    storeRG
+  ]
 }
