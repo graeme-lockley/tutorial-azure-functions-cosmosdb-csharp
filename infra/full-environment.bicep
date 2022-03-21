@@ -25,7 +25,7 @@ resource storeRG 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 }
 
 module cosmosDB './cosmos.bicep' = {
-  name: '${name}/cosmosDB'
+  name: '${name}_cosmosDB'
   scope: resourceGroup(storeResourceGroupName)
   params: {
     accountName: 'tafccdb'

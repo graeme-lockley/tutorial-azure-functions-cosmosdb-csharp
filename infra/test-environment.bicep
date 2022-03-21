@@ -13,7 +13,7 @@ param resourceGroupLocation string = 'westus'
 param cosmosAccountName string
 
 module storeRG './resource-group.bicep' = {
-  name: '${name}/storeRG'
+  name: '${name}_storeRG'
   params: {
     resourceGroupName: resourceGroupName
     resourceGroupLocation: resourceGroupLocation
@@ -21,7 +21,7 @@ module storeRG './resource-group.bicep' = {
 }
 
 module cosmosDB './cosmos.bicep' = {
-  name: '${name}/cosmosDB'
+  name: '${name}_cosmosDB'
   scope: resourceGroup(resourceGroupName)
   params: {
     accountName: cosmosAccountName
