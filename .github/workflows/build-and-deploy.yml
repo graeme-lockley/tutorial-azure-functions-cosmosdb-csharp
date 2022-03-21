@@ -11,22 +11,6 @@ defaults:
     shell: bash
 
 jobs:
-  # test_env_variables:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - name: Setup variable
-  #       run: |
-  #         DATE_TIME=`date +"%Y%m%d%H%M%S"`
-  #         echo "RESOURCE_GROUP_NAME=rg_test_$DATE_TIME" >> $GITHUB_ENV
-  #         echo "COSMOSDB_NAME=cdb_test_$DATE_TIME" >> $GITHUB_ENV
-
-  #     - name: Is it here
-  #       run: |
-  #         echo RESOURCE_GROUP_NAME: $RESOURCE_GROUP_NAME
-  #         echo COSMOSDB_NAME: $COSMOSDB_NAME
-  #         exit 1
-
   lint-bicep:
     runs-on: ubuntu-latest
 
