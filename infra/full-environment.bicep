@@ -14,32 +14,23 @@ param storeResourceGroupName string
 
 param storeResourceGroupLocation string = 'westus'
 
-module computeRG './resource-group.bicep' = {
-  name: '${name}-computeRG'
-  params: {
-    resourceGroupName: computeResourceGroupName
-    resourceGroupLocation: computeResourceGroupLocation
-  }
+resource computeRG 'Microsoft.Resources/resourceGroups@2021-04-01' = {
+  name: computeResourceGroupName
+  location: computeResourceGroupLocation
 }
 
-module storeRG './resource-group.bicep' = {
-  name: '${name}-storeRG'
-  params: {
-    resourceGroupName: storeResourceGroupName
-    resourceGroupLocation: storeResourceGroupLocation
-  }
+resource storeRG 'Microsoft.Resources/resourceGroups@2021-04-01' = {
+  name: storeResourceGroupName
+  location: storeResourceGroupLocation
 }
 
 module cosmosDB './cosmos.bicep' = {
-  name: '${name}-cosmosDB'
+  name: '${name}/cosmosDB'
   scope: resourceGroup(storeResourceGroupName)
   params: {
     accountName: 'tafccdb'
-    location: storeRG.outputs.rgLocation
+    location: storeRG.location
   }
-  dependsOn: [
-    storeRG
-  ]
 }
 
 resource cosmosDBR 'Microsoft.DocumentDB/databaseAccounts@2021-10-15' existing = {
@@ -52,11 +43,10 @@ module functions './functions.bicep' = {
   scope: resourceGroup(computeResourceGroupName)
   params: {
     appName: 'tafcc'
-    location: computeRG.outputs.rgLocation
+    location: computeRG.location
     cosmosPrimaryMasterKey: cosmosDBR.listKeys().primaryMasterKey
   }
   dependsOn: [
     cosmosDB
-    computeRG
   ]
 }

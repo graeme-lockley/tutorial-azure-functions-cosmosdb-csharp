@@ -26,6 +26,7 @@ az deployment sub create \
     --name "tafcc-configure-test-environment-$TIMESTAMP" \
     --location "$STORE_RESOURCE_GROUP_LOCATION" \
     --template-file "${SCRIPT_DIR}/../infra/test-environment.bicep" \
+    --parameters "name=$TIMESTAMP" \
     --parameters "resourceGroupName=$RESOURCE_GROUP_NAME" \
     --parameters "resourceGroupLocation=$STORE_RESOURCE_GROUP_LOCATION" \
     --parameters "cosmosAccountName=$COSMOS_ACCOUNT_NAME"

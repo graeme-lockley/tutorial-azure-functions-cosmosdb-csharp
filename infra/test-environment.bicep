@@ -2,6 +2,10 @@ targetScope = 'subscription'
 
 @minLength(3)
 @maxLength(30)
+param name string
+
+@minLength(3)
+@maxLength(30)
 param resourceGroupName string
 
 param resourceGroupLocation string = 'westus'
@@ -9,7 +13,7 @@ param resourceGroupLocation string = 'westus'
 param cosmosAccountName string
 
 module storeRG './resource-group.bicep' = {
-  name: 'storeRG'
+  name: '${name}/storeRG'
   params: {
     resourceGroupName: resourceGroupName
     resourceGroupLocation: resourceGroupLocation
@@ -17,7 +21,7 @@ module storeRG './resource-group.bicep' = {
 }
 
 module cosmosDB './cosmos.bicep' = {
-  name: 'cosmosDB'
+  name: '${name}/cosmosDB'
   scope: resourceGroup(resourceGroupName)
   params: {
     accountName: cosmosAccountName
