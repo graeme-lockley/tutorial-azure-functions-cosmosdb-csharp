@@ -30,6 +30,6 @@ module resources './full-environment-resources.bicep' = {
   params: {
     computeResourceGroupName: computeResourceGroupName
     computeResourceGroupLocation: computeResourceGroupLocation
-    storeResourceGroupName: storeResourceGroupName
+    storeResourceGroupLocation: storeResourceGroupLocation
   }
 }

@@ -4,13 +4,11 @@ param computeResourceGroupName string
 
 param computeResourceGroupLocation string = 'centralus'
 
-@minLength(3)
-@maxLength(30)
-param storeResourceGroupName string
+param storeResourceGroupLocation string = 'centralus'
 
 resource cosmosDB 'Microsoft.DocumentDB/databaseAccounts@2021-10-15' = {
   name: 'tafccdb'
-  location: storeResourceGroupName
+  location: storeResourceGroupLocation
   properties: {
     databaseAccountOfferType: 'Standard'
     consistencyPolicy: {
@@ -18,7 +16,7 @@ resource cosmosDB 'Microsoft.DocumentDB/databaseAccounts@2021-10-15' = {
     }
     locations: [
       {
-        locationName: storeResourceGroupName
+        locationName: storeResourceGroupLocation
       }
     ]
   }
