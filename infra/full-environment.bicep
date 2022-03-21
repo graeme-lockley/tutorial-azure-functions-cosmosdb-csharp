@@ -1,5 +1,7 @@
 targetScope = 'subscription'
 
+var name = 'prod'
+
 @minLength(3)
 @maxLength(30)
 param computeResourceGroupName string
@@ -13,7 +15,7 @@ param storeResourceGroupName string
 param storeResourceGroupLocation string = 'westus'
 
 module computeRG './resource-group.bicep' = {
-  name: 'computeRG'
+  name: '${name}-computeRG'
   params: {
     resourceGroupName: computeResourceGroupName
     resourceGroupLocation: computeResourceGroupLocation
@@ -21,7 +23,7 @@ module computeRG './resource-group.bicep' = {
 }
 
 module storeRG './resource-group.bicep' = {
-  name: 'storeRG'
+  name: '${name}-storeRG'
   params: {
     resourceGroupName: storeResourceGroupName
     resourceGroupLocation: storeResourceGroupLocation
@@ -29,7 +31,7 @@ module storeRG './resource-group.bicep' = {
 }
 
 module cosmosDB './cosmos.bicep' = {
-  name: 'cosmosDB'
+  name: '${name}-cosmosDB'
   scope: resourceGroup(storeResourceGroupName)
   params: {
     accountName: 'tafccdb'
@@ -54,6 +56,7 @@ module functions './functions.bicep' = {
     cosmosPrimaryMasterKey: cosmosDBR.listKeys().primaryMasterKey
   }
   dependsOn: [
+    cosmosDB
     computeRG
   ]
 }
