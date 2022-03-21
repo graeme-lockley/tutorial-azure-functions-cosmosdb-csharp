@@ -8,7 +8,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 az deployment sub create \
     --name "tafcc-configure-full-environment" \
     --location "$COMPUTE_RESOURCE_GROUP_LOCATION" \
-    --template-file "${SCRIPT_DIR}/../infra/configure-full-environment.bicep" \
+    --template-file "${SCRIPT_DIR}/../infra/full-environment.bicep" \
     --parameters "computeResourceGroupName=$COMPUTE_RESOURCE_GROUP_NAME" \
     --parameters "computeResourceGroupLocation=$COMPUTE_RESOURCE_GROUP_LOCATION" \
     --parameters "storeResourceGroupName=$STORE_RESOURCE_GROUP_NAME" \
