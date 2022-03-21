@@ -125,7 +125,7 @@ jobs:
         env:
           AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
         with:
-          resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}
+          resourceGroupName: ${{ env.COMPUTE_RESOURCE_GROUP_NAME }}
           appName: ${{ env.FUNCTIONAPP_NAME }}
 
       # - name: Show Profile
