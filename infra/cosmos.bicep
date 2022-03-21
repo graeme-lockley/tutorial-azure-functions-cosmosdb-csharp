@@ -4,7 +4,7 @@ param accountName string = 'cosmos-${uniqueString(resourceGroup().id)}'
 @description('Location for the Cosmos DB account.')
 param location string = resourceGroup().location
 
-resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2021-04-15' = {
+resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2021-10-15' = {
   name: toLower(accountName)
   location: location
   properties: {
@@ -19,3 +19,5 @@ resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2021-04-15' = {
     ]
   }
 }
+
+output cosmosAccount object = cosmosAccount

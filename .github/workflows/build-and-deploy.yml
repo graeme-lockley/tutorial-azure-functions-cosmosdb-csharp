@@ -44,14 +44,8 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Setup resource groups
-        run: ./scripts/configure-resource-groups.sh
-
-      - name: Setup cosmos
-        run: ./scripts/configure-cosmos.sh
-
-      - name: Setup functions
-        run: ./scripts/configure-functions.sh
+      - name: Setup environment
+        run: ./scripts/configure-environment.sh
 
   test-system:
     runs-on: ubuntu-latest
