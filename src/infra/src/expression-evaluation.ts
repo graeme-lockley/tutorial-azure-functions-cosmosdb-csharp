@@ -5,11 +5,6 @@
 // deno-lint-ignore no-unused-vars
 const env = (name: string): string | undefined => Deno.env.get(name);
 
-// The variable myTag is reported by lint as it is not being used.  This warning
-// is ignored because this variable is accessed from evaluate as a back-quote
-// eval expression.
-
-// deno-lint-ignore no-unused-vars
 const _myTag = async (
   strings: Array<string>,
   ...keys: Array<Promise<string | undefined> | string>
