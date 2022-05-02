@@ -15,3 +15,25 @@ export type IActionHandler<T extends IAction> = {
   lint: (lintResult: Array<ILintResult>, action: T) => void;
   run: (action: T) => Promise<void>;
 };
+
+export const lintField = (
+  value: string | undefined,
+  handlerName: string,
+  name: string,
+  result: Array<ILintResult>,
+) => {
+  if (value === undefined) {
+    result.push({
+      type: "Error",
+      handler: handlerName,
+      message: `.${name} is undefined`,
+    });
+  }
+  if (value === "") {
+    result.push({
+      type: "Error",
+      handler: handlerName,
+      message: `.${name} may not be the empty string`,
+    });
+  }
+};
