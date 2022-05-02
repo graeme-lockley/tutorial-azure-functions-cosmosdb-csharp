@@ -1,5 +1,9 @@
 import { exec } from "../exec.ts";
-import { IAction, ILintResult, lintFieldNotUndefinedNotEmpty } from "./declarations.ts";
+import {
+  IAction,
+  ILintResult,
+  lintFieldNotUndefinedNotEmpty,
+} from "./declarations.ts";
 
 const handlerName = "azure/resource-group/create";
 
@@ -11,7 +15,12 @@ interface IHandlerAction extends IAction {
 const lint = (result: Array<ILintResult>, action: IHandlerAction): void => {
   lintFieldNotUndefinedNotEmpty(action.id, handlerName, "id", result);
   lintFieldNotUndefinedNotEmpty(action.name, handlerName, "name", result);
-  lintFieldNotUndefinedNotEmpty(action.location, handlerName, "location", result);
+  lintFieldNotUndefinedNotEmpty(
+    action.location,
+    handlerName,
+    "location",
+    result,
+  );
 };
 
 const run = async (action: IHandlerAction): Promise<void> => {
