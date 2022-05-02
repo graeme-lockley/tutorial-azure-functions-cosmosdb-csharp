@@ -37,3 +37,18 @@ export const lintFieldNotUndefinedNotEmpty = (
     });
   }
 };
+
+export const lintFieldNotEmpty = (
+  value: string | undefined,
+  handlerName: string,
+  name: string,
+  result: Array<ILintResult>,
+) => {
+  if (value !== undefined && value === "") {
+    result.push({
+      type: "Error",
+      handler: handlerName,
+      message: `.${name} may not be the empty string`,
+    });
+  }
+};
