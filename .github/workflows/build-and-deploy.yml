@@ -48,7 +48,7 @@ jobs:
       - name: Test deno scripts
         run: |
           cd ./src/infra
-          deno test
+          deno test --allow-env
 
   build-azure-infrastructure:
     runs-on: ubuntu-latest
