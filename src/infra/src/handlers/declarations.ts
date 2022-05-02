@@ -16,7 +16,7 @@ export type IActionHandler<T extends IAction> = {
   run: (action: T) => Promise<void>;
 };
 
-export const lintField = (
+export const lintFieldNotUndefinedNotEmpty = (
   value: string | undefined,
   handlerName: string,
   name: string,
