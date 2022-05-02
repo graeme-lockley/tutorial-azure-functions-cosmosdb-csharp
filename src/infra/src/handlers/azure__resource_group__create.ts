@@ -5,14 +5,17 @@ import {
   lintFieldNotUndefinedNotEmpty,
 } from "./declarations.ts";
 
-const handlerName = "azure/resource-group/create";
+export const handlerName = "azure/resource-group/create";
 
-interface IHandlerAction extends IAction {
+export interface IHandlerAction extends IAction {
   name?: string | undefined;
   location?: string | undefined;
 }
 
-const lint = (result: Array<ILintResult>, action: IHandlerAction): void => {
+export const lint = (
+  result: Array<ILintResult>,
+  action: IHandlerAction,
+): void => {
   lintFieldNotUndefinedNotEmpty(action.id, handlerName, "id", result);
   lintFieldNotUndefinedNotEmpty(action.name, handlerName, "name", result);
   lintFieldNotUndefinedNotEmpty(
@@ -23,8 +26,11 @@ const lint = (result: Array<ILintResult>, action: IHandlerAction): void => {
   );
 };
 
+export const commandFromAction = (action: IHandlerAction): string =>
+  `az group create -l "${action.location}" -n "${action.name}"`;
+
 const run = async (action: IHandlerAction): Promise<void> => {
-  const command = `az group create -l "${action.location}" -n "${action.name}"`;
+  const command = commandFromAction(action);
 
   await exec(command, handlerName, action.id, action.name);
 };
