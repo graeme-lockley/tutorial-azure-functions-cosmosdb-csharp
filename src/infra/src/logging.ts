@@ -6,8 +6,11 @@ export const failOnError = (...messages: any[]) => {
   Deno.exit(1);
 };
 
-// deno-lint-ignore no-explicit-any
-export const failOnErrorWithUsage = (commands: Array<ICmd>, ...messages: any[]) => {
+export const failOnErrorWithUsage = (
+  commands: Array<ICmd>,
+  // deno-lint-ignore no-explicit-any
+  ...messages: any[]
+) => {
   console.error.apply(null, messages);
   showUsageHelp(commands);
   Deno.exit(1);
@@ -24,4 +27,3 @@ const showUsageHelp = (commands: Array<ICmd>) => {
     );
   });
 };
-
