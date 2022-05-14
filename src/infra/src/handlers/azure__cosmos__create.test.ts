@@ -3,7 +3,6 @@ import { assertEquals } from "https://deno.land/std@0.137.0/testing/asserts.ts";
 import {
   commandFromAction,
   handler as handlerAction,
-  IHandlerAction,
 } from "./azure__cosmos__create.ts";
 import { ILintResult } from "./declarations.ts";
 
@@ -72,7 +71,8 @@ Deno.test("Validate command with location from action", () => {
   );
 });
 
-const lintActions = (handler: IHandlerAction) => {
+// deno-lint-ignore no-explicit-any
+const lintActions = (handler: any) => {
   const results: Array<ILintResult> = [];
 
   handlerAction.lint(results, handler);

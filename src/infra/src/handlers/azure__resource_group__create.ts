@@ -1,10 +1,6 @@
 import { exec } from "../exec.ts";
-import {
-  IAction,
-  ILintResult,
-  lintHandlerAction,
-  Schema,
-} from "./declarations.ts";
+import { ILintResult, lintHandlerAction, Schema } from "./declarations.ts";
+import type { AzureResourceGroupCreate } from "./schema/azure__resource_group__create.ts";
 
 import schema from "./schema/azure__resource_group__create.json" assert {
   type: "json",
@@ -12,15 +8,10 @@ import schema from "./schema/azure__resource_group__create.json" assert {
 
 const handlerName = "azure/resource-group/create";
 
-export interface IHandlerAction extends IAction {
-  name?: string | undefined;
-  location?: string | undefined;
-}
-
-export const commandFromAction = (action: IHandlerAction): string =>
+export const commandFromAction = (action: AzureResourceGroupCreate): string =>
   `az group create -l "${action.location}" -n "${action.name}"`;
 
-const run = async (action: IHandlerAction): Promise<void> => {
+const run = async (action: AzureResourceGroupCreate): Promise<void> => {
   const command = commandFromAction(action);
 
   await exec(command, handlerName, action.id, action.name);
@@ -30,7 +21,7 @@ export const handler = {
   type: handlerName,
   lint: (
     result: Array<ILintResult>,
-    action: IHandlerAction,
+    action: AzureResourceGroupCreate,
   ): void => lintHandlerAction(result, schema as Schema, handlerName, action),
   run,
 };

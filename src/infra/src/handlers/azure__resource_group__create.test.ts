@@ -3,7 +3,6 @@ import { assertEquals } from "https://deno.land/std@0.137.0/testing/asserts.ts";
 import {
   commandFromAction,
   handler as handlerAction,
-  IHandlerAction,
 } from "./azure__resource_group__create.ts";
 import { ILintResult } from "./declarations.ts";
 
@@ -97,7 +96,8 @@ Deno.test("Validate command from action", () => {
   assertEquals(commandFromAction(action), 'az group create -l "bob" -n "fred"');
 });
 
-const lintActions = (handler: IHandlerAction) => {
+// deno-lint-ignore no-explicit-any
+const lintActions = (handler: any) => {
   const results: Array<ILintResult> = [];
 
   handlerAction.lint(results, handler);
