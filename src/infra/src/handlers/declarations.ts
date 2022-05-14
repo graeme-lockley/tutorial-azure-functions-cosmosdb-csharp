@@ -27,43 +27,6 @@ export type IActionHandler<T extends IAction> = {
   run: (action: T) => Promise<void>;
 };
 
-export const lintFieldNotUndefinedNotEmpty = (
-  value: string | undefined,
-  handlerName: string,
-  name: string,
-  result: Array<ILintResult>,
-) => {
-  if (value === undefined) {
-    result.push({
-      type: "Error",
-      handler: handlerName,
-      message: `.${name} is undefined`,
-    });
-  }
-  if (value === "") {
-    result.push({
-      type: "Error",
-      handler: handlerName,
-      message: `.${name} may not be the empty string`,
-    });
-  }
-};
-
-export const lintFieldNotEmpty = (
-  value: string | undefined,
-  handlerName: string,
-  name: string,
-  result: Array<ILintResult>,
-) => {
-  if (value !== undefined && value === "") {
-    result.push({
-      type: "Error",
-      handler: handlerName,
-      message: `.${name} may not be the empty string`,
-    });
-  }
-};
-
 export const lintHandlerAction = (
   result: Array<ILintResult>,
   schema: Schema,
