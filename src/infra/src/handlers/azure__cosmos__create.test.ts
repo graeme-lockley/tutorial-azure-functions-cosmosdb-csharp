@@ -50,7 +50,10 @@ Deno.test("Validate command without location from action", () => {
   };
 
   assertEquals(lintActions(action), []);
-  assertEquals(commandFromAction(action), 'az cosmosdb create --name "fred" --resource-group "bob"');
+  assertEquals(
+    commandFromAction(action),
+    'az cosmosdb create --name "fred" --resource-group "bob"',
+  );
 });
 
 Deno.test("Validate command with location from action", () => {
@@ -59,11 +62,14 @@ Deno.test("Validate command with location from action", () => {
     type: handlerAction.type,
     name: "fred",
     rg: "bob",
-    location: "heaven"
+    location: "heaven",
   };
 
   assertEquals(lintActions(action), []);
-  assertEquals(commandFromAction(action), 'az cosmosdb create --name "fred" --resource-group "bob" --locations "regionName=heaven"');
+  assertEquals(
+    commandFromAction(action),
+    'az cosmosdb create --name "fred" --resource-group "bob" --locations "regionName=heaven"',
+  );
 });
 
 const lintActions = (handler: IHandlerAction) => {
