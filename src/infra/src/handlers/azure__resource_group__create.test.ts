@@ -2,18 +2,15 @@ import { assertEquals } from "https://deno.land/std@0.137.0/testing/asserts.ts";
 
 import {
   commandFromAction,
-  handlerName,
+  handler as handlerAction,
   IHandlerAction,
-  lint,
 } from "./azure__resource_group__create.ts";
 import { ILintResult } from "./declarations.ts";
 
 Deno.test("Lint action - id undefined", () => {
-  // To force a lint error need to turning off TypeScript warning using an explicit any.
   const action = {
     bob: 123,
-    // deno-lint-ignore no-explicit-any
-  } as any as IHandlerAction;
+  };
 
   assertLint(action, [
     {
@@ -47,7 +44,7 @@ Deno.test("Lint action - id undefined", () => {
 Deno.test("Lint action - name undefined", () => {
   const action = {
     id: "id",
-  } as IHandlerAction;
+  };
 
   assertLint(action, [
     {
@@ -72,7 +69,7 @@ Deno.test("Lint action - location undefined", () => {
   const action = {
     id: "id",
     name: "fred",
-  } as IHandlerAction;
+  };
 
   assertLint(action, [
     {
@@ -91,7 +88,7 @@ Deno.test("Lint action - location undefined", () => {
 Deno.test("Validate command from action", () => {
   const action = {
     id: "id",
-    type: handlerName,
+    type: handlerAction.type,
     name: "fred",
     location: "bob",
   };
@@ -103,10 +100,11 @@ Deno.test("Validate command from action", () => {
 const lintActions = (handler: IHandlerAction) => {
   const results: Array<ILintResult> = [];
 
-  lint(results, handler);
+  handlerAction.lint(results, handler);
 
   return results;
 };
 
-const assertLint = (action: IHandlerAction, lintErrors: Array<ILintResult>) =>
+// deno-lint-ignore no-explicit-any
+const assertLint = (action: any, lintErrors: Array<ILintResult>) =>
   assertEquals(lintActions(action), lintErrors);

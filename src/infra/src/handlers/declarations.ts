@@ -1,3 +1,14 @@
+import {
+  Schema,
+  validate,
+  ValidationError,
+} from "https://deno.land/x/jtd@v0.1.0/mod.ts";
+
+export type {
+  Schema,
+  ValidationError,
+} from "https://deno.land/x/jtd@v0.1.0/mod.ts";
+
 export type ILintResult = {
   type: "Warning" | "Error";
   handler: string;
@@ -50,5 +61,42 @@ export const lintFieldNotEmpty = (
       handler: handlerName,
       message: `.${name} may not be the empty string`,
     });
+  }
+};
+
+export const lintHandlerAction = (
+  result: Array<ILintResult>,
+  schema: Schema,
+  handlerType: string,
+  action: IAction,
+) => {
+  const validationErrors = validate(schema, action);
+
+  appendSchemaValidationErrors(
+    result,
+    handlerType,
+    validationErrors,
+  );
+};
+
+const appendSchemaValidationErrors = (
+  result: Array<ILintResult>,
+  handlerType: string,
+  validationErrors: Array<ValidationError>,
+) => {
+  for (const validationError of validationErrors) {
+    if (validationError.instancePath.length === 0) {
+      result.push({
+        handler: handlerType,
+        message: `.${validationError.schemaPath[1]} is undefined`,
+        type: "Error",
+      });
+    } else {
+      result.push({
+        handler: handlerType,
+        message: `.${validationError.instancePath.join(".")} is invalid`,
+        type: "Error",
+      });
+    }
   }
 };
