@@ -9,8 +9,10 @@ import {
 import { ILintResult } from "./declarations.ts";
 
 Deno.test("Lint action - id undefined", () => {
+  // To force a lint error need to turning off TypeScript warning using an explicit any.
   const action = {
     bob: 123,
+    // deno-lint-ignore no-explicit-any
   } as any as IHandlerAction;
 
   assertLint(action, [
