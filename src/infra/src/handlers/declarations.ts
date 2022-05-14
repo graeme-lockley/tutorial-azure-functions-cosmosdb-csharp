@@ -16,10 +16,10 @@ export type ILintResult = {
   message: string;
 };
 
-export type IAction = {
+export interface IAction {
   id: string;
   type: string;
-};
+}
 
 export type IActionHandler<T extends IAction> = {
   type: string;
