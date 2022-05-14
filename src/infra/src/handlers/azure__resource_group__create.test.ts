@@ -9,12 +9,19 @@ import {
 import { ILintResult } from "./declarations.ts";
 
 Deno.test("Lint action - id undefined", () => {
-  const action = {} as IHandlerAction;
+  const action = {
+    bob: 123,
+  } as any as IHandlerAction;
 
   assertLint(action, [
     {
       handler: "azure/resource-group/create",
       message: ".id is undefined",
+      type: "Error",
+    },
+    {
+      handler: "azure/resource-group/create",
+      message: ".type is undefined",
       type: "Error",
     },
     {
@@ -27,6 +34,11 @@ Deno.test("Lint action - id undefined", () => {
       message: ".location is undefined",
       type: "Error",
     },
+    {
+      handler: "azure/resource-group/create",
+      message: ".bob is invalid",
+      type: "Error",
+    },
   ]);
 });
 
@@ -36,6 +48,11 @@ Deno.test("Lint action - name undefined", () => {
   } as IHandlerAction;
 
   assertLint(action, [
+    {
+      handler: "azure/resource-group/create",
+      message: ".type is undefined",
+      type: "Error",
+    },
     {
       handler: "azure/resource-group/create",
       message: ".name is undefined",
@@ -56,6 +73,11 @@ Deno.test("Lint action - location undefined", () => {
   } as IHandlerAction;
 
   assertLint(action, [
+    {
+      handler: "azure/resource-group/create",
+      message: ".type is undefined",
+      type: "Error",
+    },
     {
       handler: "azure/resource-group/create",
       message: ".location is undefined",
