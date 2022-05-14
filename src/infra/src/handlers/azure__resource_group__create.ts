@@ -4,11 +4,7 @@ import {
   ValidationError,
 } from "https://deno.land/x/jtd@v0.1.0/mod.ts";
 import { exec } from "../exec.ts";
-import {
-  IAction,
-  ILintResult,
-  lintFieldNotUndefinedNotEmpty,
-} from "./declarations.ts";
+import { IAction, ILintResult } from "./declarations.ts";
 
 import schema from "./schema/azure__resource_group__create.json" assert {
   type: "json",
