@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "id": { "type": "string" },
+    "type": { "type": "string" },
+    "name": { "type": "string" },
+    "rg": { "type": "string" }
+  },
+  "optionalProperties": {
+    "location": { "type": "string" }
+  }
+}
