@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if ! which "$1" > /dev/null
+if ! command -v -- "$1" >> /dev/null
 then
     if [[ "$2" == "" ]]
     then

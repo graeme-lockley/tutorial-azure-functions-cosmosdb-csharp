@@ -15,9 +15,9 @@ do
     if [ "${OUTPUT_FILE_NAME}" -ot "${FILE}" ] 
     then
         echo Processing: "$FILE"
+
         jtd-codegen --typescript-out . "$FILE" || exit 1
-        
-        deno fmt index.ts
+        deno fmt index.ts || exit 1
 
         mv index.ts "$OUTPUT_FILE_NAME" || exit 1
     else
