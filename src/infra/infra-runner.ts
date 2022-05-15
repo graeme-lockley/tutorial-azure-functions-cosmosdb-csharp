@@ -20,16 +20,15 @@ const runCmd = new CLI.ValueCommand(
     optional: false,
     help: "The name of the changelog to be processed",
   },
-  async (
+  (
     _: CLI.Definition,
     fileName: string | undefined,
     values: Map<string, unknown>,
-  ) => {
-    await Run.run(fileName!, {
+  ) =>
+    Run.run(fileName!, {
       logLogFileName: deriveChangelogLogFileName(fileName!),
-      writeLogLog: values.has("no-log") ? false : true,
-    });
-  },
+      writeLogLog: !values.has("no-log"),
+    }),
 );
 
 const lintCmd = new CLI.ValueCommand(
@@ -46,16 +45,15 @@ const lintCmd = new CLI.ValueCommand(
     optional: false,
     help: "The name of the changelog to lint",
   },
-  async (
+  (
     _: CLI.Definition,
     fileName: string | undefined,
     values: Map<string, unknown>,
-  ) => {
-    await Lint.lint(fileName!, {
+  ) =>
+    Lint.lint(fileName!, {
       logLogFileName: deriveChangelogLogFileName(fileName!),
-      writeLogLog: values.has("no-log") ? false : true,
-    });
-  },
+      writeLogLog: !values.has("no-log"),
+    }),
 );
 
 const cli = {
