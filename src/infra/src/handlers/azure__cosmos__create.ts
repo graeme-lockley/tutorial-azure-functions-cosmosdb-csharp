@@ -6,22 +6,27 @@ import { ILintResult } from "../cmds/lint.ts";
 import schema from "./schema/azure__cosmos__create.json" assert {
   type: "json",
 };
+import { evaluate } from "../expression-evaluation.ts";
 
 const handlerName = "azure/cosmos/create";
 
 const lint = (result: Array<ILintResult>, action: AzureCosmosCreate): void =>
   lintHandlerAction(result, schema as Schema, handlerName, action);
 
-export const commandFromAction = (action: AzureCosmosCreate): string => {
-  const locationSuffix = action.location === undefined
-    ? ""
-    : ` --locations "regionName=${action.location}"`;
+export const commandFromAction = async (action: AzureCosmosCreate): Promise<string> => {
+  const name = await evaluate(action.name);
+  const rg = await evaluate(action.rg);
+  const location = action.location === undefined ? undefined : await evaluate(action.location);
 
-  return `az cosmosdb create --name "${action.name}" --resource-group "${action.rg}"${locationSuffix}`;
+  const locationSuffix = location === undefined
+    ? ""
+    : ` --locations "regionName=${location}"`;
+
+  return `az cosmosdb create --name "${name}" --resource-group "${rg}"${locationSuffix}`;
 };
 
 const run = async (action: AzureCosmosCreate): Promise<void> => {
-  const command = commandFromAction(action);
+  const command = await commandFromAction(action);
 
   await exec(command, handlerName, action.id, action.name);
 };

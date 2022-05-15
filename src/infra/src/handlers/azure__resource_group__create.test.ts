@@ -84,7 +84,7 @@ Deno.test("Lint action - location undefined", () => {
   ]);
 });
 
-Deno.test("Validate command from action", () => {
+Deno.test("Validate command from action", async () => {
   const action = {
     id: "id",
     type: handlerAction.type,
@@ -93,7 +93,7 @@ Deno.test("Validate command from action", () => {
   };
 
   assertEquals(lintActions(action), []);
-  assertEquals(commandFromAction(action), 'az group create -l "bob" -n "fred"');
+  assertEquals(await commandFromAction(action), 'az group create -l "bob" -n "fred"');
 });
 
 // deno-lint-ignore no-explicit-any

@@ -40,7 +40,7 @@ Deno.test("Lint action - everything is undefined", () => {
   ]);
 });
 
-Deno.test("Validate command without location from action", () => {
+Deno.test("Validate command without location from action", async () => {
   const action = {
     id: "id",
     type: handlerAction.type,
@@ -50,12 +50,12 @@ Deno.test("Validate command without location from action", () => {
 
   assertEquals(lintActions(action), []);
   assertEquals(
-    commandFromAction(action),
+    await commandFromAction(action),
     'az cosmosdb create --name "fred" --resource-group "bob"',
   );
 });
 
-Deno.test("Validate command with location from action", () => {
+Deno.test("Validate command with location from action", async () => {
   const action = {
     id: "id",
     type: handlerAction.type,
@@ -66,7 +66,7 @@ Deno.test("Validate command with location from action", () => {
 
   assertEquals(lintActions(action), []);
   assertEquals(
-    commandFromAction(action),
+    await commandFromAction(action),
     'az cosmosdb create --name "fred" --resource-group "bob" --locations "regionName=heaven"',
   );
 });
