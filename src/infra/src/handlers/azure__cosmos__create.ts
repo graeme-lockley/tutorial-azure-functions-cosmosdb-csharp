@@ -13,10 +13,14 @@ const handlerName = "azure/cosmos/create";
 const lint = (result: Array<ILintResult>, action: AzureCosmosCreate): void =>
   lintHandlerAction(result, schema as Schema, handlerName, action);
 
-export const commandFromAction = async (action: AzureCosmosCreate): Promise<string> => {
+export const commandFromAction = async (
+  action: AzureCosmosCreate,
+): Promise<string> => {
   const name = await evaluate(action.name);
   const rg = await evaluate(action.rg);
-  const location = action.location === undefined ? undefined : await evaluate(action.location);
+  const location = action.location === undefined
+    ? undefined
+    : await evaluate(action.location);
 
   const locationSuffix = location === undefined
     ? ""

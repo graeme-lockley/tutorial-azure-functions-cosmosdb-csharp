@@ -12,8 +12,8 @@ const runCmd = new CLI.ValueCommand(
   [
     new CLI.FlagOption(
       ["--no-log", "-nl"],
-      "Does not write out the runner state to a changelog log file"
-    )
+      "Does not write out the runner state to a changelog log file",
+    ),
   ],
   {
     name: "Changelog file name",
@@ -27,7 +27,7 @@ const runCmd = new CLI.ValueCommand(
   ) => {
     await Run.run(fileName!, {
       logLogFileName: deriveChangelogLogFileName(fileName!),
-      writeLogLog: values.has("no-log") ? false : true
+      writeLogLog: values.has("no-log") ? false : true,
     });
   },
 );
@@ -38,8 +38,8 @@ const lintCmd = new CLI.ValueCommand(
   [
     new CLI.FlagOption(
       ["--no-log", "-nl"],
-      "Does not write out the runner state to a changelog log file"
-    )
+      "Does not write out the runner state to a changelog log file",
+    ),
   ],
   {
     name: "Changelog file name",
@@ -53,7 +53,7 @@ const lintCmd = new CLI.ValueCommand(
   ) => {
     await Lint.lint(fileName!, {
       logLogFileName: deriveChangelogLogFileName(fileName!),
-      writeLogLog: values.has("no-log") ? false : true
+      writeLogLog: values.has("no-log") ? false : true,
     });
   },
 );

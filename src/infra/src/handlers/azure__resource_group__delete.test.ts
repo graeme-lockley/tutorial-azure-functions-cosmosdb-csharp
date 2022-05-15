@@ -10,11 +10,14 @@ Deno.test("Validate command from action without wait", async () => {
   const action = {
     id: "id",
     type: handlerAction.type,
-    name: "fred"
+    name: "fred",
   };
 
   assertEquals(lintActions(action), []);
-  assertEquals(await commandFromAction(action), 'az group delete --name "fred" --yes');
+  assertEquals(
+    await commandFromAction(action),
+    'az group delete --name "fred" --yes',
+  );
 });
 
 Deno.test("Validate command from action with wait false", async () => {
@@ -22,11 +25,14 @@ Deno.test("Validate command from action with wait false", async () => {
     id: "id",
     type: handlerAction.type,
     name: "fred",
-    wait: false
+    wait: false,
   };
 
   assertEquals(lintActions(action), []);
-  assertEquals(await commandFromAction(action), 'az group delete --name "fred" --no-wait --yes');
+  assertEquals(
+    await commandFromAction(action),
+    'az group delete --name "fred" --no-wait --yes',
+  );
 });
 
 Deno.test("Validate command from action with wait true", async () => {
@@ -34,11 +40,14 @@ Deno.test("Validate command from action with wait true", async () => {
     id: "id",
     type: handlerAction.type,
     name: "fred",
-    wait: true
+    wait: true,
   };
 
   assertEquals(lintActions(action), []);
-  assertEquals(await commandFromAction(action), 'az group delete --name "fred" --yes');
+  assertEquals(
+    await commandFromAction(action),
+    'az group delete --name "fred" --yes',
+  );
 });
 
 // deno-lint-ignore no-explicit-any
@@ -49,4 +58,3 @@ const lintActions = (handler: any) => {
 
   return results;
 };
-

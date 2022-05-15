@@ -16,16 +16,18 @@ export type ILintResult = {
 };
 
 export type ILintOptions = {
-  logLogFileName: string,
-  writeLogLog: boolean
-}
+  logLogFileName: string;
+  writeLogLog: boolean;
+};
 
 export const lint = (
   changelogFileName: string,
   options: ILintOptions,
 ) => {
   const changelog = loadChangelog(changelogFileName);
-  const changelogLog = options.writeLogLog ? loadChangelogLog(options.logLogFileName) : undefined;
+  const changelogLog = options.writeLogLog
+    ? loadChangelogLog(options.logLogFileName)
+    : undefined;
   const results = changeLogErrors(changelog, changelogLog);
 
   if (results.length > 0) {

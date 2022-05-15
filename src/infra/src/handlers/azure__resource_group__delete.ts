@@ -15,13 +15,15 @@ const lint = (
   action: AzureResourceGroupDelete,
 ): void => lintHandlerAction(result, schema as Schema, handlerName, action);
 
-export const commandFromAction = async (action: AzureResourceGroupDelete): Promise<string> => {
+export const commandFromAction = async (
+  action: AzureResourceGroupDelete,
+): Promise<string> => {
   const name = await evaluate(action.name);
 
   const suffix = action.wait === undefined || action.wait ? "" : " --no-wait";
 
   return `az group delete --name "${name}"${suffix} --yes`;
-}
+};
 
 const run = async (action: AzureResourceGroupDelete): Promise<void> => {
   const command = await commandFromAction(action);

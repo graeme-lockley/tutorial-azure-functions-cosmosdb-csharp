@@ -93,7 +93,10 @@ Deno.test("Validate command from action", async () => {
   };
 
   assertEquals(lintActions(action), []);
-  assertEquals(await commandFromAction(action), 'az group create -l "bob" -n "fred"');
+  assertEquals(
+    await commandFromAction(action),
+    'az group create -l "bob" -n "fred"',
+  );
 });
 
 // deno-lint-ignore no-explicit-any

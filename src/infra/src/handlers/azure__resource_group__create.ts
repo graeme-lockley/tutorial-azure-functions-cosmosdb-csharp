@@ -15,12 +15,14 @@ const lint = (
   action: AzureResourceGroupCreate,
 ): void => lintHandlerAction(result, schema as Schema, handlerName, action);
 
-export const commandFromAction = async (action: AzureResourceGroupCreate): Promise<string> => {
+export const commandFromAction = async (
+  action: AzureResourceGroupCreate,
+): Promise<string> => {
   const name = await evaluate(action.name);
   const location = await evaluate(action.location);
 
   return `az group create -l "${location}" -n "${name}"`;
-}
+};
 
 const run = async (action: AzureResourceGroupCreate): Promise<void> => {
   const command = await commandFromAction(action);
