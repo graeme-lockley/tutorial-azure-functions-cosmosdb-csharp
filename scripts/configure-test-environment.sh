@@ -22,4 +22,4 @@ export COSMOS_ACCOUNT_NAME
 echo "Resource Group Name: $RESOURCE_GROUP_NAME"
 echo "Cosmos Account Name: $COSMOS_ACCOUNT_NAME"
 
-"$SCRIPT_DIR"/../src/infra/infra-runner.ts run "$SCRIPT_DIR"/../src/infra/test-environment-setup.json
+"$SCRIPT_DIR"/../src/infra/infra-runner.ts run --no-log "$SCRIPT_DIR"/../src/infra/test-environment-setup.json

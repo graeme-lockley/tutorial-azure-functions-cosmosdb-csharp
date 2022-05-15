@@ -9,7 +9,12 @@ import * as Run from "./src/cmds/run.ts";
 const runCmd = new CLI.ValueCommand(
   "run",
   "Lint and then run the changelog",
-  [],
+  [
+    new CLI.FlagOption(
+      ["--no-log", "-nl"],
+      "Does not write out the runner state to a changelog log file"
+    )
+  ],
   {
     name: "Changelog file name",
     optional: false,
@@ -18,16 +23,24 @@ const runCmd = new CLI.ValueCommand(
   async (
     _: CLI.Definition,
     fileName: string | undefined,
-    _vals: Map<string, unknown>,
+    values: Map<string, unknown>,
   ) => {
-    await Run.run(fileName!, deriveChangelogLogFileName(fileName!));
+    await Run.run(fileName!, {
+      logLogFileName: deriveChangelogLogFileName(fileName!),
+      writeLogLog: values.has("no-log") ? false : true
+    });
   },
 );
 
 const lintCmd = new CLI.ValueCommand(
   "lint",
   "Lint the changelog and report warnings and errors",
-  [],
+  [
+    new CLI.FlagOption(
+      ["--no-log", "-nl"],
+      "Does not write out the runner state to a changelog log file"
+    )
+  ],
   {
     name: "Changelog file name",
     optional: false,
@@ -36,9 +49,12 @@ const lintCmd = new CLI.ValueCommand(
   async (
     _: CLI.Definition,
     fileName: string | undefined,
-    _vals: Map<string, unknown>,
+    values: Map<string, unknown>,
   ) => {
-    await Lint.lint(fileName!, deriveChangelogLogFileName(fileName!));
+    await Lint.lint(fileName!, {
+      logLogFileName: deriveChangelogLogFileName(fileName!),
+      writeLogLog: values.has("no-log") ? false : true
+    });
   },
 );
 

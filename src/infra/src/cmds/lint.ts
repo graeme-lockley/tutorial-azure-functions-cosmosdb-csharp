@@ -15,12 +15,17 @@ export type ILintResult = {
   message: string;
 };
 
+export type ILintOptions = {
+  logLogFileName: string,
+  writeLogLog: boolean
+}
+
 export const lint = (
   changelogFileName: string,
-  changelogLogFileName: string,
+  options: ILintOptions,
 ) => {
   const changelog = loadChangelog(changelogFileName);
-  const changelogLog = loadChangelogLog(changelogLogFileName);
+  const changelogLog = options.writeLogLog ? loadChangelogLog(options.logLogFileName) : undefined;
   const results = changeLogErrors(changelog, changelogLog);
 
   if (results.length > 0) {
@@ -83,11 +88,11 @@ const lintChangelog = (
 export const changeLogErrors = (
   // deno-lint-ignore no-explicit-any
   changelog: any,
-  changelogLog: Array<IChangeLogLogEntry>,
+  changelogLog: Array<IChangeLogLogEntry> | undefined,
 ): Array<ILintResult> => {
   const result: Array<ILintResult> = [];
 
-  lintChangelog(result, changelog, changelogLog);
+  lintChangelog(result, changelog, changelogLog ?? []);
 
   return result;
 };

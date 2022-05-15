@@ -8,12 +8,17 @@ import actionHandlers from "../handlers.ts";
 import { failOnError } from "../logging.ts";
 import { changeLogErrors } from "./lint.ts";
 
+export type IRunOptions = {
+  logLogFileName: string,
+  writeLogLog: boolean
+}
+
 export const run = async (
   changelogFileName: string,
-  changelogLogFileName: string,
+  options: IRunOptions,
 ) => {
   const changelog = loadChangelog(changelogFileName);
-  const changelogLog = loadChangelogLog(changelogLogFileName);
+  const changelogLog = options.writeLogLog ? loadChangelogLog(options.logLogFileName) : undefined;
   const results = changeLogErrors(changelog, changelogLog);
 
   if (results.length > 0) {
@@ -23,7 +28,7 @@ export const run = async (
   const actions = changelog.actions;
 
   for (const action of actions) {
-    const changelogLogEntry = changelogLog.find((cll) => cll.id === action.id);
+    const changelogLogEntry = changelogLog === undefined ? undefined : changelogLog.find((cll) => cll.id === action.id);
 
     if (changelogLogEntry === undefined) {
       const actionHandler = actionHandlers.find((ah) =>
@@ -37,12 +42,14 @@ export const run = async (
       // deno-lint-ignore no-explicit-any
       await actionHandler!.run(action as any);
 
-      changelogLog.push({
-        id: action.id,
-        hash: calculateActionHash(action),
-        when: new Date(),
-      });
-      await saveChangelogLog(changelogLogFileName, changelogLog);
+      if (changelogLog !== undefined) {
+        changelogLog.push({
+          id: action.id,
+          hash: calculateActionHash(action),
+          when: new Date(),
+        });
+        await saveChangelogLog(options.logLogFileName, changelogLog);
+      }
     }
   }
 };
