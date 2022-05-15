@@ -1,4 +1,4 @@
-#!/usr/bin/env deno run --allow-read --allow-run --allow-write --allow-env
+#!/usr/bin/env -S deno run --allow-read --allow-run --allow-write --allow-env
 
 import * as CLI from "https://raw.githubusercontent.com/littlelanguages/deno-lib-console-cli/0.1.2/mod.ts";
 import { deriveChangelogLogFileName } from "./src/changelog.ts";
