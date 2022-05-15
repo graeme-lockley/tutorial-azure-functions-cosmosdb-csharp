@@ -1,6 +1,7 @@
 import { exec } from "../exec.ts";
-import { ILintResult, lintHandlerAction, Schema } from "./declarations.ts";
+import { lintHandlerAction, Schema } from "./declarations.ts";
 import type { AzureCosmosCreate } from "./schema/azure__cosmos__create.ts";
+import { ILintResult } from "../cmds/lint.ts";
 
 import schema from "./schema/azure__cosmos__create.json" assert {
   type: "json",

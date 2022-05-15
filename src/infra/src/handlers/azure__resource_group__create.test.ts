@@ -1,10 +1,10 @@
 import { assertEquals } from "https://deno.land/std@0.137.0/testing/asserts.ts";
+import { ILintResult } from "../cmds/lint.ts";
 
 import {
   commandFromAction,
   handler as handlerAction,
 } from "./azure__resource_group__create.ts";
-import { ILintResult } from "./declarations.ts";
 
 Deno.test("Lint action - id undefined", () => {
   const action = {

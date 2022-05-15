@@ -1,6 +1,7 @@
 import { exec } from "../exec.ts";
-import { ILintResult, lintHandlerAction, Schema } from "./declarations.ts";
+import { lintHandlerAction, Schema } from "./declarations.ts";
 import type { AzureResourceGroupCreate } from "./schema/azure__resource_group__create.ts";
+import { ILintResult } from "../cmds/lint.ts";
 
 import schema from "./schema/azure__resource_group__create.json" assert {
   type: "json",

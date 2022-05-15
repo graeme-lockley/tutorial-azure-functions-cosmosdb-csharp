@@ -3,18 +3,12 @@ import {
   validate,
   ValidationError,
 } from "https://deno.land/x/jtd@v0.1.0/mod.ts";
+import { ILintResult } from "../cmds/lint.ts";
 
 export type {
   Schema,
   ValidationError,
 } from "https://deno.land/x/jtd@v0.1.0/mod.ts";
-
-export type ILintResult = {
-  type: "Warning" | "Error";
-  handler: string;
-  id?: string;
-  message: string;
-};
 
 export interface IAction {
   id: string;
