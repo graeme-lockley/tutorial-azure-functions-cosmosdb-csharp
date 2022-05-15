@@ -22,11 +22,4 @@ export COSMOS_ACCOUNT_NAME
 echo "Resource Group Name: $RESOURCE_GROUP_NAME"
 echo "Cosmos Account Name: $COSMOS_ACCOUNT_NAME"
 
-az deployment sub create \
-    --name "tafcc-configure-test-environment-$TIMESTAMP" \
-    --location "$STORE_RESOURCE_GROUP_LOCATION" \
-    --template-file "${SCRIPT_DIR}/../infra/test-environment.bicep" \
-    --parameters "name=$TIMESTAMP" \
-    --parameters "resourceGroupName=$RESOURCE_GROUP_NAME" \
-    --parameters "resourceGroupLocation=$STORE_RESOURCE_GROUP_LOCATION" \
-    --parameters "cosmosAccountName=$COSMOS_ACCOUNT_NAME"
+"$SCRIPT_DIR"/../src/infra/infra-runner.ts run "$SCRIPT_DIR"/../src/infra/test-environment-setup.json

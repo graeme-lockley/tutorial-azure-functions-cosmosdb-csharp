@@ -1,0 +1,10 @@
+{
+  "actions": [
+    {
+      "id": "001-destroy-RG",
+      "type": "azure/resource-group/delete",
+      "name": "${env('RESOURCE_GROUP_NAME')}",
+      "wait": false
+    }
+  ]
+}

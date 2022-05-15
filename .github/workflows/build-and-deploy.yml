@@ -74,6 +74,10 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v2
 
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
       - name: Login to Azure
         uses: azure/login@v1
         with:
