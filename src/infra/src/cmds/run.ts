@@ -25,7 +25,7 @@ export const run = async (
   const results = changeLogErrors(changelog, changelogLog);
 
   if (results.length > 0) {
-    failOnError("Error: Lint", results);
+    failOnError("Error: run:", results);
   }
 
   const actions = changelog.actions;
@@ -35,7 +35,7 @@ export const run = async (
     actions.find((a) => a.id === options.to) === undefined
   ) {
     failOnError(
-      "Error: to makes reference to an unknown action ID",
+      "Error: run: --to id makes reference to an unknown action:",
       options.to,
     );
   }

@@ -24,7 +24,7 @@ export const rollback = async (
   const results = changeLogErrors(changelog, changelogLog);
 
   if (results.length > 0) {
-    failOnError("Error: rollback", results);
+    failOnError("Error: rollback:", results);
   }
 
   if (options.all !== undefined && options.all && options.to !== undefined) {
@@ -36,7 +36,7 @@ export const rollback = async (
   if (options.to !== undefined) {
     if (changelogLog.find((cl) => cl.id === options.to) === undefined) {
       failOnError(
-        "Error: rollback: --to id is not in the changelog history: ",
+        "Error: rollback: --to id is not in the changelog history:",
         options.to,
       );
 
