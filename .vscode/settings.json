@@ -4,5 +4,8 @@
     "azureFunctions.projectRuntime": "~4",
     "debug.internalConsoleOptions": "neverOpen",
     "azureFunctions.preDeployTask": "publish (functions)",
-    "azureFunctions.projectSubpath": "src/Functions"
+    "azureFunctions.projectSubpath": "src/Functions",
+    "cSpell.words": [
+        "cmds"
+    ]
 }
