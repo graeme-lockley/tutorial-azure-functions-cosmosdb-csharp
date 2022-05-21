@@ -4,4 +4,5 @@ export interface AzureCliAz {
   id: string;
   run: string;
   type: string;
+  rollback?: string;
 }
