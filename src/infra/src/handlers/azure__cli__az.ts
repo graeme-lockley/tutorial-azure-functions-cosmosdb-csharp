@@ -8,7 +8,7 @@ import schema from "./schema/azure__cli__az.json" assert {
 };
 import { evaluate } from "../expression-evaluation.ts";
 
-const handlerName = "azure/cosmos/create";
+const handlerName = "azure/cli/az";
 
 const lint = (result: Array<ILintResult>, action: AzureCliAz): void =>
   lintHandlerAction(result, schema as Schema, handlerName, action);

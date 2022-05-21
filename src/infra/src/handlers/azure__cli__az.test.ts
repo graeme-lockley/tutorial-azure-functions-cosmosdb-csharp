@@ -13,22 +13,22 @@ Deno.test("Lint action - everything is undefined", () => {
 
   assertLint(action, [
     {
-      handler: "azure/cosmos/create",
+      handler: "azure/cli/az",
       message: ".id is undefined",
       type: "Error",
     },
     {
-      handler: "azure/cosmos/create",
+      handler: "azure/cli/az",
       message: ".type is undefined",
       type: "Error",
     },
     {
-      handler: "azure/cosmos/create",
+      handler: "azure/cli/az",
       message: ".run is undefined",
       type: "Error",
     },
     {
-      handler: "azure/cosmos/create",
+      handler: "azure/cli/az",
       message: ".bob is invalid",
       type: "Error",
     },
