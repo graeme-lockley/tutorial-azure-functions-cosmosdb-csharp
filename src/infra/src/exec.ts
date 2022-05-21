@@ -7,19 +7,21 @@ export const exec = async (
   handlerName: string,
   id: string,
   name: string | undefined = undefined,
-): Promise<void> => {
+): Promise<string> => {
   console.log(`${handlerName}: ${command}`);
 
   try {
     const result = await execLib(command);
     if (result.code === 0 && result.success) {
       console.info(result.stdout, result.stderr);
+      return (result.stdout + result.stderr).trim();
     } else {
       failOnError(
         `Error: id=${id}, name=${name}: Action returned error:`,
         result.stdout,
         result.stderr,
       );
+      return "";
     }
   } catch (error) {
     failOnError(
@@ -27,6 +29,7 @@ export const exec = async (
       error.stdout,
       error.stderr,
     );
+    return "";
   }
 };
 
@@ -37,7 +40,7 @@ export const execExpression = async (
 ): Promise<string> => {
   try {
     const result = await execLib(command);
-    
+
     return (result.stdout + result.stderr).trim();
   } catch (error) {
     failOnError(

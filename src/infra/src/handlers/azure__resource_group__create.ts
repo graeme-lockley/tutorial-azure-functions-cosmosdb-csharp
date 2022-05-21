@@ -1,5 +1,5 @@
 import { exec } from "../exec.ts";
-import { lintHandlerAction, Schema } from "./declarations.ts";
+import { IActionHandler, lintHandlerAction, Schema } from "./declarations.ts";
 import type { AzureResourceGroupCreate } from "./schema/azure__resource_group__create.ts";
 import { ILintResult } from "../cmds/lint.ts";
 
@@ -24,14 +24,26 @@ export const commandFromAction = async (
   return `az group create -l "${location}" -n "${name}"`;
 };
 
-const run = async (action: AzureResourceGroupCreate): Promise<void> => {
+const run = async (action: AzureResourceGroupCreate): Promise<string> => {
   const command = await commandFromAction(action);
 
-  await exec(command, handlerName, action.id, action.name);
+  return await exec(command, handlerName, action.id, action.name);
 };
 
-export const handler = {
+const rollback = async (action: AzureResourceGroupCreate): Promise<void> => {
+  const name = await evaluate(action.name);
+
+  await exec(
+    `az group delete --name "${name}" --yes`,
+    handlerName,
+    action.id,
+    action.name,
+  );
+};
+
+export const handler: IActionHandler<AzureResourceGroupCreate> = {
   type: handlerName,
   lint,
   run,
+  rollback,
 };

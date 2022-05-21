@@ -1,5 +1,5 @@
 import { exec } from "../exec.ts";
-import { lintHandlerAction, Schema } from "./declarations.ts";
+import { IActionHandler, lintHandlerAction, Schema } from "./declarations.ts";
 import type { AzureCosmosCreate } from "./schema/azure__cosmos__create.ts";
 import { ILintResult } from "../cmds/lint.ts";
 
@@ -29,14 +29,27 @@ export const commandFromAction = async (
   return `az cosmosdb create --name "${name}" --resource-group "${rg}"${locationSuffix}`;
 };
 
-const run = async (action: AzureCosmosCreate): Promise<void> => {
+const run = async (action: AzureCosmosCreate): Promise<string> => {
   const command = await commandFromAction(action);
 
-  await exec(command, handlerName, action.id, action.name);
+  return await exec(command, handlerName, action.id, action.name);
 };
 
-export const handler = {
+const rollback = async (action: AzureCosmosCreate): Promise<void> => {
+  const name = await evaluate(action.name);
+  const rg = await evaluate(action.rg);
+
+  await exec(
+    `az cosmosdb delete --name "${name}" --resource-group "${rg}" --yes`,
+    handlerName,
+    action.id,
+    action.name,
+  );
+};
+
+export const handler: IActionHandler<AzureCosmosCreate> = {
   type: handlerName,
   lint,
   run,
+  rollback,
 };

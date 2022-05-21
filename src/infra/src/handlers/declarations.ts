@@ -18,7 +18,8 @@ export interface IAction {
 export type IActionHandler<T extends IAction> = {
   type: string;
   lint: (lintResult: Array<ILintResult>, action: T) => void;
-  run: (action: T) => Promise<void>;
+  run: (action: T) => Promise<string>;
+  rollback: (action: T) => Promise<void>;
 };
 
 export const lintHandlerAction = (

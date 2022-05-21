@@ -11,6 +11,7 @@ import { changeLogErrors } from "./lint.ts";
 export type IRunOptions = {
   logLogFileName: string;
   writeLogLog: boolean;
+  to?: string | undefined;
 };
 
 export const run = async (
@@ -29,6 +30,23 @@ export const run = async (
 
   const actions = changelog.actions;
 
+  if (
+    options.to !== undefined &&
+    actions.find((a) => a.id === options.to) === undefined
+  ) {
+    failOnError(
+      "Error: to makes reference to an unknown action ID",
+      options.to,
+    );
+  }
+
+  if (
+    options.to !== undefined && changelogLog !== undefined &&
+    changelogLog.find((cll) => cll.id === options.to) !== undefined
+  ) {
+    return;
+  }
+
   for (const action of actions) {
     const changelogLogEntry = changelogLog === undefined
       ? undefined
@@ -44,15 +62,20 @@ export const run = async (
       );
 
       // deno-lint-ignore no-explicit-any
-      await actionHandler!.run(action as any);
+      const output = await actionHandler!.run(action as any);
 
       if (changelogLog !== undefined) {
         changelogLog.push({
           id: action.id,
           hash: calculateActionHash(action),
           when: new Date(),
+          output,
         });
         await saveChangelogLog(options.logLogFileName, changelogLog);
+      }
+
+      if (options.to !== undefined && options.to === action.id) {
+        break;
       }
     }
   }
