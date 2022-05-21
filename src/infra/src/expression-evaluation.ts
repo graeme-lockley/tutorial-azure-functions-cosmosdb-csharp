@@ -1,9 +1,18 @@
+import { execExpression } from "./exec.ts";
+
 // The variable env is reported by lint as it is not being used.  This warning
 // is ignored because it is a variable that can be accessed from user
 // expressions.
 
 // deno-lint-ignore no-unused-vars
 const env = (name: string): string | undefined => Deno.env.get(name);
+
+// deno-lint-ignore no-unused-vars
+const AzIdentityClientId = (
+  identityName: string,
+  rgName: string,
+): Promise<string> =>
+  execExpression(`az identity show --name ${identityName} --resource-group ${rgName} --query "clientId" --output tsv`);
 
 const _myTag = async (
   strings: Array<string>,
