@@ -270,3 +270,5 @@ infra/*.json
 
 *.zip
 src/Functions/output
+
+src/infra/src/handlers/handler.yaml
