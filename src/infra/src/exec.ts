@@ -29,3 +29,23 @@ export const exec = async (
     );
   }
 };
+
+export const execExpression = async (
+  command: string,
+  id: string | undefined = "builtin",
+  name: string | undefined = undefined,
+): Promise<string> => {
+  try {
+    const result = await execLib(command);
+    
+    return (result.stdout + result.stderr).trim();
+  } catch (error) {
+    failOnError(
+      `Error: id=${id}, name=${name}: Action returned error:`,
+      error.stdout,
+      error.stderr,
+    );
+
+    return "";
+  }
+};
