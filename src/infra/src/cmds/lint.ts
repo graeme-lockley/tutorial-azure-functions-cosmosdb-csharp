@@ -55,7 +55,21 @@ const lintChangelog = (
       message: ".actions in changelog is not an array",
     });
   } else {
+    const usedIDs = new Set();
+
     actions.forEach((action) => {
+      if (action.id !== undefined) {
+        if (usedIDs.has(action.id)) {
+          lintResults.push({
+            type: "Error",
+            handler: "changelog",
+            id: action.id ?? "undefined",
+            message: `.id value has already been used in changelog`,
+          });
+        }
+        usedIDs.add(action.id);
+      }
+
       const changelogLogEntry = changelogLog.find((cll) =>
         cll.id === action.id
       );
