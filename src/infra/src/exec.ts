@@ -6,7 +6,7 @@ export const exec = async (
   command: string,
   handlerName: string,
   id: string,
-  name: string | undefined,
+  name: string | undefined = undefined,
 ): Promise<void> => {
   console.log(`${handlerName}: ${command}`);
 
