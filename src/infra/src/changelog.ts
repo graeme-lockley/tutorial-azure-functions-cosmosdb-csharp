@@ -1,5 +1,6 @@
 import hashJs from "https://deno.land/x/hash@v0.1.0/mod-hashjs.ts";
 import * as Path from "https://deno.land/std@0.76.0/path/mod.ts";
+import * as YAML from "https://deno.land/std@0.82.0/encoding/yaml.ts";
 
 import { IAction } from "./handlers/declarations.ts";
 import { failOnError } from "./logging.ts";
@@ -19,7 +20,9 @@ export const loadChangelog = (fileName: string): IChangeLogContent => {
   try {
     const content = Deno.readTextFileSync(fileName);
 
-    return JSON.parse(content);
+    return fileName.endsWith(".yaml")
+      ? YAML.parse(content) as IChangeLogContent
+      : JSON.parse(content);
   } catch (e) {
     failOnError(`Error: Unable to load changelog file: ${fileName}\n`, e);
     Deno.exit(1);
@@ -34,9 +37,9 @@ export const deriveChangelogLogFileName = (fileName: string): string => {
       {},
       parsedFileName,
       {
-        base: `${parsedFileName.name}-log.json`,
+        base: `${parsedFileName.name}-log.yaml`,
         name: `${parsedFileName.name}-log`,
-        ext: ".json",
+        ext: ".yaml",
       },
     ),
   );
@@ -48,7 +51,7 @@ export const loadChangelogLog = (
   try {
     const content = Deno.readTextFileSync(logFileName);
 
-    return JSON.parse(content);
+    return YAML.parse(content) as Array<IChangeLogLogEntry>;
   } catch (e) {
     if (e.code === "ENOENT") {
       console.info(
@@ -72,7 +75,9 @@ export const saveChangelogLog = async (
   try {
     await Deno.writeTextFile(
       logFileName,
-      JSON.stringify(changelogLog, null, 2),
+      YAML.stringify(changelogLog as unknown as Record<string, unknown>, {
+        indent: 2,
+      }),
     );
   } catch (e) {
     failOnError(`Error: Unable to write changelog log: ${logFileName}\n`, e);
