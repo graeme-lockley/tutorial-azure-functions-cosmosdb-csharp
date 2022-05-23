@@ -13,7 +13,7 @@ const AzIdentityClientId = (
   rgName: string,
 ): Promise<string> =>
   execExpression(
-    `az identity show --name ${identityName} --resource-group ${rgName} --query "clientId" --output tsv`,
+    `az identity show --name ${identityName} --resource-group ${rgName} --only-show-errors --query "clientId" --output tsv`,
   );
 
 const _myTag = async (
