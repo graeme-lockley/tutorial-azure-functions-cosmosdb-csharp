@@ -4,7 +4,7 @@ import {
   loadChangelogLog,
   saveChangelogLog,
 } from "../changelog.ts";
-import actionHandlers from "../handlers.ts";
+import * as Handlers from "../handlers.ts";
 import { IAction } from "../handlers/declarations.ts";
 import { failOnError } from "../logging.ts";
 import { changeLogErrors } from "./lint.ts";
@@ -79,9 +79,7 @@ const rollbackLast = async (
     `---| ${entryAction.id}: ${entryAction.type} |---------------------------------`,
   );
 
-  const actionHandler = actionHandlers.find((ah) =>
-    ah.type === entryAction.type
-  );
+  const actionHandler = await Handlers.find(entryAction.type);
 
   // deno-lint-ignore no-explicit-any
   await actionHandler!.rollback(entryAction as any);

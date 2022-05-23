@@ -5,7 +5,7 @@ import {
   loadChangelog,
   loadChangelogLog,
 } from "../changelog.ts";
-import actionHandlers from "../handlers.ts";
+import * as Handlers from "../handlers.ts";
 import { failOnError } from "../logging.ts";
 
 export type ILintResult = {
@@ -35,7 +35,7 @@ export const lint = (
   }
 };
 
-const lintChangelog = (
+const lintChangelog = async (
   lintResults: Array<ILintResult>,
   changelog: IChangeLogContent,
   changelogLog: Array<IChangeLogLogEntry>,
@@ -57,7 +57,7 @@ const lintChangelog = (
   } else {
     const usedIDs = new Set();
 
-    actions.forEach((action) => {
+    for (const action of actions) {
       if (action.id !== undefined) {
         if (usedIDs.has(action.id)) {
           lintResults.push({
@@ -85,7 +85,7 @@ const lintChangelog = (
         }
       }
 
-      const handler = actionHandlers.find((h) => h.type === action.type);
+      const handler = await Handlers.find(action.type);
       if (handler === undefined) {
         lintResults.push({
           type: "Error",
@@ -97,7 +97,7 @@ const lintChangelog = (
         // deno-lint-ignore no-explicit-any
         handler.lint(lintResults, action as any);
       }
-    });
+    }
   }
 };
 

@@ -4,7 +4,7 @@ import {
   loadChangelogLog,
   saveChangelogLog,
 } from "../changelog.ts";
-import actionHandlers from "../handlers.ts";
+import * as Handlers from "../handlers.ts";
 import { failOnError } from "../logging.ts";
 import { changeLogErrors } from "./lint.ts";
 
@@ -53,9 +53,7 @@ export const run = async (
       : changelogLog.find((cll) => cll.id === action.id);
 
     if (changelogLogEntry === undefined) {
-      const actionHandler = actionHandlers.find((ah) =>
-        ah.type === action.type
-      );
+      const actionHandler = await Handlers.find(action.type);
 
       console.log(
         `---| ${action.id}: ${action.type} |---------------------------------`,
