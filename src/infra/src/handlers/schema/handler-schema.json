@@ -1,0 +1,18 @@
+{
+  "properties": {
+    "name": { "type": "string" },
+    "schema": { "type": "string" },
+    "run": {
+      "properties": {
+        "script": { "type": "string" }
+      }
+    }
+  },
+  "optionalProperties": {
+    "rollback": {
+      "properties": {
+        "script": { "type": "string" }
+      }
+    }
+  }
+}
