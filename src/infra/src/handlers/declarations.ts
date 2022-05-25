@@ -4,6 +4,7 @@ import {
   ValidationError,
 } from "https://deno.land/x/jtd@v0.1.0/mod.ts";
 import { ILintResult } from "../cmds/lint.ts";
+import { ExecOptions } from "../exec.ts";
 
 export type {
   Schema,
@@ -13,13 +14,16 @@ export type {
 export interface IAction {
   id: string;
   type: string;
+  name?: string;
 }
+
+export type RunOptions = ExecOptions;
 
 export type IActionHandler<T extends IAction> = {
   type: string;
   lint: (lintResult: Array<ILintResult>, action: T) => void;
-  run: (action: T) => Promise<string>;
-  rollback: (action: T) => Promise<void>;
+  run: (action: T, options: RunOptions | undefined) => Promise<string>;
+  rollback: (action: T, options: RunOptions | undefined) => Promise<string>;
 };
 
 export const lintHandlerAction = (

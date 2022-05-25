@@ -24,7 +24,7 @@ const run = async (action: AzureCliAz): Promise<string> => {
   return await exec(command, handlerName, action.id);
 };
 
-const rollback = async (action: AzureCliAz): Promise<void> => {
+const rollback = async (action: AzureCliAz): Promise<string> => {
   if (action.rollback === undefined) {
     failOnError(`Error: ${handlerName}: Unable to rollback`);
     Deno.exit(1);
@@ -32,7 +32,7 @@ const rollback = async (action: AzureCliAz): Promise<void> => {
 
   const script = await evaluate(action.rollback);
 
-  await exec(script, handlerName, action.id);
+  return exec(script, handlerName, action.id);
 };
 
 export const handler: IActionHandler<AzureCliAz> = {

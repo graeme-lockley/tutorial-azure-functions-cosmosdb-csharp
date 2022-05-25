@@ -35,11 +35,11 @@ const run = async (action: AzureCosmosCreate): Promise<string> => {
   return await exec(command, handlerName, action.id, action.name);
 };
 
-const rollback = async (action: AzureCosmosCreate): Promise<void> => {
+const rollback = async (action: AzureCosmosCreate): Promise<string> => {
   const name = await evaluate(action.name);
   const rg = await evaluate(action.rg);
 
-  await exec(
+  return exec(
     `az cosmosdb delete --name "${name}" --resource-group "${rg}" --yes`,
     handlerName,
     action.id,
