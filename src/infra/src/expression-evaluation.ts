@@ -36,6 +36,6 @@ const _myTag = async (
 
 export const evaluate = (
   text: string,
-// deno-lint-ignore no-unused-vars no-explicit-any
+  // deno-lint-ignore no-unused-vars no-explicit-any
   data: any = undefined,
 ): Promise<string> => eval("_myTag`" + text + "`");
