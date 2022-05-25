@@ -22,5 +22,5 @@ export COSMOS_ACCOUNT_NAME
 echo "Resource Group Name: $RESOURCE_GROUP_NAME"
 echo "Cosmos Account Name: $COSMOS_ACCOUNT_NAME"
 
-cd "$SCRIPT_DIR"/../src/infra
+cd "$SCRIPT_DIR"/../src/infra || exit 1
 ./infra-runner.ts run --no-log "$SCRIPT_DIR"/../src/infra/test-environment-destroy.json
