@@ -60,7 +60,7 @@ export const run = async (
       );
 
       // deno-lint-ignore no-explicit-any
-      const output = await actionHandler!.run(action as any);
+      const output = await actionHandler!.run(action as any, undefined);
 
       if (changelogLog !== undefined) {
         changelogLog.push({

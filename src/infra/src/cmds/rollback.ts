@@ -82,7 +82,7 @@ const rollbackLast = async (
   const actionHandler = await Handlers.find(entryAction.type);
 
   // deno-lint-ignore no-explicit-any
-  await actionHandler!.rollback(entryAction as any);
+  await actionHandler!.rollback(entryAction as any, undefined);
 
   changelogLog.pop();
   await saveChangelogLog(options.logLogFileName, changelogLog);
