@@ -1,0 +1,24 @@
+name: azure/resource-group/create
+schema: |
+  {
+    "properties": {
+      "id": { "type": "string" },
+      "type": { "type": "string" },
+      "name": { "type": "string" },
+      "location": { "type": "string" }
+    },
+    "optionalProperties": {
+      "description": { "type": "string" }
+    }
+  }
+run:
+  script: |
+    az group create 
+      --location "${data.location}" 
+      --name "${data.name}"
+      --only-show-errors
+rollback:
+  script: |
+    az group delete 
+      --name "${data.name}"
+      --only-show-errors
