@@ -22,3 +22,4 @@ rollback:
     az group delete 
       --name "${data.name}"
       --only-show-errors
+      --yes
