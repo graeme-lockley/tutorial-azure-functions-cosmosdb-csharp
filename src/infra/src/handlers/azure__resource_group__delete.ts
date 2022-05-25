@@ -32,7 +32,7 @@ const run = async (action: AzureResourceGroupDelete): Promise<string> => {
   return await exec(command, handlerName, action.id, action.name);
 };
 
-const rollback = (_action: AzureResourceGroupDelete): Promise<void> => {
+const rollback = (_action: AzureResourceGroupDelete): Promise<string> => {
   failOnError(`Error: ${handlerName}: Unable to rollback`);
   Deno.exit(1);
 };
