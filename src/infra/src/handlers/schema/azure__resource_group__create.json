@@ -1,8 +1,0 @@
-{
-  "properties": {
-    "id": { "type": "string" },
-    "type": { "type": "string" },
-    "name": { "type": "string" },
-    "location": { "type": "string" }
-  }
-}
