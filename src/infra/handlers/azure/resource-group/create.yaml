@@ -14,7 +14,7 @@ schema: |
 run:
   script: |
     az group create 
-      --location "${data.location}" 
+      --location "${evaluate(data.location)}"
       --name "${evaluate(data.name)}"
       --only-show-errors
 rollback:
