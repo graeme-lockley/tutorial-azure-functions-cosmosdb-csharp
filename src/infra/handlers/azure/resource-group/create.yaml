@@ -15,11 +15,11 @@ run:
   script: |
     az group create 
       --location "${data.location}" 
-      --name "${data.name}"
+      --name "${evaluate(data.name)}"
       --only-show-errors
 rollback:
   script: |
     az group delete 
-      --name "${data.name}"
+      --name "${evaluate(data.name})"
       --only-show-errors
       --yes
