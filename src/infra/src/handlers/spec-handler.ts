@@ -142,8 +142,8 @@ const jsScript = async (
     await await eval(jsExpr);
   } catch (e) {
     const errorMsg = `Error: ${schema.name}: ${e.message}`;
-    if (options?.exitOnError) {
-      failOnError(errorMsg, e);
+    if (options === undefined || options.exitOnError) {
+      failOnError(errorMsg);
     } else {
       _outputs.push(errorMsg);
     }
