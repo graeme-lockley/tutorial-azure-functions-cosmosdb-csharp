@@ -8,17 +8,26 @@ schema: |
       "location": { "type": "string" }
     },
     "optionalProperties": {
-      "description": { "type": "string" }
+      "description": { "type": "string" },
+      "no-wait": { "type": "boolean" }
     }
   }
 script:
+  type: js
+  preamble: |
+    const name = await evaluate(data.name);
   run: |
-    az group create 
-      --location "${evaluate(data.location)}"
-      --name "${evaluate(data.name)}"
-      --only-show-errors
+    const location = await evaluate(data.location);
+    
+    await az(`group create 
+      --name "${name}"
+      --location "${location}"
+      --only-show-errors`);
   rollback: |
-    az group delete 
-      --name "${evaluate(data.name})"
+    const noWait = data['no-wait'] === undefined ? false : await evaluate(data['no-wait']) ?? false;
+
+    await az(`group delete 
+      --name "${name}"
       --only-show-errors
       --yes
+      ${noWait ? "--no-wait" : ""}`);
