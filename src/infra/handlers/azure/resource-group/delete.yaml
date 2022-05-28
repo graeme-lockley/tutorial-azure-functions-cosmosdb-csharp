@@ -7,24 +7,26 @@ schema: |
       "name": { "type": "string" }
     },
     "optionalProperties": {
+      "description": { "type": "string" },
       "location": { "type": "string" },
-      "no-wait": { "type": "boolean" },
-      "description": { "type": "string" }
+      "no-wait": { "type": "boolean" }
     }
   }
 script:
   type: js
   preamble: |
     const name = await evaluate(data.name);
-    const location = await evaluate(data.location);
-    const noWait = data['no-wait'] === undefined ? false : await evaluate(data['no-wait']) ?? false;
   run: |
+    const noWait = data['no-wait'] === undefined ? false : await evaluate(data['no-wait']) ?? false;
+    
     await az(`group delete 
       --name "${name}"
       --only-show-errors
       --yes
       ${noWait ? "--no-wait" : ""}`);
   rollback: |
+    const location = await evaluate(data.location);
+
     if (location === undefined || location === "")
       throw Error(".location is empty");
 
