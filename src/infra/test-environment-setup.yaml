@@ -1,0 +1,11 @@
+actions:
+  - id: 001-create-RG
+    type: azure/resource-group/create
+    name: ${env('RESOURCE_GROUP_NAME')}
+    location: centralus
+
+  - id: 002-create-DB
+    type: azure/cosmos/create
+    rg: ${env('RESOURCE_GROUP_NAME')}
+    name: ${env('COSMOS_ACCOUNT_NAME')}
+    location: westus
