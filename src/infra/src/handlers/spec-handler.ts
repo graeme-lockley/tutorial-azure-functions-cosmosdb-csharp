@@ -56,7 +56,7 @@ const runExecScript = (
   options: RunOptions | undefined,
 ): Promise<string> => execScript(schema, schema.script.run, action, options);
 
-const runJsScript = async (
+const runJsScript = (
   schema: HandlerSchema,
   action: IAction,
   options: RunOptions | undefined,
@@ -86,7 +86,7 @@ const rollbackExecScript = (
 ): Promise<string> =>
   execScript(schema, schema.script.rollback!, action, options);
 
-const rollbackJsScript = async (
+const rollbackJsScript = (
   schema: HandlerSchema,
   action: IAction,
   options: RunOptions | undefined,
@@ -132,6 +132,7 @@ const jsScript = async (
     return response;
   };
 
+  // deno-lint-ignore no-unused-vars
   const az = (s: string): Promise<string> => exec(`az ${s}`);
 
   const jsExpr = "(async () => {\n" + (schema.script.preamble ?? "") + "\n" +

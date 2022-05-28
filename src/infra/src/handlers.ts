@@ -7,7 +7,6 @@ import {
 
 import { handler as AzureCliAz } from "./handlers/azure__cli__az.ts";
 import { handler as azureCosmosCreate } from "./handlers/azure__cosmos__create.ts";
-import { handler as azureResourceGroupDelete } from "./handlers/azure__resource_group__delete.ts";
 
 import { IAction, IActionHandler } from "./handlers/declarations.ts";
 import { HandlerSchema } from "./handlers/schema/handler-schema.ts";
@@ -21,7 +20,6 @@ import { buildHandler } from "./handlers/spec-handler.ts";
 const handlers = [
   AzureCliAz,
   azureCosmosCreate,
-  // azureResourceGroupDelete,
 ];
 
 export const find = async <T extends IAction>(
