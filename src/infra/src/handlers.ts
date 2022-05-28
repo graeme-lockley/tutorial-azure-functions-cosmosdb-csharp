@@ -21,7 +21,7 @@ import { buildHandler } from "./handlers/spec-handler.ts";
 const handlers = [
   AzureCliAz,
   azureCosmosCreate,
-  azureResourceGroupDelete,
+  // azureResourceGroupDelete,
 ];
 
 export const find = async <T extends IAction>(

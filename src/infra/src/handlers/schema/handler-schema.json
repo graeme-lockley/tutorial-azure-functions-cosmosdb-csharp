@@ -2,17 +2,18 @@
   "properties": {
     "name": { "type": "string" },
     "schema": { "type": "string" },
-    "run": {
+    "script": {
       "properties": {
-        "script": { "type": "string" }
+        "run": { "type": "string" }
+      },
+      "optionalProperties": {
+        "type": { "enum": ["js", "exec"] },
+        "preamble": { "type": "string" },
+        "rollback": { "type": "string" }
       }
     }
   },
   "optionalProperties": {
-    "rollback": {
-      "properties": {
-        "script": { "type": "string" }
-      }
-    }
+    "description": { "type": "string" }
   }
 }

@@ -11,14 +11,13 @@ schema: |
       "description": { "type": "string" }
     }
   }
-run:
-  script: |
+script:
+  run: |
     az group create 
       --location "${evaluate(data.location)}"
       --name "${evaluate(data.name)}"
       --only-show-errors
-rollback:
-  script: |
+  rollback: |
     az group delete 
       --name "${evaluate(data.name})"
       --only-show-errors

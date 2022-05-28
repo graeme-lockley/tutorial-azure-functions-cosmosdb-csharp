@@ -35,7 +35,8 @@ const _myTag = async (
 };
 
 export const evaluate = (
-  text: string,
+  text: string | undefined,
   // deno-lint-ignore no-unused-vars no-explicit-any
   data: any = undefined,
-): Promise<string> => eval("_myTag`" + text + "`");
+): Promise<string> =>
+  text === undefined ? undefined : eval("_myTag`" + text + "`");

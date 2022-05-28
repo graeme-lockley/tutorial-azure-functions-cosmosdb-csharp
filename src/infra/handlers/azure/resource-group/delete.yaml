@@ -1,0 +1,34 @@
+name: azure/resource-group/delete
+schema: |
+  {
+    "properties": {
+      "id": { "type": "string" },
+      "type": { "type": "string" },
+      "name": { "type": "string" }
+    },
+    "optionalProperties": {
+      "location": { "type": "string" },
+      "no-wait": { "type": "boolean" },
+      "description": { "type": "string" }
+    }
+  }
+script:
+  type: js
+  preamble: |
+    const name = await evaluate(data.name);
+    const location = await evaluate(data.location);
+    const noWait = data['no-wait'] === undefined ? false : await evaluate(data['no-wait']) ?? false;
+  run: |
+    await az(`group delete 
+      --name "${name}"
+      --only-show-errors
+      --yes
+      ${noWait ? "--no-wait" : ""}`);
+  rollback: |
+    if (location === undefined || location === "")
+      throw Error(".location is empty");
+
+    await az(`group create 
+      --name "${name}"
+      --location "${location}"
+      --only-show-errors`);
