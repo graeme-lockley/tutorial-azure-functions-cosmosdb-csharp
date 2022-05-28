@@ -1,5 +1,5 @@
 actions:
   - id: 001-create-RG
-    type: azure/resource-group/create
+    type: azure/resource-group/delete
     name: ${env('RESOURCE_GROUP_NAME')}
     no-wait: true
