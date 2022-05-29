@@ -13,7 +13,7 @@ export type IChangeLogLogEntry = {
   id: string;
   hash: string;
   when: Date;
-  output: string;
+  output: string | Array<string>;
 };
 
 export const loadChangelog = (fileName: string): IChangeLogContent => {

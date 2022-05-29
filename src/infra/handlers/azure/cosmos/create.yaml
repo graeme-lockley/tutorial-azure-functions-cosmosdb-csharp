@@ -1,0 +1,72 @@
+name: azure/cosmos/create
+schema: |
+  {
+    "properties": {
+      "id": { "type": "string" },
+      "type": { "type": "string" },
+      "resource-group": { "type": "string" },
+      "account-name": { "type": "string" },
+      "location": { "type": "string" }
+    },
+    "optionalProperties": {
+      "description": { "type": "string" },
+      "databases": {
+        "properties": {
+          "name": { "type": "string" }
+        },
+        "optionalProperties": {
+          "containers": { 
+            "properties": {
+              "name": { "type": "string" },
+              "partition-key-path": { "type": "string" }
+            }
+          }
+        }
+      }
+
+    }
+  }
+script:
+  type: js
+  preamble: |
+    const accountName = await evaluate(data['account-name']);
+    const rgName = await evaluate(data['resource-group']);
+  run: |
+    const location = await evaluate(data.location);
+    
+    await az(`cosmosdb create 
+      --name "${accountName}"
+      --resource-group "${rgName}"
+      --locations "regionName=${location}"
+      --only-show-errors`);
+
+    for (const database of data.databases ?? []) {
+      const databaseName = await evaluate(database.name);
+
+      // console.log(`Database: ${databaseName}`);
+
+      await az(`cosmosdb sql database create
+        --name "${databaseName}"
+        --account-name "${accountName}"
+        --resource-group "${rgName}"`);
+
+      for (const container of database.containers ?? []) {
+        const containerName = await evaluate(container.name);
+        const containerPartitionKeyPath = await evaluate(container['partition-key-path']);
+
+        // console.log(`- Container: ${containerName}, ${container['partition-key-path']}`);
+
+        await az(`cosmosdb sql container create
+          --name "${containerName}"
+          --database-name "${databaseName}"
+          --account-name "${accountName}"
+          --resource-group "${rgName}"
+          --partition-key-path "${containerPartitionKeyPath}"`);
+      }
+    }
+  rollback: |
+    await az(`cosmosdb delete 
+      --name "${accountName}"
+      --resource-group "${rgName}"
+      --only-show-errors
+      --yes`);

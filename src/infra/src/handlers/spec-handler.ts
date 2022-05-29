@@ -30,11 +30,11 @@ export const buildHandler = (
     run: (
       action: IAction,
       options: RunOptions | undefined = undefined,
-    ): Promise<string> => runScript(schema, action, options),
+    ): Promise<string | Array<string>> => runScript(schema, action, options),
     rollback: (
       action: IAction,
       options: RunOptions | undefined = undefined,
-    ): Promise<string> => rollbackScript(schema, action, options),
+    ): Promise<string | Array<string>> => rollbackScript(schema, action, options),
   };
 };
 
@@ -42,7 +42,7 @@ const runScript = (
   schema: HandlerSchema,
   action: IAction,
   options: RunOptions | undefined,
-): Promise<string> => {
+): Promise<string | Array<string>> => {
   if (schema.script.type === undefined || schema.script.type === "exec") {
     return runExecScript(schema, action, options);
   } else {
@@ -60,13 +60,13 @@ const runJsScript = (
   schema: HandlerSchema,
   action: IAction,
   options: RunOptions | undefined,
-): Promise<string> => jsScript(schema, schema.script.run, action, options);
+): Promise<string | Array<string>> => jsScript(schema, schema.script.run, action, options);
 
 const rollbackScript = (
   schema: HandlerSchema,
   action: IAction,
   options: RunOptions | undefined,
-): Promise<string> => {
+): Promise<string | Array<string>> => {
   if (schema.script.rollback === undefined) {
     failOnError(`Error: ${schema.name}: Unable to rollback`);
     Deno.exit(1);
@@ -90,7 +90,7 @@ const rollbackJsScript = (
   schema: HandlerSchema,
   action: IAction,
   options: RunOptions | undefined,
-): Promise<string> =>
+): Promise<Array<string>> =>
   jsScript(schema, schema.script.rollback!, action, options);
 
 const execScript = async (
@@ -115,7 +115,7 @@ const jsScript = async (
   script: string,
   data: IAction,
   options: RunOptions | undefined,
-): Promise<string> => {
+): Promise<Array<string>> => {
   const _outputs: Array<string> = [];
 
   const exec = async (s: string): Promise<string> => {
@@ -125,15 +125,16 @@ const jsScript = async (
       data.id,
       data.name,
       options,
-    );
+    ).then(r => r.trim());
 
     _outputs.push(response);
 
     return response;
   };
 
-  // deno-lint-ignore no-unused-vars
-  const az = (s: string): Promise<string> => exec(`az ${s}`);
+  // deno-lint-ignore no-unused-vars no-explicit-any
+  const az = (s: string): Promise<any> =>
+    exec(`az ${s}`).then(r => r === "" ? {} : JSON.parse(r));
 
   const jsExpr = "(async () => {\n" + (schema.script.preamble ?? "") + "\n" +
     script + "})();";
@@ -149,5 +150,5 @@ const jsScript = async (
     }
   }
 
-  return Promise.resolve(_outputs.join("\n").trim());
+  return Promise.resolve(_outputs);
 };
