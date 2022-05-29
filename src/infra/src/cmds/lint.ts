@@ -20,7 +20,7 @@ export type ILintOptions = {
   writeLogLog: boolean;
 };
 
-export const lint = (
+export const lint = async (
   changelogFileName: string,
   options: ILintOptions,
 ) => {
@@ -28,7 +28,7 @@ export const lint = (
   const changelogLog = options.writeLogLog
     ? loadChangelogLog(options.logLogFileName)
     : undefined;
-  const results = changeLogErrors(changelog, changelogLog);
+  const results = await changeLogErrors(changelog, changelogLog);
 
   if (results.length > 0) {
     failOnError("Error: Lint", results);
@@ -101,14 +101,14 @@ const lintChangelog = async (
   }
 };
 
-export const changeLogErrors = (
+export const changeLogErrors = async (
   // deno-lint-ignore no-explicit-any
   changelog: any,
   changelogLog: Array<IChangeLogLogEntry> | undefined,
-): Array<ILintResult> => {
+): Promise<Array<ILintResult>> => {
   const result: Array<ILintResult> = [];
 
-  lintChangelog(result, changelog, changelogLog ?? []);
+  await lintChangelog(result, changelog, changelogLog ?? []);
 
   return result;
 };

@@ -22,7 +22,7 @@ export const run = async (
   const changelogLog = options.writeLogLog
     ? loadChangelogLog(options.logLogFileName)
     : undefined;
-  const results = changeLogErrors(changelog, changelogLog);
+  const results = await changeLogErrors(changelog, changelogLog);
 
   if (results.length > 0) {
     failOnError("Error: run:", results);

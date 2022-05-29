@@ -21,7 +21,7 @@ export const rollback = async (
 ) => {
   const changelog = loadChangelog(changelogFileName);
   const changelogLog = loadChangelogLog(options.logLogFileName);
-  const results = changeLogErrors(changelog, changelogLog);
+  const results = await changeLogErrors(changelog, changelogLog);
 
   if (results.length > 0) {
     failOnError("Error: rollback:", results);
