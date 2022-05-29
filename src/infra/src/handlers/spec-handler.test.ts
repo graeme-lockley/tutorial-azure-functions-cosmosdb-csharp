@@ -89,7 +89,7 @@ Deno.test("run js handler", async () => {
   const runResult = await handler.run(input, silentExitOptions);
   assertEquals(
     runResult,
-    "az group delete --name fred --only-show-errors",
+    ["az group delete --name fred --only-show-errors"],
   );
 });
 
@@ -103,7 +103,7 @@ Deno.test("run js handler no-wait", async () => {
   const runResult = await handler.run(input, undefined /*silentExitOptions*/);
   assertEquals(
     runResult,
-    "az group delete --name fred --only-show-errors --no-wait",
+    ["az group delete --name fred --only-show-errors --no-wait"],
   );
 });
 
@@ -117,7 +117,7 @@ Deno.test("rollback js handler", async () => {
   const runResult = await handler.rollback(input, silentExitOptions);
   assertEquals(
     runResult,
-    "az group create --name fred --location eastus --only-show-errors",
+    ["az group create --name fred --location eastus --only-show-errors"],
   );
 });
 
@@ -134,7 +134,7 @@ Deno.test("rollback js handler with error", async () => {
   );
   assertEquals(
     runResult,
-    "Error: azure/resource-group/delete: .location is undefined",
+    ["Error: azure/resource-group/delete: .location is undefined"],
   );
 });
 
