@@ -48,7 +48,8 @@ script:
       await az(`cosmosdb sql database create
         --name "${databaseName}"
         --account-name "${accountName}"
-        --resource-group "${rgName}"`);
+        --resource-group "${rgName}"
+        --only-show-errors`);
 
       for (const container of database.containers ?? []) {
         const containerName = await evaluate(container.name);
@@ -61,7 +62,8 @@ script:
           --database-name "${databaseName}"
           --account-name "${accountName}"
           --resource-group "${rgName}"
-          --partition-key-path "${containerPartitionKeyPath}"`);
+          --partition-key-path "${containerPartitionKeyPath}"
+          --only-show-errors`);
       }
     }
   rollback: |
