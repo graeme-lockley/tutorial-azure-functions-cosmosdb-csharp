@@ -10,20 +10,21 @@ schema: |
     },
     "optionalProperties": {
       "description": { "type": "string" },
-      "databases": {
-        "properties": {
-          "name": { "type": "string" }
-        },
-        "optionalProperties": {
-          "containers": { 
-            "properties": {
-              "name": { "type": "string" },
-              "partition-key-path": { "type": "string" }
+      "databases": { "elements" : {
+          "properties": {
+            "name": { "type": "string" }
+          },
+          "optionalProperties": {
+            "containers": { "elements" : {
+                "properties": {
+                  "name": { "type": "string" },
+                  "partition-key-path": { "type": "string" }
+                }
+              }
             }
           }
         }
       }
-
     }
   }
 script:
