@@ -22,8 +22,14 @@ export type RunOptions = ExecOptions;
 export type IActionHandler<T extends IAction> = {
   type: string;
   lint: (lintResult: Array<ILintResult>, action: T) => void;
-  run: (action: T, options: RunOptions | undefined) => Promise<string | Array<string>>;
-  rollback: (action: T, options: RunOptions | undefined) => Promise<string | Array<string>>;
+  run: (
+    action: T,
+    options: RunOptions | undefined,
+  ) => Promise<string | Array<string>>;
+  rollback: (
+    action: T,
+    options: RunOptions | undefined,
+  ) => Promise<string | Array<string>>;
 };
 
 export const lintHandlerAction = (

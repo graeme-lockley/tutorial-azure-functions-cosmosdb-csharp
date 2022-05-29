@@ -34,7 +34,8 @@ export const buildHandler = (
     rollback: (
       action: IAction,
       options: RunOptions | undefined = undefined,
-    ): Promise<string | Array<string>> => rollbackScript(schema, action, options),
+    ): Promise<string | Array<string>> =>
+      rollbackScript(schema, action, options),
   };
 };
 
@@ -60,7 +61,8 @@ const runJsScript = (
   schema: HandlerSchema,
   action: IAction,
   options: RunOptions | undefined,
-): Promise<string | Array<string>> => jsScript(schema, schema.script.run, action, options);
+): Promise<string | Array<string>> =>
+  jsScript(schema, schema.script.run, action, options);
 
 const rollbackScript = (
   schema: HandlerSchema,
@@ -125,7 +127,7 @@ const jsScript = async (
       data.id,
       data.name,
       options,
-    ).then(r => r.trim());
+    ).then((r) => r.trim());
 
     _outputs.push(response);
 
@@ -134,7 +136,7 @@ const jsScript = async (
 
   // deno-lint-ignore no-unused-vars no-explicit-any
   const az = (s: string): Promise<any> =>
-    exec(`az ${s}`).then(r => r === "" ? {} : JSON.parse(r));
+    exec(`az ${s}`).then((r) => r === "" ? {} : JSON.parse(r));
 
   const jsExpr = "(async () => {\n" + (schema.script.preamble ?? "") + "\n" +
     script + "})();";
