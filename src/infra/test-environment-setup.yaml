@@ -6,6 +6,11 @@ actions:
 
   - id: 002-create-DB
     type: azure/cosmos/create
-    rg: ${env('RESOURCE_GROUP_NAME')}
-    name: ${env('COSMOS_ACCOUNT_NAME')}
+    resource-group: ${env('RESOURCE_GROUP_NAME')}
+    account-name: ${env('COSMOS_ACCOUNT_NAME')}
     location: westus
+    databases:
+      - name: FriendDatabase
+        containers:
+          - name: FriendContainer
+            partition-key-path: /LastName
