@@ -5,7 +5,7 @@ import { failOnError } from "./logging.ts";
 export type ExecOptions = {
   showScript?: boolean;
   showOutput?: boolean;
-  exitOnError: boolean;
+  exitOnError?: boolean;
 };
 
 export const defaultExecOptions: ExecOptions = {

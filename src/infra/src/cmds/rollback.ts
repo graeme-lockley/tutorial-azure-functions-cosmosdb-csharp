@@ -31,6 +31,7 @@ export const rollback = async (
     failOnError("Error: rollback: Cannot simultaneously use --all and --to");
   }
 
+  const preamble = changelog?.preamble;
   const actions = changelog.actions;
 
   if (options.to !== undefined) {
@@ -43,7 +44,7 @@ export const rollback = async (
       while (changelogLog.length > 0) {
         const entry = changelogLog[changelogLog.length - 1];
 
-        await rollbackLast(actions, changelogLog, options);
+        await rollbackLast(actions, changelogLog, preamble, options);
 
         if (entry.id === options.to) {
           break;
@@ -52,20 +53,21 @@ export const rollback = async (
     }
   } else if (options.all !== undefined && options.all) {
     while (changelogLog.length > 0) {
-      await rollbackLast(actions, changelogLog, options);
+      await rollbackLast(actions, changelogLog, preamble, options);
     }
   } else {
     if (changelogLog.length === 0) {
       failOnError("Error: rollback: All changes rolled back");
     }
 
-    await rollbackLast(actions, changelogLog, options);
+    await rollbackLast(actions, changelogLog, preamble, options);
   }
 };
 
 const rollbackLast = async (
   actions: Array<IAction>,
   changelogLog: Array<IChangeLogLogEntry>,
+  preamble: string | undefined,
   options: IRollbackOptions,
 ) => {
   const entry = changelogLog[changelogLog.length - 1];
@@ -81,8 +83,11 @@ const rollbackLast = async (
 
   const actionHandler = await Handlers.find(entryAction.type);
 
-  // deno-lint-ignore no-explicit-any
-  await actionHandler!.rollback(entryAction as any, undefined);
+  await actionHandler!.rollback(
+    // deno-lint-ignore no-explicit-any
+    entryAction as any,
+    preamble === undefined ? undefined : { preamble },
+  );
 
   changelogLog.pop();
   await saveChangelogLog(options.logLogFileName, changelogLog);

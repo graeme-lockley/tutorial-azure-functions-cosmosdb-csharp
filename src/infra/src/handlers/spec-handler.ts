@@ -120,6 +120,19 @@ const jsScript = async (
 ): Promise<Array<string>> => {
   const _outputs: Array<string> = [];
 
+  // deno-lint-ignore no-unused-vars no-explicit-any
+  const env = (name: string, value: any | undefined): string | undefined => {
+    const current = Deno.env.get(name);
+
+    if (value !== undefined) {
+      Deno.env.set(name, value);
+      // deno-lint-ignore no-explicit-any
+      (window as any)[name] = value;
+    }
+
+    return current;
+  };
+
   const exec = async (s: string): Promise<string> => {
     const response = await Exec.exec(
       s,
@@ -138,14 +151,15 @@ const jsScript = async (
   const az = (s: string): Promise<any> =>
     exec(`az ${s}`).then((r) => r === "" ? {} : JSON.parse(r));
 
-  const jsExpr = "(async () => {\n" + (schema.script.preamble ?? "") + "\n" +
-    script + "})();";
+  const jsExpr = `(async () => {\n${options?.preamble ?? ""}\n${
+    schema.script.preamble ?? ""
+  }\n${script}})();`;
 
   try {
     await await eval(jsExpr);
   } catch (e) {
     const errorMsg = `Error: ${schema.name}: ${e.message}`;
-    if (options === undefined || options.exitOnError) {
+    if (options?.exitOnError ?? true) {
       failOnError(errorMsg);
     } else {
       _outputs.push(errorMsg);

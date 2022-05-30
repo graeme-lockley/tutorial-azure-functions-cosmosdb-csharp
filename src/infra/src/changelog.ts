@@ -6,6 +6,7 @@ import { IAction } from "./handlers/declarations.ts";
 import { failOnError } from "./logging.ts";
 
 export type IChangeLogContent = {
+  preamble?: string;
   actions: Array<IAction>;
 };
 

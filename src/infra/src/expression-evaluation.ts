@@ -4,8 +4,18 @@ import { execExpression } from "./exec.ts";
 // is ignored because it is a variable that can be accessed from user
 // expressions.
 
-// deno-lint-ignore no-unused-vars
-const env = (name: string): string | undefined => Deno.env.get(name);
+// deno-lint-ignore no-unused-vars no-explicit-any
+const env = (name: string, value: any | undefined): string | undefined => {
+  const current = Deno.env.get(name);
+
+  if (value !== undefined) {
+    Deno.env.set(name, value);
+    // deno-lint-ignore no-explicit-any
+    (window as any)[name] = value;
+  }
+
+  return current;
+};
 
 // deno-lint-ignore no-unused-vars
 const AzIdentityClientId = (
@@ -16,7 +26,7 @@ const AzIdentityClientId = (
     `az identity show --name ${identityName} --resource-group ${rgName} --only-show-errors --query "clientId" --output tsv`,
   );
 
-const _myTag = async (
+export const _myTag = async (
   strings: Array<string>,
   ...keys: Array<Promise<string | undefined> | string>
 ): Promise<string> => {

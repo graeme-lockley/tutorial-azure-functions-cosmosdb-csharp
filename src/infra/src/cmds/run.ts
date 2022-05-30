@@ -28,6 +28,7 @@ export const run = async (
     failOnError("Error: run:", results);
   }
 
+  const preamble = changelog?.preamble;
   const actions = changelog.actions;
 
   if (
@@ -59,8 +60,11 @@ export const run = async (
         `---| ${action.id}: ${action.type} |---------------------------------`,
       );
 
-      // deno-lint-ignore no-explicit-any
-      const output = await actionHandler!.run(action as any, undefined);
+      const output = await actionHandler!.run(
+        // deno-lint-ignore no-explicit-any
+        action as any,
+        preamble === undefined ? undefined : { preamble },
+      );
 
       if (changelogLog !== undefined) {
         changelogLog.push({

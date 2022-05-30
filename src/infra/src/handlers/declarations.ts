@@ -17,7 +17,9 @@ export interface IAction {
   name?: string;
 }
 
-export type RunOptions = ExecOptions;
+export type RunOptions = ExecOptions & {
+  preamble?: string;
+};
 
 export type IActionHandler<T extends IAction> = {
   type: string;
