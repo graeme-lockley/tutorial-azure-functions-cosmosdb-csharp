@@ -1,0 +1,38 @@
+name: azure/cosmos/create-role
+schema: |
+  {
+    "properties": {
+      "id": { "type": "string" },
+      "type": { "type": "string" },
+      "resource-group": { "type": "string" },
+      "account-name": { "type": "string" },
+      "role-name": { "type": "string" }
+    },
+    "optionalProperties": {
+      "description": { "type": "string" },
+      "body": { "type": "string" }
+    }
+  }
+script:
+  type: js
+  preamble: |
+    const accountName = await evaluate(data['account-name']);
+    const rgName = await evaluate(data['resource-group']);
+  run: |
+    const body = await evaluate(data.body);
+    
+    await az(`cosmosdb sql role definition create 
+      --account-name "${accountName}"
+      --resource-group "${rgName}"
+      --body ${body}
+      --only-show-errors`);
+  rollback: |
+    const roleName = await evaluate(data['role-name']);
+    const roleDefinition = await az(`cosmosdb sql role definition list --account-name "${accountName}" --resource-group "${rgName}" --query "[?roleName=='${roleName}']"`)
+
+    await az(`cosmosdb sql role definition delete 
+      --account-name "${accountName}"
+      --resource-group "${rgName}"
+      --id "${roleDefinition[0].name}"
+      --only-show-errors
+      --yes`);
