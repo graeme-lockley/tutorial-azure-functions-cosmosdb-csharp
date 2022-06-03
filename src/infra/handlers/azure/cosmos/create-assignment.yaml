@@ -1,0 +1,52 @@
+name: azure/cosmos/create-assignment
+schema: |
+  {
+    "properties": {
+      "id": { "type": "string" },
+      "type": { "type": "string" },
+      "resource-group": { "type": "string" },
+      "account-name": { "type": "string" }
+    },
+    "optionalProperties": {
+      "description": { "type": "string" },
+      "principal-id": { "type": "string" },
+      "role-name": { "type": "string" },
+      "role-definition-id": { "type": "string" },
+      "scope": { "type": "string" }
+    }
+  }
+script:
+  type: js
+  preamble: |
+    const rgName = await evaluate(data['resource-group']);
+    const accountName = await evaluate(data['account-name']);
+
+    if (data['role-definition-id'] === undefined && data['role-name'] === undefined)
+      throw Error("One of role-definition-id or role-name must be defined");
+
+    const roleDefinitionId = 
+        data['role-definition-id'] !== undefined ? await evaluate(data['role-definition-id'])
+      : (await az(`cosmosdb sql role definition list --account-name "${accountName}" --resource-group "${rgName}" --only-show-errors --query "[?roleName=='${data['role-name']}']"`))[0].name;
+    const principleId =
+        data['principal-id'] !== undefined ? await evaluate(data['principal-id'])
+      : (await az('ad signed-in-user show --only-show-errors')).id;
+    const scope =
+        data['scope'] !== undefined ? await evaluate(data['scope'])
+      : "/";
+  run: |
+    await az(`cosmosdb sql role assignment create
+    --account-name "${accountName}"
+    --resource-group "${rgName}"
+    --scope "${scope}"
+    --principal-id "${principleId}"
+    --role-definition-id "${roleDefinitionId}"
+    --only-show-errors`);
+  rollback: |
+    await az(`cosmosdb sql role assignment delete
+    --account-name "${accountName}"
+    --resource-group "${rgName}"
+    --scope "${scope}"
+    --principal-id "${principleId}"
+    --role-definition-id "${roleDefinitionId}"
+    --only-show-errors
+    --yes`);
