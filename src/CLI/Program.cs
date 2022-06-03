@@ -9,5 +9,5 @@ await facade.AddFriend("Lockley", "David");
 
 var friends = await facade.FindOnLastName("Lockley");
 friends.ForEach(friend => {
-    Console.WriteLine($"{friend.LastName}, ${friend.FirstName}");
+    Console.WriteLine($"{friend.LastName}, {friend.FirstName}");
 });
