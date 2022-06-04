@@ -23,4 +23,4 @@ echo "Resource Group Name: $RESOURCE_GROUP_NAME"
 echo "Cosmos Account Name: $COSMOS_ACCOUNT_NAME"
 
 cd "$SCRIPT_DIR"/../src/infra || exit 1
-./infra-runner.ts run --no-log "$SCRIPT_DIR"/../src/infra/test-environment-setup.yaml
+./infra-runner.ts run "$SCRIPT_DIR"/../src/infra/test-environment-setup.yaml
