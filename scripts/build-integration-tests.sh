@@ -2,9 +2,6 @@
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-# shellcheck source=scripts/.env
-. "$SCRIPT_DIR"/.env
-
 TIMESTAMP="$1"
 
 if [[ "$TIMESTAMP" == "" ]]
@@ -24,15 +21,6 @@ echo "Cosmos Account Name: $COSMOS_ACCOUNT_NAME"
 
 COSMOSDB_ENDPOINT_URL="https://$COSMOS_ACCOUNT_NAME.documents.azure.com:443/"
 export COSMOSDB_ENDPOINT_URL
-
-COSMOSDB_PRIMARY_KEY=$(az cosmosdb keys list --name "$COSMOS_ACCOUNT_NAME" --resource-group "$RESOURCE_GROUP_NAME" --query primaryMasterKey --output tsv)
-export COSMOSDB_PRIMARY_KEY
-
-if [[ "$COSMOSDB_PRIMARY_KEY" == "" ]]
-then
-    echo "Error: Unable to access primary master key for $TIMESTAMP"
-    exit 1
-fi
 
 cd "$SCRIPT_DIR"/../src/PortCosmosRepositoryTest || exit 1
 dotnet test || exit 1
