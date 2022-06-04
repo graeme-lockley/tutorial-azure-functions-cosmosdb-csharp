@@ -18,7 +18,7 @@ public class Repository : IRepository
     public async Task<int> Count()
     {
         QueryDefinition queryDefinition = new QueryDefinition("SELECT VALUE COUNT(1) FROM C");
-        var container = await Connection.Container();
+        var container = Connection.Container();
         var count = 0;
 
         FeedIterator<int> queryResultSetIterator = container.GetItemQueryIterator<int>(queryDefinition);
@@ -36,8 +36,17 @@ public class Repository : IRepository
         return count;
     }
 
-    public Task Truncate() =>
-        Connection.TruncateContainer();
+    public async Task Truncate()
+    {
+        var container = Connection.Container();
+
+        var friends = await Query($"SELECT * FROM c");
+
+        foreach (var friend in friends)
+        {
+            await container.DeleteItemAsync<Friend>(friend.Id, new PartitionKey(friend.LastName));
+        }
+    }
 
     public async Task<Friend> AddFriend(string lastName, string firstName, string? knownAs)
     {
@@ -46,7 +55,7 @@ public class Repository : IRepository
 
         try
         {
-            var container = await Connection.Container();
+            var container = Connection.Container();
 
             ItemResponse<Friend> friendResponse = await container.CreateItemAsync<Friend>(friend, new PartitionKey(lastName));
             LogInformation("Created item in database with id: {0} Operation consumed {1} RUs.\n", friendResponse.Resource.Id, friendResponse.RequestCharge);
@@ -74,7 +83,7 @@ public class Repository : IRepository
         LogInformation("Running query: {0}\n", sqlQueryText);
 
         QueryDefinition queryDefinition = new QueryDefinition(sqlQueryText);
-        var container = await Connection.Container();
+        var container = Connection.Container();
         FeedIterator<Friend> queryResultSetIterator = container.GetItemQueryIterator<Friend>(queryDefinition);
 
         List<Friend> friends = new List<Friend>();
