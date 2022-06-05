@@ -83,41 +83,37 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: See secret
+      - name: Set PRINCIPAL ID
         run: |
           PRINCIPAL_ID=`echo '${{ secrets.AZURE_CREDENTIALS }}' | jq -r '.clientId'`
           echo "PRINCIPAL_ID=$PRINCIPAL_ID" >> $GITHUB_ENV
 
-      - name: Check still in environment
+      - name: Populate env from ./scripts/.env
+        uses: xom9ikk/dotenv@v1.0.2
+        with:
+          path: ./scripts
+
+      - name: Setup .NET Environment
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Setup RESOURCE_TIMESTAMP
         run: |
-          echo "$PRINCIPAL_ID" 
+          echo "RESOURCE_TIMESTAMP=`date +"%Y%m%d%H%M%S"`" >> $GITHUB_ENV
 
-      # - name: Populate env from ./scripts/.env
-      #   uses: xom9ikk/dotenv@v1.0.2
-      #   with:
-      #     path: ./scripts
-
-      # - name: Setup .NET Environment
-      #   uses: actions/setup-dotnet@v1
-      #   with:
-      #     dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      # - name: Setup RESOURCE_TIMESTAMP
-      #   run: |
-      #     echo "RESOURCE_TIMESTAMP=`date +"%Y%m%d%H%M%S"`" >> $GITHUB_ENV
-
-      # - name: Run unit tests
-      #   run: ./scripts/build-unit-tests.sh
+      - name: Run unit tests
+        run: ./scripts/build-unit-tests.sh
         
-      # - name: Setup test environment
-      #   run: ./scripts/configure-test-environment.sh $RESOURCE_TIMESTAMP
+      - name: Setup test environment
+        run: ./scripts/configure-test-environment.sh $RESOURCE_TIMESTAMP
 
-      # - name: Run integration tests
-      #   run: ./scripts/build-integration-tests.sh $RESOURCE_TIMESTAMP
+      - name: Run integration tests
+        run: ./scripts/build-integration-tests.sh $RESOURCE_TIMESTAMP
         
-      # - name: Destroy test environment
-      #   if: always()
-      #   run: ./scripts/destroy-test-environment.sh $RESOURCE_TIMESTAMP
+      - name: Destroy test environment
+        if: always()
+        run: ./scripts/destroy-test-environment.sh $RESOURCE_TIMESTAMP
 
   # deploy-system:
   #   runs-on: ubuntu-latest
