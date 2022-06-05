@@ -5,11 +5,11 @@ schema: |
       "id": { "type": "string" },
       "type": { "type": "string" },
       "resource-group": { "type": "string" },
-      "account-name": { "type": "string" }
+      "account-name": { "type": "string" },
+      "principal-id": { "type": "string" }
     },
     "optionalProperties": {
       "description": { "type": "string" },
-      "principal-id": { "type": "string" },
       "role-name": { "type": "string" },
       "role-definition-id": { "type": "string" },
       "scope": { "type": "string" }
@@ -20,6 +20,7 @@ script:
   preamble: |
     const rgName = await evaluate(data['resource-group']);
     const accountName = await evaluate(data['account-name']);
+    const principalId =await evaluate(data['principal-id']);
 
     if (data['role-definition-id'] === undefined && data['role-name'] === undefined)
       throw Error("One of role-definition-id or role-name must be defined");
@@ -27,9 +28,6 @@ script:
     const roleDefinitionId = 
         data['role-definition-id'] !== undefined ? await evaluate(data['role-definition-id'])
       : (await az(`cosmosdb sql role definition list --account-name "${accountName}" --resource-group "${rgName}" --only-show-errors --query "[?roleName=='${data['role-name']}']"`))[0].name;
-    const principleId =
-        data['principal-id'] !== undefined ? await evaluate(data['principal-id'])
-      : (await az('account list --query "[?isDefault]" --only-show-errors'))[0].id;
     const scope =
         data['scope'] !== undefined ? await evaluate(data['scope'])
       : "/";
@@ -38,7 +36,7 @@ script:
     --account-name "${accountName}"
     --resource-group "${rgName}"
     --scope "${scope}"
-    --principal-id "${principleId}"
+    --principal-id "${principalId}"
     --role-definition-id "${roleDefinitionId}"
     --only-show-errors`);
   rollback: |
@@ -46,7 +44,7 @@ script:
     --account-name "${accountName}"
     --resource-group "${rgName}"
     --scope "${scope}"
-    --principal-id "${principleId}"
+    --principal-id "${principalId}"
     --role-definition-id "${roleDefinitionId}"
     --only-show-errors
     --yes`);

@@ -29,6 +29,7 @@ actions:
 
   - id: assign-cli-role-to-me
     type: azure/cosmos/create-assignment
+    principal-id: 22395703-af19-49be-a81f-ba230562fce3
     resource-group: ${ResourceGroup}
     account-name: ${AccountName}
     role-name: "CLIRole"
