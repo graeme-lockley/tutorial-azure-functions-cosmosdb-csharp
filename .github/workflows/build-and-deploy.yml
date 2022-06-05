@@ -83,6 +83,10 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: List logged in accounts
+        run: |
+          az account list
+
       - name: Populate env from ./scripts/.env
         uses: xom9ikk/dotenv@v1.0.2
         with:
