@@ -85,7 +85,7 @@ jobs:
 
       - name: See secret
         run: |
-          PRINCIPAL_ID=`echo '${{ secrets.SUPER_SECRET }}' | jq -r '.clientId'`
+          PRINCIPAL_ID=`echo '${{ secrets.AZURE_CREDENTIALS }}' | jq -r '.clientId'`
           echo "PRINCIPAL_ID=$PRINCIPAL_ID" >> $GITHUB_ENV
 
       - name: Check still in environment
