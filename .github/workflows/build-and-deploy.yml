@@ -85,7 +85,7 @@ jobs:
 
       - name: See secret
         run: |
-          echo ${{ secrets.SUPER_SECRET }}
+          echo "${{ secrets.SUPER_SECRET }}"
 
       # - name: Populate env from ./scripts/.env
       #   uses: xom9ikk/dotenv@v1.0.2
