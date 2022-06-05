@@ -23,8 +23,8 @@ script:
 
     const principalId = 
         data['principal-id'] !== undefined ? await evaluate(data['principal-id'])
-      : Deno.env('PRINCIPAL_ID') !== undefined ? Deno.env('PRINCIPAL_ID')
-      : (await az('az ad signed-in-user show --only-show-errors')).id;
+      : Deno.env.get('PRINCIPAL_ID') !== undefined ? Deno.env.get('PRINCIPAL_ID')
+      : (await az('ad signed-in-user show --only-show-errors')).id;
 
     if (data['role-definition-id'] === undefined && data['role-name'] === undefined)
       throw Error("One of role-definition-id or role-name must be defined");
