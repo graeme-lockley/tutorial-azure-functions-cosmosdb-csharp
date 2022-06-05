@@ -29,7 +29,7 @@ script:
       : (await az(`cosmosdb sql role definition list --account-name "${accountName}" --resource-group "${rgName}" --only-show-errors --query "[?roleName=='${data['role-name']}']"`))[0].name;
     const principleId =
         data['principal-id'] !== undefined ? await evaluate(data['principal-id'])
-      : (await az('account list --query "[?isDefault]" --only-show-errors')).id;
+      : (await az('account list --query "[?isDefault]" --only-show-errors'))[0].id;
     const scope =
         data['scope'] !== undefined ? await evaluate(data['scope'])
       : "/";
