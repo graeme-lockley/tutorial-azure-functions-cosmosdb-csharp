@@ -85,7 +85,12 @@ jobs:
 
       - name: See secret
         run: |
-          echo "${{ secrets.SUPER_SECRET }}"
+          PRINCIPAL_ID=`echo '${{ secrets.SUPER_SECRET }}' | jq -r '.clientId'`
+          echo "PRINCIPAL_ID=$PRINCIPAL_ID" >> $GITHUB_ENV
+
+      - name: Check still in environment
+        run: |
+          echo "$PRINCIPAL_ID" 
 
       # - name: Populate env from ./scripts/.env
       #   uses: xom9ikk/dotenv@v1.0.2
