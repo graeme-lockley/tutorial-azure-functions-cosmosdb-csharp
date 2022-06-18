@@ -38,6 +38,7 @@ actions:
     type: azure/cosmos/create-assignment
     resource-group: ${StoreRG}
     account-name: ${AccountName}
+    principal-id: 22395703-af19-49be-a81f-ba230562fce3
     role-name: "CLIRole"
 
   - id: populate-cosmos-db
