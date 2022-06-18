@@ -66,7 +66,8 @@ jobs:
       - name: Set PRINCIPAL ID
         run: |
           CLIENT_ID=`echo '${{ secrets.AZURE_CREDENTIALS }}' | jq -r '.clientId'`
-          echo "PRINCIPAL_ID=`az ad sp list --query "[?appId='$CLIENT_ID'].id" --output tsv` >> $GITHUB_ENV
+          PRINCIPAL_ID=`az ad sp list --query "[?appId=='$CLIENT_ID'].id" --output tsv --only-show-errors`
+          echo "PRINCIPAL_ID=$PRINCIPAL_ID >> $GITHUB_ENV
 
       - uses: denoland/setup-deno@v1
         with:
