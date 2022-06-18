@@ -253,3 +253,45 @@
         "type": "Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinitions",
         "typePropertiesType": "CustomRole"
       }
+- id: assign-cli-role-to-me
+  hash: 56883f6d2815c38bcb0a77ae5ae28b44d6167945b4036ef6ff220f5d4132e670
+  when: 2022-06-18T13:18:02.510Z
+  output:
+    - |-
+      [
+        {
+          "assignableScopes": [
+            "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb"
+          ],
+          "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb/sqlRoleDefinitions/ef7a55a8-2186-4f0a-9033-c837c1b96b13",
+          "name": "ef7a55a8-2186-4f0a-9033-c837c1b96b13",
+          "permissions": [
+            {
+              "dataActions": [
+                "Microsoft.DocumentDB/databaseAccounts/readMetadata",
+                "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/items/*",
+                "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/*"
+              ],
+              "notDataActions": []
+            }
+          ],
+          "resourceGroup": "tutorialAzureFuncCosmosCSS",
+          "roleName": "CLIRole",
+          "type": "Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinitions",
+          "typePropertiesType": "CustomRole"
+        }
+      ]
+    - |-
+      {
+        "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb/sqlRoleAssignments/aea13de6-6481-46c8-a92e-f06cbc21257d",
+        "name": "aea13de6-6481-46c8-a92e-f06cbc21257d",
+        "principalId": "22395703-af19-49be-a81f-ba230562fce3",
+        "resourceGroup": "tutorialAzureFuncCosmosCSS",
+        "roleDefinitionId": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb/sqlRoleDefinitions/ef7a55a8-2186-4f0a-9033-c837c1b96b13",
+        "scope": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb",
+        "type": "Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignments"
+      }
+- id: populate-cosmos-db
+  hash: de0cf88f07446136210cf65d9b8b45f5227017b4cad9e44fab24793e15ce7a6f
+  when: 2022-06-18T13:18:20.660Z
+  output: "Connected to Cosmos: https://tafccdb.documents.azure.com:443/\nAccessed Container: FriendContainer\nCreated item in database with id: e1be5a0b-7c65-45fe-ac7c-4646110087c8 Operation consumed 6.67 RUs.\nCreated item in database with id: f3b76df4-022b-4945-acf1-dc3903ecc1e4 Operation consumed 6.48 RUs.\nRunning query: SELECT * FROM c WHERE c.LastName = 'Lockley'\n\tRead CoreLibrary.Entity.Friend\n\tRead CoreLibrary.Entity.Friend\nLockley, Graeme\nLockley, David"
