@@ -77,12 +77,14 @@ jobs:
       - name: Commit log
         if: always()
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          cd ./src/infra
-          git add ./environment-setup-log.yaml
-          git commit -m "build: update changelog log"
-          git push
+          if ! git diff-index --quiet HEAD --; then
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            cd ./src/infra
+            git add ./environment-setup-log.yaml
+            git commit -m "build: update changelog log"
+            git push
+          fi
 
   test-system:
     runs-on: ubuntu-latest
