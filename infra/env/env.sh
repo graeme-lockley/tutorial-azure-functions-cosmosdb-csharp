@@ -11,6 +11,7 @@ export FUNCTION_APP_NAME=tafcc
 export FUNCTION_APP_STORAGE_NAME=tafccs
 
 export APP_INSIGHTS_NAME=tafccn
+export APP_SERVICE_PLAN_NAME=tafccsp
 
 if [ -z "$PRINCIPAL_ID" ]
 then
