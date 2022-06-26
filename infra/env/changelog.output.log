@@ -342,3 +342,36 @@
   "type": "Microsoft.Storage/storageAccounts"
 }
 >>> end   | 006-create-storage-account.up: Sun Jun 26 11:19:39 UTC 2022 |---------------------
+>>> start | 006-create-app-insights.up: Sun Jun 26 11:31:15 UTC 2022 |---------------------
+WARNING: The installed extension 'application-insights' is in preview.
+{
+  "appId": "2258a2cc-e5f6-4fb6-8679-0dc7e5a11cdc",
+  "applicationId": "tafccn",
+  "applicationType": "web",
+  "connectionString": "InstrumentationKey=fd4efe80-79f8-418f-963a-8f4ccfcb5fc4;IngestionEndpoint=https://westus-0.in.applicationinsights.azure.com/;LiveEndpoint=https://westus.livediagnostics.monitor.azure.com/",
+  "creationDate": "2022-06-26T11:31:26.696474+00:00",
+  "disableIpMasking": null,
+  "etag": "\"bb0e06b8-0000-0200-0000-62b8438e0000\"",
+  "flowType": "Bluefield",
+  "hockeyAppId": null,
+  "hockeyAppToken": null,
+  "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSC/providers/microsoft.insights/components/tafccn",
+  "immediatePurgeDataOn30Days": null,
+  "ingestionMode": "ApplicationInsights",
+  "instrumentationKey": "fd4efe80-79f8-418f-963a-8f4ccfcb5fc4",
+  "kind": "web",
+  "location": "westus",
+  "name": "tafccn",
+  "privateLinkScopedResources": null,
+  "provisioningState": "Succeeded",
+  "publicNetworkAccessForIngestion": "Enabled",
+  "publicNetworkAccessForQuery": "Enabled",
+  "requestSource": "rest",
+  "resourceGroup": "tutorialAzureFuncCosmosCSC",
+  "retentionInDays": 90,
+  "samplingPercentage": null,
+  "tags": {},
+  "tenantId": "2ee96cab-57d3-472f-9d74-b9a9dc556def",
+  "type": "microsoft.insights/components"
+}
+>>> end   | 006-create-app-insights.up: Sun Jun 26 11:31:29 UTC 2022 |---------------------
