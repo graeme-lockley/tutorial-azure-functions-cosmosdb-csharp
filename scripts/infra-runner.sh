@@ -2,6 +2,8 @@
 
 . ./env.sh
 
+set -o pipefail
+
 if [ -z "$LOG_FILE_NAME" ]
 then
     LOG_FILE_NAME="changelog.log"
@@ -43,7 +45,15 @@ then
         then
             echo "Excute: $FILE"
             echo ">>> start | $FILE: $( date ) |---------------------" >> $OUTPUT_FILE_NAME
-            ( "./$FILE" || exit 1 ) 2>&1 | tee -a "$OUTPUT_FILE_NAME"
+
+            "./$FILE" 2>&1 | tee -a "$OUTPUT_FILE_NAME"
+            ERROR_CODE="${PIPESTATUS[0]}"
+
+            if [ "$ERROR_CODE" != "0" ]
+            then
+                exit 1
+            fi
+
             echo ">>> end   | $FILE: $( date ) |---------------------" >> $OUTPUT_FILE_NAME
 
             echo "${FILE}=$( date )" >> "$LOG_FILE_NAME"
@@ -72,7 +82,15 @@ then
 
         echo "Execute: $LAST_CHANGE_DOWN_FILE_NAME"
         echo "<<< start | $LAST_CHANGE_DOWN_FILE_NAME: $( date ) |---------------------" >> $OUTPUT_FILE_NAME
-        ( "./$LAST_CHANGE_DOWN_FILE_NAME" || exit $? ) 2>&1 | tee -a "$OUTPUT_FILE_NAME"
+        
+        "./$LAST_CHANGE_DOWN_FILE_NAME" 2>&1 | tee -a "$OUTPUT_FILE_NAME"
+        ERROR_CODE="${PIPESTATUS[0]}"
+
+        if [ "$ERROR_CODE" != "0" ]
+        then
+            exit 1
+        fi
+
         echo "<<< end   | $LAST_CHANGE_DOWN_FILE_NAME: $( date ) |---------------------" >> $OUTPUT_FILE_NAME
 
         sed -i '' '$d' "$LOG_FILE_NAME" || exit 1
