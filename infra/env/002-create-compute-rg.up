@@ -4,5 +4,5 @@
 
 az group create \
   --name "$COMPUTE_RG_NAME" \
-  --location "centralus" \
+  --location "$COMPUTE_RG_LOCATION" \
   --only-show-errors

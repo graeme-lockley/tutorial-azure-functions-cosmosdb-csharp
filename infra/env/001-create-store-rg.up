@@ -4,5 +4,5 @@
 
 az group create \
   --name "$STORE_RG_NAME" \
-  --location "centralus" \
+  --location "$STORE_RG_LOCATION" \
   --only-show-errors
