@@ -1,0 +1,5 @@
+001-create-store-rg.up=Sun Jun 26 10:50:12 UTC 2022
+002-create-compute-rg.up=Sun Jun 26 10:50:13 UTC 2022
+003-create-cosmos-db.up=Sun Jun 26 10:53:26 UTC 2022
+004-create-CLIRole.up=Sun Jun 26 10:53:58 UTC 2022
+005-role-assignment-to-me.up=Sun Jun 26 10:54:32 UTC 2022
