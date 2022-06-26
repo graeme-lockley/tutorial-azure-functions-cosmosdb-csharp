@@ -571,3 +571,171 @@ Are you sure you want to perform this operation? (y/n): <<< start | 008-create-a
 <<< start | 006-create-app-insights.down: Sun Jun 26 13:55:53 SAST 2022 |---------------------
 WARNING: Extension 'application-insights' is already installed.
 <<< end   | 006-create-app-insights.down: Sun Jun 26 13:56:09 SAST 2022 |---------------------
+>>> start | 006-create-app-insights.up: Sun Jun 26 11:59:06 UTC 2022 |---------------------
+WARNING: The installed extension 'application-insights' is in preview.
+{
+  "appId": "d21ab650-f0a1-4831-a9b4-a87715a65b3b",
+  "applicationId": "tafccn",
+  "applicationType": "web",
+  "connectionString": "InstrumentationKey=1ce92f93-332e-4e80-848c-ac7484454fea;IngestionEndpoint=https://westus-0.in.applicationinsights.azure.com/;LiveEndpoint=https://westus.livediagnostics.monitor.azure.com/",
+  "creationDate": "2022-06-26T11:59:16.877463+00:00",
+  "disableIpMasking": null,
+  "etag": "\"be0e27a6-0000-0200-0000-62b84a140000\"",
+  "flowType": "Bluefield",
+  "hockeyAppId": null,
+  "hockeyAppToken": null,
+  "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSC/providers/microsoft.insights/components/tafccn",
+  "immediatePurgeDataOn30Days": null,
+  "ingestionMode": "ApplicationInsights",
+  "instrumentationKey": "1ce92f93-332e-4e80-848c-ac7484454fea",
+  "kind": "web",
+  "location": "westus",
+  "name": "tafccn",
+  "privateLinkScopedResources": null,
+  "provisioningState": "Succeeded",
+  "publicNetworkAccessForIngestion": "Enabled",
+  "publicNetworkAccessForQuery": "Enabled",
+  "requestSource": "rest",
+  "resourceGroup": "tutorialAzureFuncCosmosCSC",
+  "retentionInDays": 90,
+  "samplingPercentage": null,
+  "tags": {},
+  "tenantId": "2ee96cab-57d3-472f-9d74-b9a9dc556def",
+  "type": "microsoft.insights/components"
+}
+>>> end   | 006-create-app-insights.up: Sun Jun 26 11:59:19 UTC 2022 |---------------------
+>>> start | 007-create-storage-account.up: Sun Jun 26 11:59:19 UTC 2022 |---------------------
+{
+  "accessTier": "Hot",
+  "allowBlobPublicAccess": true,
+  "allowCrossTenantReplication": null,
+  "allowSharedKeyAccess": null,
+  "allowedCopyScope": null,
+  "azureFilesIdentityBasedAuthentication": null,
+  "blobRestoreStatus": null,
+  "creationTime": "2022-06-26T11:59:22.983122+00:00",
+  "customDomain": null,
+  "defaultToOAuthAuthentication": null,
+  "dnsEndpointType": null,
+  "enableHttpsTrafficOnly": true,
+  "enableNfsV3": null,
+  "encryption": {
+    "encryptionIdentity": null,
+    "keySource": "Microsoft.Storage",
+    "keyVaultProperties": null,
+    "requireInfrastructureEncryption": null,
+    "services": {
+      "blob": {
+        "enabled": true,
+        "keyType": "Account",
+        "lastEnabledTime": "2022-06-26T11:59:23.076888+00:00"
+      },
+      "file": {
+        "enabled": true,
+        "keyType": "Account",
+        "lastEnabledTime": "2022-06-26T11:59:23.076888+00:00"
+      },
+      "queue": null,
+      "table": null
+    }
+  },
+  "extendedLocation": null,
+  "failoverInProgress": null,
+  "geoReplicationStats": null,
+  "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSC/providers/Microsoft.Storage/storageAccounts/tafccs",
+  "identity": null,
+  "immutableStorageWithVersioning": null,
+  "isHnsEnabled": null,
+  "isLocalUserEnabled": null,
+  "isSftpEnabled": null,
+  "keyCreationTime": {
+    "key1": "2022-06-26T11:59:23.076888+00:00",
+    "key2": "2022-06-26T11:59:23.076888+00:00"
+  },
+  "keyPolicy": null,
+  "kind": "StorageV2",
+  "largeFileSharesState": null,
+  "lastGeoFailoverTime": null,
+  "location": "westus",
+  "minimumTlsVersion": "TLS1_0",
+  "name": "tafccs",
+  "networkRuleSet": {
+    "bypass": "AzureServices",
+    "defaultAction": "Allow",
+    "ipRules": [],
+    "resourceAccessRules": null,
+    "virtualNetworkRules": []
+  },
+  "primaryEndpoints": {
+    "blob": "https://tafccs.blob.core.windows.net/",
+    "dfs": "https://tafccs.dfs.core.windows.net/",
+    "file": "https://tafccs.file.core.windows.net/",
+    "internetEndpoints": null,
+    "microsoftEndpoints": null,
+    "queue": "https://tafccs.queue.core.windows.net/",
+    "table": "https://tafccs.table.core.windows.net/",
+    "web": "https://tafccs.z22.web.core.windows.net/"
+  },
+  "primaryLocation": "westus",
+  "privateEndpointConnections": [],
+  "provisioningState": "Succeeded",
+  "publicNetworkAccess": null,
+  "resourceGroup": "tutorialAzureFuncCosmosCSC",
+  "routingPreference": null,
+  "sasPolicy": null,
+  "secondaryEndpoints": null,
+  "secondaryLocation": null,
+  "sku": {
+    "name": "Standard_LRS",
+    "tier": "Standard"
+  },
+  "statusOfPrimary": "available",
+  "statusOfSecondary": null,
+  "storageAccountSkuConversionStatus": null,
+  "tags": {},
+  "type": "Microsoft.Storage/storageAccounts"
+}
+>>> end   | 007-create-storage-account.up: Sun Jun 26 11:59:42 UTC 2022 |---------------------
+>>> start | 008-create-app-service-plan.up: Sun Jun 26 11:59:42 UTC 2022 |---------------------
+{
+  "elasticScaleEnabled": false,
+  "extendedLocation": null,
+  "freeOfferExpirationTime": null,
+  "geoRegion": "West US",
+  "hostingEnvironmentProfile": null,
+  "hyperV": false,
+  "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSC/providers/Microsoft.Web/serverfarms/tafccsp",
+  "isSpot": false,
+  "isXenon": false,
+  "kind": "app",
+  "kubeEnvironmentProfile": null,
+  "location": "westus",
+  "maximumElasticWorkerCount": 1,
+  "maximumNumberOfWorkers": 0,
+  "name": "tafccsp",
+  "numberOfSites": 0,
+  "perSiteScaling": false,
+  "provisioningState": "Succeeded",
+  "reserved": false,
+  "resourceGroup": "tutorialAzureFuncCosmosCSC",
+  "sku": {
+    "capabilities": null,
+    "capacity": 0,
+    "family": "D",
+    "locations": null,
+    "name": "D1",
+    "size": "D1",
+    "skuCapacity": null,
+    "tier": "Shared"
+  },
+  "spotExpirationTime": null,
+  "status": "Ready",
+  "subscription": "2ee96cab-57d3-472f-9d74-b9a9dc556def",
+  "tags": null,
+  "targetWorkerCount": 0,
+  "targetWorkerSizeId": 0,
+  "type": "Microsoft.Web/serverfarms",
+  "workerTierName": null,
+  "zoneRedundant": false
+}
+>>> end   | 008-create-app-service-plan.up: Sun Jun 26 11:59:48 UTC 2022 |---------------------
