@@ -13,6 +13,6 @@ az cosmosdb sql role assignment create \
     --account-name "$ACCOUNT_NAME" \
     --resource-group "$STORE_RG_NAME" \
     --scope "/" \
-    --principal-id "22395703-af19-49be-a81f-ba230562fce3" \
+    --principal-id "$PRINCIPAL_ID" \
     --role-definition-id "$ROLE_DEFINITION_ID" \
     --only-show-errors
