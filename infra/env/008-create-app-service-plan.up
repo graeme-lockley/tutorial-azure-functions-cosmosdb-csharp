@@ -1,0 +1,10 @@
+#!/bin/bash
+
+. "$( dirname "$0" )/env.sh"
+
+az appservice plan create \
+    --name "$APP_SERVICE_PLAN_NAME" \
+    --resource-group "$COMPUTE_RG_NAME" \
+    --location "$COMPUTE_RG_LOCATION" \
+    --sku "SHARED" \
+    --only-show-errors
