@@ -2,7 +2,6 @@
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-# shellcheck source=scripts/.env
 . "$SCRIPT_DIR"/.env
 
 OUTPUT_PATH="$SCRIPT_DIR"/../"$BUILD_OUTPUT_PATH"

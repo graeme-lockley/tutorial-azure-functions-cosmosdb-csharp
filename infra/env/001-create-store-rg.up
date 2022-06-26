@@ -1,0 +1,8 @@
+#!/bin/bash
+
+. "$( dirname "$0" )/env.sh"
+
+az group create \
+  --name "$STORE_RG_NAME" \
+  --location "centralus" \
+  --only-show-errors

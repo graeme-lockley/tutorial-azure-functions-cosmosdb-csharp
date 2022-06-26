@@ -1,0 +1,9 @@
+#!/bin/bash
+
+. "$( dirname "$0" )/env.sh"
+
+az cosmosdb sql role definition create \
+  --account-name "$ACCOUNT_NAME" \
+  --resource-group "$STORE_RG_NAME" \
+  --body @CLIRole.json \
+  --only-show-errors

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+. "$( dirname "$0" )/env.sh"
+
+ROLE_ASSIGNMENT_ID=$( az cosmosdb sql role assignment list \
+    --account-name "$ACCOUNT_NAME" \
+    --resource-group "$STORE_RG_NAME" \
+    --query "[?principalId=='$PRINCIPAL_ID'].id" \
+    --output tsv \
+    --only-show-errors ) || exit 1
+
+az cosmosdb sql role assignment delete \
+    --account-name "$ACCOUNT_NAME" \
+    --resource-group "$STORE_RG_NAME" \
+    --role-assignment-id "$ROLE_ASSIGNMENT_ID" \
+    --only-show-errors \
+    --yes

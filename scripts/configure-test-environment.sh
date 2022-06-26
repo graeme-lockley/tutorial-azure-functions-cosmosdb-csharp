@@ -2,7 +2,6 @@
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-# shellcheck source=scripts/.env
 . "$SCRIPT_DIR"/.env
 
 TIMESTAMP="$1"
@@ -22,5 +21,5 @@ export COSMOS_ACCOUNT_NAME
 echo "Resource Group Name: $RESOURCE_GROUP_NAME"
 echo "Cosmos Account Name: $COSMOS_ACCOUNT_NAME"
 
-cd "$SCRIPT_DIR"/../src/infra || exit 1
-./infra-runner.ts run "$SCRIPT_DIR"/../src/infra/test-environment-setup.yaml
+cd "$SCRIPT_DIR"/../infra/test-setup || exit 1
+"$SCRIPT_DIR"/infra-runner.sh run
