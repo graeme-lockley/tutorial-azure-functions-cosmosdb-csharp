@@ -67,10 +67,6 @@ jobs:
         run: |
           echo "PRINCIPAL_ID=13a14d77-4566-4978-a89d-62026e567f22" >> $GITHUB_ENV
 
-      - uses: denoland/setup-deno@v1
-        with:
-          deno-version: v1.x
-
       - name: Setup environment
         run: ./scripts/configure-environment.sh
 
@@ -80,8 +76,8 @@ jobs:
           if ! git diff-index --quiet HEAD --; then
             git config user.name github-actions
             git config user.email github-actions@github.com
-            cd ./src/infra
-            git add ./environment-setup-log.yaml
+            cd ./infra/env
+            git add ./*.log
             git commit -m "build: update changelog log"
             git push
           fi
