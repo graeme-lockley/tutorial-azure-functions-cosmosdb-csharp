@@ -1,0 +1,14 @@
+#!/bin/bash
+
+. "$( dirname "$0" )/env.sh"
+
+az functionapp create \
+    --name "$FUNCTION_APP_NAME" \
+    --storage-account "$FUNCTION_APP_STORAGE_NAME" \
+    --consumption-plan-location "$COMPUTE_RG_LOCATION" \
+    --resource-group "$COMPUTE_RG_NAME" \
+    --storage-account "$FUNCTION_APP_STORAGE_NAME" \
+    --app-insights "$APP_INSIGHTS_NAME" \
+    --runtime "dotnet" \
+    --runtime-version "6" \
+    --functions-version "4"
