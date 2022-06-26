@@ -1,0 +1,10 @@
+#!/bin/bash
+
+. "$( dirname "$0" )/env.sh"
+
+az extension add -n application-insights
+
+az monitor app-insights component delete \
+    --app "$APP_INSIGHTS_NAME" \
+    --resource-group "$COMPUTE_RG_NAME" \
+    --only-show-errors

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+. "$( dirname "$0" )/env.sh"
+
+az extension add -n application-insights
+
+az monitor app-insights component create \
+    --app "$APP_INSIGHTS_NAME" \
+    --location "$COMPUTE_RG_LOCATION" \
+    --kind web \
+    --resource-group "$COMPUTE_RG_NAME" \
+    --application-type web \
+    --ingestion-access Enabled \
+    --query-access Enabled \
+    --only-show-errors
