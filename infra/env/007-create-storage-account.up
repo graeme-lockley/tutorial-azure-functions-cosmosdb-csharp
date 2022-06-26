@@ -4,7 +4,7 @@
 
 az storage account create \
     --name "$FUNCTION_APP_STORAGE_NAME" \
-    --location "centralus" \
+    --location "$COMPUTE_RG_LOCATION" \
     --resource-group "$COMPUTE_RG_NAME" \
     --kind StorageV2 \
     --sku "Standard_LRS" \
