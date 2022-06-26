@@ -73,11 +73,11 @@ jobs:
       - name: Commit log
         if: always()
         run: |
+          cd ./infra/env
+          git add ./*.log
           if ! git diff-index --quiet HEAD --; then
             git config user.name github-actions
             git config user.email github-actions@github.com
-            cd ./infra/env
-            git add ./*.log
             git commit -m "build: update changelog log"
             git push
           fi
