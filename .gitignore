@@ -65,7 +65,6 @@ artifacts/
 *.tlh
 *.tmp
 *.tmp_proj
-*.log
 *.vspscc
 *.vssscc
 .builds
@@ -272,3 +271,5 @@ infra/*.json
 src/Functions/output
 
 src/infra/src/handlers/handler.yaml
+src/infra/x.txt
+output.log
