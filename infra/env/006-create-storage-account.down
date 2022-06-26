@@ -1,0 +1,10 @@
+#!/bin/bash
+
+. "$( dirname "$0" )/env.sh"
+
+az storage account delete \
+    --name "$FUNCTION_APP_STORAGE_NAME" \
+    --resource-group "$COMPUTE_RG_NAME" \
+    --yes \
+    --only-show-errors
+    

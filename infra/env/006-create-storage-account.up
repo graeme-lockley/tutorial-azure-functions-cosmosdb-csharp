@@ -1,0 +1,11 @@
+#!/bin/bash
+
+. "$( dirname "$0" )/env.sh"
+
+az storage account create \
+    --name "$FUNCTION_APP_STORAGE_NAME" \
+    --location "centralus" \
+    --resource-group "$COMPUTE_RG_NAME" \
+    --kind StorageV2 \
+    --sku "Standard_LRS" \
+    --only-show-errors
