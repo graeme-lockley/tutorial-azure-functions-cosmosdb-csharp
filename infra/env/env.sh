@@ -13,7 +13,7 @@ export FUNCTION_APP_STORAGE_NAME=tafccs
 export APP_INSIGHTS_NAME=tafccn
 export APP_SERVICE_PLAN_NAME=tafccsp
 
-if [ -z "$PRINCIPAL_ID" ]
-then
+# if [ -z "$PRINCIPAL_ID" ]
+# then
     export PRINCIPAL_ID=22395703-af19-49be-a81f-ba230562fce3
-fi
+# fi
