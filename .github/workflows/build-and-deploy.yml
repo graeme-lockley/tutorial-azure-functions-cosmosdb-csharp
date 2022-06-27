@@ -166,10 +166,10 @@ jobs:
           resourceGroupName: ${{ env.COMPUTE_RESOURCE_GROUP_NAME }}
           appName: ${{ env.FUNCTIONAPP_NAME }}
 
-      - name: Show Profile
-        shell: bash
-        run: |
-          echo "WebApp: ${{ steps.webapp.outputs.profile }}"
+      # - name: Show Profile
+      #   shell: bash
+      #   run: |
+      #     echo "WebApp: ${{ steps.webapp.outputs.profile }}"
 
       - name: Publish distribution to Azure
         uses: azure/functions-action@v1
