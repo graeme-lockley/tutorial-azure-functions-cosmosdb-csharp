@@ -1,0 +1,9 @@
+001-create-store-rg.up=Sat Jul  2 06:27:36 UTC 2022
+002-create-compute-rg.up=Sat Jul  2 06:27:37 UTC 2022
+003-create-cosmos-db.up=Sat Jul  2 06:30:50 UTC 2022
+004-create-CLIRole.up=Sat Jul  2 06:31:22 UTC 2022
+005-role-assignment-to-me.up=Sat Jul  2 06:31:56 UTC 2022
+006-create-app-insights.up=Sat Jul  2 06:32:10 UTC 2022
+007-create-storage-account.up=Sat Jul  2 06:32:35 UTC 2022
+008-create-app-service-plan.up=Sat Jul  2 06:32:42 UTC 2022
+009-create-function-app.up=Sat Jul  2 06:33:12 UTC 2022
