@@ -612,3 +612,18 @@ WARNING: The installed extension 'application-insights' is in preview.
   "virtualNetworkSubnetId": null
 }
 >>> end   | 009-create-function-app.up: Sat Jul  2 06:33:12 UTC 2022 |---------------------
+>>> start | 010-populate-cosmos-content.up: Sat Jul  2 06:43:32 UTC 2022 |---------------------
+Connected to Cosmos: https://tafccdb.documents.azure.com:443/
+Accessed Container: FriendContainer
+Created item in database with id: b6b61690-884e-4e92-9f37-4ba4ae4d4d79 Operation consumed 6.67 RUs.
+Created item in database with id: 291693f1-6a38-4e7c-861b-019d6a3cdaa5 Operation consumed 6.48 RUs.
+Running query: SELECT * FROM c WHERE c.LastName = 'Lockley'
+	Read CoreLibrary.Entity.Friend
+	Read CoreLibrary.Entity.Friend
+	Read CoreLibrary.Entity.Friend
+	Read CoreLibrary.Entity.Friend
+Lockley, Graeme
+Lockley, David
+Lockley, Graeme
+Lockley, David
+>>> end   | 010-populate-cosmos-content.up: Sat Jul  2 06:43:51 UTC 2022 |---------------------

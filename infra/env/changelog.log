@@ -7,3 +7,4 @@
 007-create-storage-account.up=Sat Jul  2 06:32:35 UTC 2022
 008-create-app-service-plan.up=Sat Jul  2 06:32:42 UTC 2022
 009-create-function-app.up=Sat Jul  2 06:33:12 UTC 2022
+010-populate-cosmos-content.up=Sat Jul  2 06:43:51 UTC 2022
