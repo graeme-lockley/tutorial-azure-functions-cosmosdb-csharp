@@ -2,8 +2,13 @@
 
 . "$( dirname "$0" )/env.sh"
 
-echo ". Account Name: $ACCOUNT_NAME"
-echo ". Resource Group: $STORE_RG_NAME"
+PRINCIPAL_ID=$( az functionapp show \
+    --resource-group "$COMPUTE_RG_NAME" \
+    --name "$FUNCTION_APP_NAME" \
+    --query "identity.principalId" \
+    --output tsv \
+    --only-show-errors ) || exit 1
+echo ". Principal ID: $PRINCIPAL_ID"
 
 ROLE_DEFINITION_ID=$( az cosmosdb sql role definition list \
     --account-name "$ACCOUNT_NAME" \
@@ -13,12 +18,9 @@ ROLE_DEFINITION_ID=$( az cosmosdb sql role definition list \
     --output tsv ) || exit 1
 echo ". Role Definition ID: $ROLE_DEFINITION_ID"
 
-echo ". Principal ID: $PRINCIPAL_ID"
-
 az cosmosdb sql role assignment create \
     --account-name "$ACCOUNT_NAME" \
     --resource-group "$STORE_RG_NAME" \
     --scope "/" \
     --principal-id "$PRINCIPAL_ID" \
-    --role-definition-id "$ROLE_DEFINITION_ID" \
-    --only-show-errors
+    --role-definition-id "$ROLE_DEFINITION_ID"
