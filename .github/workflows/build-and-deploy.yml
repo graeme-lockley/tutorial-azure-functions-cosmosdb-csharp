@@ -21,15 +21,15 @@ jobs:
   #     - name: 'Lint Bicep source'
   #       run: ./scripts/lint-bicep.sh
 
-  # lint-bash:
-  #   runs-on: ubuntu-latest
+  lint-bash:
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Checkout source code
-  #       uses: actions/checkout@v2
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
 
-  #     - name: Lint bash scripts
-  #       run: ./scripts/lint-bash.sh
+      - name: Lint bash scripts
+        run: ./scripts/lint-bash.sh
 
   # lint-deno:
   #   runs-on: ubuntu-latest
@@ -50,8 +50,59 @@ jobs:
   #         cd ./src/infra
   #         deno test --allow-env --allow-run
 
+  test-system:
+    runs-on: ubuntu-latest
+    needs: [lint-bash]
+    # needs: [lint-bicep, lint-bash, lint-deno]
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set PRINCIPAL ID
+        run: |
+          PRINCIPAL_ID=`echo '${{ secrets.AZURE_CREDENTIALS }}' | jq -r '.clientId'`
+          echo "PRINCIPAL_ID=$PRINCIPAL_ID" >> $GITHUB_ENV
+
+      - name: Populate env from ./scripts/.env
+        uses: xom9ikk/dotenv@v1.0.2
+        with:
+          path: ./scripts
+
+      - name: Setup .NET Environment
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Setup RESOURCE_TIMESTAMP
+        run: |
+          echo "RESOURCE_TIMESTAMP=`date +"%Y%m%d%H%M%S"`" >> $GITHUB_ENV
+
+      - name: Run unit tests
+        run: ./scripts/build-unit-tests.sh
+        
+      - name: Setup test environment
+        run: ./scripts/configure-test-environment.sh $RESOURCE_TIMESTAMP
+
+      - name: Run integration tests
+        run: ./scripts/build-integration-tests.sh $RESOURCE_TIMESTAMP
+        
+      - name: Destroy test environment
+        if: always()
+        run: ./scripts/destroy-test-environment.sh $RESOURCE_TIMESTAMP
+
   build-azure-infrastructure:
     runs-on: ubuntu-latest
+    needs: [test-system]
     # needs: [lint-bicep, lint-bash, lint-deno]
 
     steps:
@@ -82,59 +133,9 @@ jobs:
             git push
           fi
 
-  # test-system:
-  #   runs-on: ubuntu-latest
-  #   needs: [lint-bicep, lint-bash, lint-deno]
-
-  #   steps:
-  #     - name: Checkout source code
-  #       uses: actions/checkout@v2
-
-  #     - uses: denoland/setup-deno@v1
-  #       with:
-  #         deno-version: v1.x
-
-  #     - name: Login to Azure
-  #       uses: azure/login@v1
-  #       with:
-  #         creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-  #     - name: Set PRINCIPAL ID
-  #       run: |
-  #         PRINCIPAL_ID=`echo '${{ secrets.AZURE_CREDENTIALS }}' | jq -r '.clientId'`
-  #         echo "PRINCIPAL_ID=$PRINCIPAL_ID" >> $GITHUB_ENV
-
-  #     - name: Populate env from ./scripts/.env
-  #       uses: xom9ikk/dotenv@v1.0.2
-  #       with:
-  #         path: ./scripts
-
-  #     - name: Setup .NET Environment
-  #       uses: actions/setup-dotnet@v1
-  #       with:
-  #         dotnet-version: ${{ env.DOTNET_VERSION }}
-
-  #     - name: Setup RESOURCE_TIMESTAMP
-  #       run: |
-  #         echo "RESOURCE_TIMESTAMP=`date +"%Y%m%d%H%M%S"`" >> $GITHUB_ENV
-
-  #     - name: Run unit tests
-  #       run: ./scripts/build-unit-tests.sh
-        
-  #     - name: Setup test environment
-  #       run: ./scripts/configure-test-environment.sh $RESOURCE_TIMESTAMP
-
-  #     - name: Run integration tests
-  #       run: ./scripts/build-integration-tests.sh $RESOURCE_TIMESTAMP
-        
-  #     - name: Destroy test environment
-  #       if: always()
-  #       run: ./scripts/destroy-test-environment.sh $RESOURCE_TIMESTAMP
-
   deploy-system:
     runs-on: ubuntu-latest
     needs: [build-azure-infrastructure]
-    # needs: [build-azure-infrastructure, test-system]
 
     steps:
       - name: Checkout source code
