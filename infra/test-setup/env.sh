@@ -6,10 +6,10 @@ then
     export RESOURCE_GROUP_NAME
 fi
 
-if [ -z "$COSMOS_ACCOUNT_NAME" ]
+if [ -z "$ACCOUNT_NAME" ]
 then
-    COSMOS_ACCOUNT_NAME="cdbtesttest"
-    export COSMOS_ACCOUNT_NAME
+    ACCOUNT_NAME="cdbtesttest"
+    export ACCOUNT_NAME
 fi
 
 LOG_FILE_NAME="${RESOURCE_GROUP_NAME}.log"

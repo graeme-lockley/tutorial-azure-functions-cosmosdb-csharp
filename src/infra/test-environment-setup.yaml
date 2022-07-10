@@ -1,6 +1,6 @@
 preamble: |
   env("ResourceGroup", env('RESOURCE_GROUP_NAME'));
-  env("AccountName", env('COSMOS_ACCOUNT_NAME'));
+  env("AccountName", env('ACCOUNT_NAME'));
 
 actions:
   - id: create-RG

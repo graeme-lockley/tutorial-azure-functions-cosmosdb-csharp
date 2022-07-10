@@ -13,13 +13,13 @@ fi
 RESOURCE_GROUP_NAME="rg_test_$TIMESTAMP"
 export RESOURCE_GROUP_NAME
 
-COSMOS_ACCOUNT_NAME="cdbtest$TIMESTAMP"
-export COSMOS_ACCOUNT_NAME
+ACCOUNT_NAME="cdbtest$TIMESTAMP"
+export ACCOUNT_NAME
 
 echo "Resource Group Name: $RESOURCE_GROUP_NAME"
-echo "Cosmos Account Name: $COSMOS_ACCOUNT_NAME"
+echo "Account Name: $ACCOUNT_NAME"
 
-COSMOSDB_ENDPOINT_URL="https://$COSMOS_ACCOUNT_NAME.documents.azure.com:443/"
+COSMOSDB_ENDPOINT_URL="https://$ACCOUNT_NAME.documents.azure.com:443/"
 export COSMOSDB_ENDPOINT_URL
 
 cd "$SCRIPT_DIR"/../src/PortCosmosRepositoryTest || exit 1
