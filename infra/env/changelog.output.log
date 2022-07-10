@@ -1,0 +1,258 @@
+>>> start | 001-create-store-rg.up: Sun Jul 10 07:20:39 UTC 2022 |---------------------
+{
+  "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS",
+  "location": "centralus",
+  "managedBy": null,
+  "name": "tutorialAzureFuncCosmosCSS",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null,
+  "type": "Microsoft.Resources/resourceGroups"
+}
+>>> end   | 001-create-store-rg.up: Sun Jul 10 07:20:41 UTC 2022 |---------------------
+>>> start | 002-create-compute-rg.up: Sun Jul 10 07:20:41 UTC 2022 |---------------------
+{
+  "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSC",
+  "location": "westus",
+  "managedBy": null,
+  "name": "tutorialAzureFuncCosmosCSC",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null,
+  "type": "Microsoft.Resources/resourceGroups"
+}
+>>> end   | 002-create-compute-rg.up: Sun Jul 10 07:20:41 UTC 2022 |---------------------
+>>> start | 003-create-cosmos-db.up: Sun Jul 10 07:20:41 UTC 2022 |---------------------
+{
+  "analyticalStorageConfiguration": {
+    "schemaType": "WellDefined"
+  },
+  "apiProperties": null,
+  "backupPolicy": {
+    "migrationState": null,
+    "periodicModeProperties": {
+      "backupIntervalInMinutes": 240,
+      "backupRetentionIntervalInHours": 8,
+      "backupStorageRedundancy": "Geo"
+    },
+    "type": "Periodic"
+  },
+  "capabilities": [],
+  "capacity": null,
+  "connectorOffer": null,
+  "consistencyPolicy": {
+    "defaultConsistencyLevel": "Session",
+    "maxIntervalInSeconds": 5,
+    "maxStalenessPrefix": 100
+  },
+  "cors": [],
+  "createMode": null,
+  "databaseAccountOfferType": "Standard",
+  "defaultIdentity": "FirstPartyIdentity",
+  "disableKeyBasedMetadataWriteAccess": false,
+  "disableLocalAuth": false,
+  "documentEndpoint": "https://tafccdb.documents.azure.com:443/",
+  "enableAnalyticalStorage": false,
+  "enableAutomaticFailover": false,
+  "enableCassandraConnector": null,
+  "enableFreeTier": false,
+  "enableMultipleWriteLocations": false,
+  "failoverPolicies": [
+    {
+      "failoverPriority": 0,
+      "id": "tafccdb-westus",
+      "locationName": "West US"
+    }
+  ],
+  "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb",
+  "identity": {
+    "principalId": null,
+    "tenantId": null,
+    "type": "None",
+    "userAssignedIdentities": null
+  },
+  "instanceId": "734efcf3-e283-4c5a-bdfe-15752f224a0a",
+  "ipRules": [],
+  "isVirtualNetworkFilterEnabled": false,
+  "keyVaultKeyUri": null,
+  "kind": "GlobalDocumentDB",
+  "location": "Central US",
+  "locations": [
+    {
+      "documentEndpoint": "https://tafccdb-westus.documents.azure.com:443/",
+      "failoverPriority": 0,
+      "id": "tafccdb-westus",
+      "isZoneRedundant": false,
+      "locationName": "West US",
+      "provisioningState": "Succeeded"
+    }
+  ],
+  "name": "tafccdb",
+  "networkAclBypass": "None",
+  "networkAclBypassResourceIds": [],
+  "privateEndpointConnections": null,
+  "provisioningState": "Succeeded",
+  "publicNetworkAccess": "Enabled",
+  "readLocations": [
+    {
+      "documentEndpoint": "https://tafccdb-westus.documents.azure.com:443/",
+      "failoverPriority": 0,
+      "id": "tafccdb-westus",
+      "isZoneRedundant": false,
+      "locationName": "West US",
+      "provisioningState": "Succeeded"
+    }
+  ],
+  "resourceGroup": "tutorialAzureFuncCosmosCSS",
+  "restoreParameters": null,
+  "systemData": {
+    "createdAt": "2022-07-10T07:22:18.595425+00:00",
+    "createdBy": null,
+    "createdByType": null,
+    "lastModifiedAt": null,
+    "lastModifiedBy": null,
+    "lastModifiedByType": null
+  },
+  "tags": {},
+  "type": "Microsoft.DocumentDB/databaseAccounts",
+  "virtualNetworkRules": [],
+  "writeLocations": [
+    {
+      "documentEndpoint": "https://tafccdb-westus.documents.azure.com:443/",
+      "failoverPriority": 0,
+      "id": "tafccdb-westus",
+      "isZoneRedundant": false,
+      "locationName": "West US",
+      "provisioningState": "Succeeded"
+    }
+  ]
+}
+{
+  "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb/sqlDatabases/FriendDatabase",
+  "location": null,
+  "name": "FriendDatabase",
+  "options": null,
+  "resource": {
+    "_self": "dbs/2Ct-AA==/",
+    "colls": "colls/",
+    "etag": "\"0000e603-0000-0700-0000-62ca7e4f0000\"",
+    "id": "FriendDatabase",
+    "rid": "2Ct-AA==",
+    "ts": 1657437775.0,
+    "users": "users/"
+  },
+  "resourceGroup": "tutorialAzureFuncCosmosCSS",
+  "tags": null,
+  "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases"
+}
+{
+  "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb/sqlDatabases/FriendDatabase/containers/FriendContainer",
+  "location": null,
+  "name": "FriendContainer",
+  "options": null,
+  "resource": {
+    "_conflicts": "conflicts/",
+    "_docs": "docs/",
+    "_self": "dbs/2Ct-AA==/colls/2Ct-AOzZRwc=/",
+    "_sprocs": "sprocs/",
+    "_triggers": "triggers/",
+    "_udfs": "udfs/",
+    "analyticalStorageTtl": null,
+    "conflictResolutionPolicy": {
+      "conflictResolutionPath": "/_ts",
+      "conflictResolutionProcedure": "",
+      "mode": "LastWriterWins"
+    },
+    "defaultTtl": null,
+    "etag": "\"0000e803-0000-0700-0000-62ca7e700000\"",
+    "geospatialConfig": {
+      "type": "Geography"
+    },
+    "id": "FriendContainer",
+    "indexingPolicy": {
+      "automatic": true,
+      "compositeIndexes": null,
+      "excludedPaths": [
+        {
+          "path": "/\"_etag\"/?"
+        }
+      ],
+      "includedPaths": [
+        {
+          "indexes": null,
+          "path": "/*"
+        }
+      ],
+      "indexingMode": "consistent",
+      "spatialIndexes": null
+    },
+    "partitionKey": {
+      "kind": "Hash",
+      "paths": [
+        "/LastName"
+      ],
+      "systemKey": null,
+      "version": null
+    },
+    "rid": "2Ct-AOzZRwc=",
+    "statistics": [
+      {
+        "documentCount": 0,
+        "id": "0",
+        "partitionKeys": [],
+        "sampledDistinctPartitionKeyCount": 0,
+        "sizeInKB": 0
+      }
+    ],
+    "ts": 1657437808.0,
+    "uniqueKeyPolicy": {
+      "uniqueKeys": []
+    }
+  },
+  "resourceGroup": "tutorialAzureFuncCosmosCSS",
+  "tags": null,
+  "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers"
+}
+>>> end   | 003-create-cosmos-db.up: Sun Jul 10 07:23:53 UTC 2022 |---------------------
+>>> start | 004-create-CLIRole.up: Sun Jul 10 07:23:53 UTC 2022 |---------------------
+{
+  "assignableScopes": [
+    "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb"
+  ],
+  "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb/sqlRoleDefinitions/8f39a3d2-6a9e-4f83-a336-d265563ee935",
+  "name": "8f39a3d2-6a9e-4f83-a336-d265563ee935",
+  "permissions": [
+    {
+      "dataActions": [
+        "Microsoft.DocumentDB/databaseAccounts/readMetadata",
+        "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/items/*",
+        "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/*"
+      ],
+      "notDataActions": []
+    }
+  ],
+  "resourceGroup": "tutorialAzureFuncCosmosCSS",
+  "roleName": "CLIRole",
+  "type": "Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinitions",
+  "typePropertiesType": "CustomRole"
+}
+>>> end   | 004-create-CLIRole.up: Sun Jul 10 07:24:25 UTC 2022 |---------------------
+>>> start | 005-role-assignment-to-principal.up: Sun Jul 10 07:24:25 UTC 2022 |---------------------
+. Account Name: tafccdb
+. Resource Group: tutorialAzureFuncCosmosCSS
+. Role Definition ID: 8f39a3d2-6a9e-4f83-a336-d265563ee935
+. Principal ID: 22395703-af19-49be-a81f-ba230562fce3
+{
+  "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb/sqlRoleAssignments/3b3dd703-eceb-42cb-926a-e9d6784a910b",
+  "name": "3b3dd703-eceb-42cb-926a-e9d6784a910b",
+  "principalId": "22395703-af19-49be-a81f-ba230562fce3",
+  "resourceGroup": "tutorialAzureFuncCosmosCSS",
+  "roleDefinitionId": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb/sqlRoleDefinitions/8f39a3d2-6a9e-4f83-a336-d265563ee935",
+  "scope": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb",
+  "type": "Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignments"
+}
+>>> end   | 005-role-assignment-to-principal.up: Sun Jul 10 07:24:59 UTC 2022 |---------------------
+>>> start | 006-populate-cosmos-content.up: Sun Jul 10 07:24:59 UTC 2022 |---------------------
+./006-populate-cosmos-content.up: line 5: ../../scripts/build-database-content.sh: No such file or directory
