@@ -34,7 +34,7 @@ actions:
     role-name: CLIRole
     body: "@CLIRole.json"
 
-  - id: assign-cli-role-to-me
+  - id: assign-cli-role-to-principal
     type: azure/cosmos/create-assignment
     resource-group: ${StoreRG}
     account-name: ${AccountName}
@@ -46,99 +46,4 @@ actions:
     run: |
       ../../scripts/build-database-content.sh
 
-# {
-#   "actions": [
-#     {
-#       "id": "001-create-RG",
-#       "type": "azure/resource-group/create",
-#       "name": "tutorialAzureFuncCosmosCSC",
-#       "location": "centralus"
-#     },
-#     {
-#       "id": "002-create-RG",
-#       "type": "azure/resource-group/create",
-#       "name": "tutorialAzureFuncCosmosCSS",
-#       "location": "centralus"
-#     },
-#     {
-#       "id": "003-create-DB",
-#       "type": "azure/cosmos/create",
-#       "rg": "tutorialAzureFuncCosmosCSS",
-#       "name": "tafccdb",
-#       "location": "westus"
-#     },
-#     {
-#       "id": "004-add-creator-to-me",
-#       "type": "azure/cli/az",
-#       "run": "az role assignment create --assignee ${execExpression('az ad signed-in-user show --only-show-errors --query \"objectId\" --output tsv')} --role Contributor --scope /subscriptions/${execExpression('az account list --query \"[?isDefault].id\" --only-show-errors --output tsv')}/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb",
-#       "rollback": "az role assignment delete --assignee ${execExpression('az ad signed-in-user show --only-show-errors --query \"objectId\" --output tsv')} --role Contributor --scope /subscriptions/${execExpression('az account list --query \"[?isDefault].id\" --only-show-errors --output tsv')}/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb"
-#     },
-#     {
-#       "id": "005-add-creator-to-me",
-#       "type": "azure/cli/az",
-#       "run": "az role assignment create --assignee ${execExpression('az ad signed-in-user show --only-show-errors --query \"objectId\" --output tsv')} --role Reader --scope /subscriptions/${execExpression('az account list --query \"[?isDefault].id\" --only-show-errors --output tsv')}/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb",
-#       "rollback": "az role assignment delete --assignee ${execExpression('az ad signed-in-user show --only-show-errors --query \"objectId\" --output tsv')} --role Reader --scope /subscriptions/${execExpression('az account list --query \"[?isDefault].id\" --only-show-errors --output tsv')}/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb"
-#     },
-#     {
-#       "id": "006-create-managed-identity-yoda",
-#       "type": "azure/cli/az",
-#       "run": "az identity create --name Yoda --resource-group tutorialAzureFuncCosmosCSS",
-#       "rollback": "az identity delete --name Yoda --resource-group tutorialAzureFuncCosmosCSS"
-#     },
-#     {
-#       "id": "007-add-creator-to-yoda",
-#       "type": "azure/cli/az",
-#       "run": "az role assignment create --assignee ${AzIdentityClientId('Yoda', 'tutorialAzureFuncCosmosCSS')} --role Contributor --scope /subscriptions/${execExpression('az account list --query \"[?isDefault].id\" --only-show-errors --output tsv')}/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb",
-#       "rollback": "az role assignment delete --assignee ${AzIdentityClientId('Yoda', 'tutorialAzureFuncCosmosCSS')} --role Contributor --scope /subscriptions/${execExpression('az account list --query \"[?isDefault].id\" --only-show-errors --output tsv')}/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb"
-#     },
-#     {
-#       "id": "008-add-reader-to-yoda",
-#       "type": "azure/cli/az",
-#       "run": "az role assignment create --assignee ${AzIdentityClientId('Yoda', 'tutorialAzureFuncCosmosCSS')} --role Reader  --scope /subscriptions/${execExpression('az account list --query \"[?isDefault].id\" --only-show-errors --output tsv')}/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb",
-#       "rollback": "az role assignment delete --assignee ${AzIdentityClientId('Yoda', 'tutorialAzureFuncCosmosCSS')} --role Reader --scope /subscriptions/${execExpression('az account list --query \"[?isDefault].id\" --only-show-errors --output tsv')}/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb"
-#     },
-#     {
-#       "id": "009-create-storage-account",
-#       "type": "azure/cli/az",
-#       "run": "az storage account create --name tafccs --location centralus --resource-group tutorialAzureFuncCosmosCSC --sku Standard_LRS",
-#       "rollback": "az storage account delete --name tafccs --resource-group tutorialAzureFuncCosmosCSC --yes"
-#     },
-#     {
-#       "id": "010-create-app-service-plan",
-#       "type": "azure/cli/az",
-#       "run": "az appservice plan create --resource-group tutorialAzureFuncCosmosCSC --name tafcc-sp --sku B1",
-#       "rollback": "az functionapp delete --name tafcc --resource-group tutorialAzureFuncCosmosCSC"
-#     },
-#     {
-#       "id": "011-create-function-app",
-#       "type": "azure/cli/az",
-#       "run": "az functionapp create --resource-group tutorialAzureFuncCosmosCSC --runtime dotnet --functions-version 3 --name tafcc --storage-account tafccs --plan tafcc-sp",
-#       "rollback": "az functionapp delete --name tafcc --resource-group tutorialAzureFuncCosmosCSC"
-#     },
-#     {
-#       "id": "012-create-database",
-#       "type": "azure/cli/az",
-#       "run": "az cosmosdb sql database create --account-name tafccdb --resource-group tutorialAzureFuncCosmosCSS --name FriendDatabase",
-#       "rollback": "az cosmosdb sql database delete --account-name tafccdb --resource-group tutorialAzureFuncCosmosCSS --name FriendDatabase --yes"
-#     },
-#     {
-#       "id": "013-create-collection",
-#       "type": "azure/cli/az",
-#       "run": "az cosmosdb sql container create --name FriendContainer --database-name FriendDatabase --account-name tafccdb --resource-group tutorialAzureFuncCosmosCSS --partition-key-path \"/LastName\"",
-#       "rollback": "az cosmosdb sql container delete --name FriendContainer --database-name FriendDatabase --account-name tafccdb --resource-group tutorialAzureFuncCosmosCSS --yes"
-#     },
 
-#     {
-#       "id": "014-add-Cosmos DB Built-in Data Reader-to-me",
-#       "type": "azure/cli/az",
-#       "run": "az role assignment create --assignee ${execExpression('az ad signed-in-user show --only-show-errors --query \"objectId\" --output tsv')} --role \"Cosmos DB Built-in Data Reader\" --scope /subscriptions/${execExpression('az account list --query \"[?isDefault].id\" --only-show-errors --output tsv')}/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb",
-#       "rollback": "az role assignment delete --assignee ${execExpression('az ad signed-in-user show --only-show-errors --query \"objectId\" --output tsv')} --role \"Cosmos DB Built-in Data Reader\" --scope /subscriptions/${execExpression('az account list --query \"[?isDefault].id\" --only-show-errors --output tsv')}/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb"
-#     },
-#     {
-#       "id": "015-add-Cosmos DB Built-in Data Contributor-to-me",
-#       "type": "azure/cli/az",
-#       "run": "az role assignment create --assignee ${execExpression('az ad signed-in-user show --only-show-errors --query \"objectId\" --output tsv')} --role \"Cosmos DB Built-in Data Contributor\" --scope /subscriptions/${execExpression('az account list --query \"[?isDefault].id\" --only-show-errors --output tsv')}/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb",
-#       "rollback": "az role assignment delete --assignee ${execExpression('az ad signed-in-user show --only-show-errors --query \"objectId\" --output tsv')} --role \"Cosmos DB Built-in Data Contributor\" --scope /subscriptions/${execExpression('az account list --query \"[?isDefault].id\" --only-show-errors --output tsv')}/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb"
-#     }
-#   ]
-# }
