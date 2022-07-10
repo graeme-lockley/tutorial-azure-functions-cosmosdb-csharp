@@ -17,4 +17,7 @@ export RESOURCE_GROUP_NAME
 
 echo "Resource Group Name: $RESOURCE_GROUP_NAME"
 
-az group delete --name "$RESOURCE_GROUP_NAME" --yes --no-wait
+az group delete \
+    --name "$RESOURCE_GROUP_NAME" \
+    --yes \
+    --no-wait
