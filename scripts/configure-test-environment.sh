@@ -22,4 +22,4 @@ echo "Resource Group Name: $RESOURCE_GROUP_NAME"
 echo "Cosmos Account Name: $COSMOS_ACCOUNT_NAME"
 
 cd "$SCRIPT_DIR"/../infra/test-setup || exit 1
-"$SCRIPT_DIR"/infra-runner.sh run
+"$SCRIPT_DIR"/infra-runner.sh up

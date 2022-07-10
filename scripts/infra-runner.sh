@@ -37,7 +37,7 @@ if [ "$1" == "" ]
 then
     echo "Error: Unknown command"
     exit 1
-elif [ "$1" == "run" ]
+elif [ "$1" == "up" ]
 then
     for FILE in *.up
     do
@@ -61,7 +61,7 @@ then
             echo "Skipping: $FILE"
         fi
     done
-elif [ "$1" == "rollback" ]
+elif [ "$1" == "down" ]
 then
     sed -i '' '/^ *$/d' "$LOG_FILE_NAME" || exit 1
 
@@ -133,6 +133,6 @@ then
     done
 else
     echo "Error: Unknown command: $1"
-    echo "  Expected run, rollback, status"
+    echo "  Expected up, down, status"
     exit 1
 fi
