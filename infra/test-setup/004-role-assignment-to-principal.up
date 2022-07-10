@@ -3,14 +3,14 @@
 . "$( dirname "$0" )/env.sh"
 
 ROLE_DEFINITION_ID=$( az cosmosdb sql role definition list \
-    --account-name "$COSMOS_ACCOUNT_NAME" \
+    --account-name "$ACCOUNT_NAME" \
     --resource-group "$RESOURCE_GROUP_NAME" \
     --only-show-errors \
     --query "[?roleName=='CLIRole'].name" \
     --output tsv ) || exit 1
 
 az cosmosdb sql role assignment create \
-    --account-name "$COSMOS_ACCOUNT_NAME" \
+    --account-name "$ACCOUNT_NAME" \
     --resource-group "$RESOURCE_GROUP_NAME" \
     --scope "/" \
     --principal-id "22395703-af19-49be-a81f-ba230562fce3" \
