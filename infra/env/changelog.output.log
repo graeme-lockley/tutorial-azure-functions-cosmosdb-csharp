@@ -258,3 +258,394 @@
 ./006-populate-cosmos-content.up: line 5: ../../scripts/build-database-content.sh: No such file or directory
 >>> start | 006-populate-cosmos-content.up: Sun Jul 10 07:41:02 UTC 2022 |---------------------
 ./006-populate-cosmos-content.up: line 5: ../../scripts/build-database-content.sh: Permission denied
+>>> start | 006-populate-cosmos-content.up: Sun Jul 10 07:47:45 UTC 2022 |---------------------
+Connected to Cosmos: https://tafccdb.documents.azure.com:443/
+Accessed Container: FriendContainer
+Created item in database with id: e322df1f-e62f-47c5-b4e0-4940ba6888e1 Operation consumed 6.67 RUs.
+Created item in database with id: ddf9817a-5ad2-4c7d-84e2-26ba778dedea Operation consumed 6.48 RUs.
+Running query: SELECT * FROM c WHERE c.LastName = 'Lockley'
+	Read CoreLibrary.Entity.Friend
+	Read CoreLibrary.Entity.Friend
+Lockley, Graeme
+Lockley, David
+>>> end   | 006-populate-cosmos-content.up: Sun Jul 10 07:48:08 UTC 2022 |---------------------
+>>> start | 007-create-app-insights.up: Sun Jul 10 07:48:08 UTC 2022 |---------------------
+WARNING: The installed extension 'application-insights' is in preview.
+{
+  "appId": "4355eb1e-d162-4a0b-828d-32415f4fff98",
+  "applicationId": "tafccn",
+  "applicationType": "web",
+  "connectionString": "InstrumentationKey=336b8378-20cd-4554-a688-64a7e8ce1884;IngestionEndpoint=https://westus-0.in.applicationinsights.azure.com/;LiveEndpoint=https://westus.livediagnostics.monitor.azure.com/",
+  "creationDate": "2022-07-10T07:48:20.683143+00:00",
+  "disableIpMasking": null,
+  "etag": "\"bf01da02-0000-0200-0000-62ca84440000\"",
+  "flowType": "Bluefield",
+  "hockeyAppId": null,
+  "hockeyAppToken": null,
+  "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSC/providers/microsoft.insights/components/tafccn",
+  "immediatePurgeDataOn30Days": null,
+  "ingestionMode": "ApplicationInsights",
+  "instrumentationKey": "336b8378-20cd-4554-a688-64a7e8ce1884",
+  "kind": "web",
+  "location": "westus",
+  "name": "tafccn",
+  "privateLinkScopedResources": null,
+  "provisioningState": "Succeeded",
+  "publicNetworkAccessForIngestion": "Enabled",
+  "publicNetworkAccessForQuery": "Enabled",
+  "requestSource": "rest",
+  "resourceGroup": "tutorialAzureFuncCosmosCSC",
+  "retentionInDays": 90,
+  "samplingPercentage": null,
+  "tags": {},
+  "tenantId": "2ee96cab-57d3-472f-9d74-b9a9dc556def",
+  "type": "microsoft.insights/components"
+}
+>>> end   | 007-create-app-insights.up: Sun Jul 10 07:48:23 UTC 2022 |---------------------
+>>> start | 008-create-storage-account.up: Sun Jul 10 07:48:23 UTC 2022 |---------------------
+{
+  "accessTier": "Hot",
+  "allowBlobPublicAccess": true,
+  "allowCrossTenantReplication": null,
+  "allowSharedKeyAccess": null,
+  "allowedCopyScope": null,
+  "azureFilesIdentityBasedAuthentication": null,
+  "blobRestoreStatus": null,
+  "creationTime": "2022-07-10T07:48:28.334000+00:00",
+  "customDomain": null,
+  "defaultToOAuthAuthentication": null,
+  "dnsEndpointType": null,
+  "enableHttpsTrafficOnly": true,
+  "enableNfsV3": null,
+  "encryption": {
+    "encryptionIdentity": null,
+    "keySource": "Microsoft.Storage",
+    "keyVaultProperties": null,
+    "requireInfrastructureEncryption": null,
+    "services": {
+      "blob": {
+        "enabled": true,
+        "keyType": "Account",
+        "lastEnabledTime": "2022-07-10T07:48:28.427712+00:00"
+      },
+      "file": {
+        "enabled": true,
+        "keyType": "Account",
+        "lastEnabledTime": "2022-07-10T07:48:28.427712+00:00"
+      },
+      "queue": null,
+      "table": null
+    }
+  },
+  "extendedLocation": null,
+  "failoverInProgress": null,
+  "geoReplicationStats": null,
+  "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSC/providers/Microsoft.Storage/storageAccounts/tafccs",
+  "identity": null,
+  "immutableStorageWithVersioning": null,
+  "isHnsEnabled": null,
+  "isLocalUserEnabled": null,
+  "isSftpEnabled": null,
+  "keyCreationTime": {
+    "key1": "2022-07-10T07:48:28.412090+00:00",
+    "key2": "2022-07-10T07:48:28.412090+00:00"
+  },
+  "keyPolicy": null,
+  "kind": "StorageV2",
+  "largeFileSharesState": null,
+  "lastGeoFailoverTime": null,
+  "location": "westus",
+  "minimumTlsVersion": "TLS1_0",
+  "name": "tafccs",
+  "networkRuleSet": {
+    "bypass": "AzureServices",
+    "defaultAction": "Allow",
+    "ipRules": [],
+    "resourceAccessRules": null,
+    "virtualNetworkRules": []
+  },
+  "primaryEndpoints": {
+    "blob": "https://tafccs.blob.core.windows.net/",
+    "dfs": "https://tafccs.dfs.core.windows.net/",
+    "file": "https://tafccs.file.core.windows.net/",
+    "internetEndpoints": null,
+    "microsoftEndpoints": null,
+    "queue": "https://tafccs.queue.core.windows.net/",
+    "table": "https://tafccs.table.core.windows.net/",
+    "web": "https://tafccs.z22.web.core.windows.net/"
+  },
+  "primaryLocation": "westus",
+  "privateEndpointConnections": [],
+  "provisioningState": "Succeeded",
+  "publicNetworkAccess": null,
+  "resourceGroup": "tutorialAzureFuncCosmosCSC",
+  "routingPreference": null,
+  "sasPolicy": null,
+  "secondaryEndpoints": null,
+  "secondaryLocation": null,
+  "sku": {
+    "name": "Standard_LRS",
+    "tier": "Standard"
+  },
+  "statusOfPrimary": "available",
+  "statusOfSecondary": null,
+  "storageAccountSkuConversionStatus": null,
+  "tags": {},
+  "type": "Microsoft.Storage/storageAccounts"
+}
+>>> end   | 008-create-storage-account.up: Sun Jul 10 07:48:48 UTC 2022 |---------------------
+>>> start | 009-create-app-service-plan.up: Sun Jul 10 07:48:48 UTC 2022 |---------------------
+{
+  "elasticScaleEnabled": false,
+  "extendedLocation": null,
+  "freeOfferExpirationTime": null,
+  "geoRegion": "West US",
+  "hostingEnvironmentProfile": null,
+  "hyperV": false,
+  "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSC/providers/Microsoft.Web/serverfarms/tafccsp",
+  "isSpot": false,
+  "isXenon": false,
+  "kind": "app",
+  "kubeEnvironmentProfile": null,
+  "location": "westus",
+  "maximumElasticWorkerCount": 1,
+  "maximumNumberOfWorkers": 0,
+  "name": "tafccsp",
+  "numberOfSites": 0,
+  "perSiteScaling": false,
+  "provisioningState": "Succeeded",
+  "reserved": false,
+  "resourceGroup": "tutorialAzureFuncCosmosCSC",
+  "sku": {
+    "capabilities": null,
+    "capacity": 0,
+    "family": "D",
+    "locations": null,
+    "name": "D1",
+    "size": "D1",
+    "skuCapacity": null,
+    "tier": "Shared"
+  },
+  "spotExpirationTime": null,
+  "status": "Ready",
+  "subscription": "2ee96cab-57d3-472f-9d74-b9a9dc556def",
+  "tags": null,
+  "targetWorkerCount": 0,
+  "targetWorkerSizeId": 0,
+  "type": "Microsoft.Web/serverfarms",
+  "workerTierName": null,
+  "zoneRedundant": false
+}
+>>> end   | 009-create-app-service-plan.up: Sun Jul 10 07:49:01 UTC 2022 |---------------------
+>>> start | 010-create-functionapp.up: Sun Jul 10 07:49:01 UTC 2022 |---------------------
+{
+  "availabilityState": "Normal",
+  "clientAffinityEnabled": false,
+  "clientCertEnabled": false,
+  "clientCertExclusionPaths": null,
+  "clientCertMode": "Required",
+  "cloningInfo": null,
+  "containerSize": 1536,
+  "customDomainVerificationId": "9BB6FEDAB3B17ACD9F3D9AE4B60FBBC238530BED44EA10E5864CAAA30B037243",
+  "dailyMemoryTimeQuota": 0,
+  "defaultHostName": "tafcc.azurewebsites.net",
+  "enabled": true,
+  "enabledHostNames": [
+    "tafcc.azurewebsites.net",
+    "tafcc.scm.azurewebsites.net"
+  ],
+  "extendedLocation": null,
+  "hostNameSslStates": [
+    {
+      "hostType": "Standard",
+      "ipBasedSslResult": null,
+      "ipBasedSslState": "NotConfigured",
+      "name": "tafcc.azurewebsites.net",
+      "sslState": "Disabled",
+      "thumbprint": null,
+      "toUpdate": null,
+      "toUpdateIpBasedSsl": null,
+      "virtualIp": null
+    },
+    {
+      "hostType": "Repository",
+      "ipBasedSslResult": null,
+      "ipBasedSslState": "NotConfigured",
+      "name": "tafcc.scm.azurewebsites.net",
+      "sslState": "Disabled",
+      "thumbprint": null,
+      "toUpdate": null,
+      "toUpdateIpBasedSsl": null,
+      "virtualIp": null
+    }
+  ],
+  "hostNames": [
+    "tafcc.azurewebsites.net"
+  ],
+  "hostNamesDisabled": false,
+  "hostingEnvironmentProfile": null,
+  "httpsOnly": false,
+  "hyperV": false,
+  "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSC/providers/Microsoft.Web/sites/tafcc",
+  "identity": {
+    "principalId": "e9a03a0e-40f9-43f8-95d8-738521cd8ac7",
+    "tenantId": "74716545-bc6e-4f6c-b09a-800bca25207c",
+    "type": "SystemAssigned",
+    "userAssignedIdentities": null
+  },
+  "inProgressOperationId": null,
+  "isDefaultContainer": null,
+  "isXenon": false,
+  "keyVaultReferenceIdentity": "SystemAssigned",
+  "kind": "functionapp",
+  "lastModifiedTimeUtc": "2022-07-10T07:49:10.356666",
+  "location": "westus",
+  "maxNumberOfWorkers": null,
+  "name": "tafcc",
+  "outboundIpAddresses": "20.184.240.69,20.184.241.241,20.184.242.1,20.184.242.31,20.184.242.36,20.184.242.119,40.82.255.132",
+  "possibleOutboundIpAddresses": "20.184.240.69,20.184.241.241,20.184.242.1,20.184.242.31,20.184.242.36,20.184.242.119,20.184.242.129,20.184.242.157,20.184.243.181,20.184.243.194,20.184.243.214,20.184.243.231,20.184.243.240,20.184.243.254,20.184.244.7,20.184.244.22,20.184.244.46,20.184.244.62,20.184.244.81,20.184.244.93,20.184.244.106,20.184.244.116,20.184.244.119,20.184.244.123,20.184.244.124,20.184.244.130,20.184.244.141,52.157.32.33,52.157.32.35,52.157.32.39,40.82.255.132",
+  "redundancyMode": "None",
+  "repositorySiteName": "tafcc",
+  "reserved": false,
+  "resourceGroup": "tutorialAzureFuncCosmosCSC",
+  "scmSiteAlsoStopped": false,
+  "serverFarmId": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSC/providers/Microsoft.Web/serverfarms/WestUSPlan",
+  "siteConfig": {
+    "acrUseManagedIdentityCreds": false,
+    "acrUserManagedIdentityId": null,
+    "alwaysOn": false,
+    "antivirusScanEnabled": null,
+    "apiDefinition": null,
+    "apiManagementConfig": null,
+    "appCommandLine": null,
+    "appSettings": null,
+    "autoHealEnabled": null,
+    "autoHealRules": null,
+    "autoSwapSlotName": null,
+    "azureMonitorLogCategories": null,
+    "azureStorageAccounts": null,
+    "connectionStrings": null,
+    "cors": null,
+    "customAppPoolIdentityAdminState": null,
+    "customAppPoolIdentityTenantState": null,
+    "defaultDocuments": null,
+    "detailedErrorLoggingEnabled": null,
+    "documentRoot": null,
+    "experiments": null,
+    "fileChangeAuditEnabled": null,
+    "ftpsState": null,
+    "functionAppScaleLimit": 0,
+    "functionsRuntimeScaleMonitoringEnabled": null,
+    "handlerMappings": null,
+    "healthCheckPath": null,
+    "http20Enabled": false,
+    "http20ProxyFlag": null,
+    "httpLoggingEnabled": null,
+    "ipSecurityRestrictions": [
+      {
+        "action": "Allow",
+        "description": "Allow all access",
+        "headers": null,
+        "ipAddress": "Any",
+        "name": "Allow all",
+        "priority": 1,
+        "subnetMask": null,
+        "subnetTrafficTag": null,
+        "tag": null,
+        "vnetSubnetResourceId": null,
+        "vnetTrafficTag": null
+      }
+    ],
+    "javaContainer": null,
+    "javaContainerVersion": null,
+    "javaVersion": null,
+    "keyVaultReferenceIdentity": null,
+    "limits": null,
+    "linuxFxVersion": "",
+    "loadBalancing": null,
+    "localMySqlEnabled": null,
+    "logsDirectorySizeLimit": null,
+    "machineKey": null,
+    "managedPipelineMode": null,
+    "managedServiceIdentityId": null,
+    "metadata": null,
+    "minTlsCipherSuite": null,
+    "minTlsVersion": null,
+    "minimumElasticInstanceCount": 0,
+    "netFrameworkVersion": null,
+    "nodeVersion": null,
+    "numberOfWorkers": 1,
+    "phpVersion": null,
+    "powerShellVersion": null,
+    "preWarmedInstanceCount": null,
+    "publicNetworkAccess": null,
+    "publishingPassword": null,
+    "publishingUsername": null,
+    "push": null,
+    "pythonVersion": null,
+    "remoteDebuggingEnabled": null,
+    "remoteDebuggingVersion": null,
+    "requestTracingEnabled": null,
+    "requestTracingExpirationTime": null,
+    "routingRules": null,
+    "runtimeADUser": null,
+    "runtimeADUserPassword": null,
+    "scmIpSecurityRestrictions": [
+      {
+        "action": "Allow",
+        "description": "Allow all access",
+        "headers": null,
+        "ipAddress": "Any",
+        "name": "Allow all",
+        "priority": 1,
+        "subnetMask": null,
+        "subnetTrafficTag": null,
+        "tag": null,
+        "vnetSubnetResourceId": null,
+        "vnetTrafficTag": null
+      }
+    ],
+    "scmIpSecurityRestrictionsUseMain": null,
+    "scmMinTlsVersion": null,
+    "scmType": null,
+    "sitePort": null,
+    "storageType": null,
+    "supportedTlsCipherSuites": null,
+    "tracingOptions": null,
+    "use32BitWorkerProcess": null,
+    "virtualApplications": null,
+    "vnetName": null,
+    "vnetPrivatePortsCount": null,
+    "vnetRouteAllEnabled": null,
+    "webSocketsEnabled": null,
+    "websiteTimeZone": null,
+    "winAuthAdminState": null,
+    "winAuthTenantState": null,
+    "windowsFxVersion": null,
+    "xManagedServiceIdentityId": null
+  },
+  "slotSwapStatus": null,
+  "state": "Running",
+  "storageAccountRequired": false,
+  "suspendedTill": null,
+  "tags": null,
+  "targetSwapSlot": null,
+  "trafficManagerHostNames": null,
+  "type": "Microsoft.Web/sites",
+  "usageState": "Normal",
+  "virtualNetworkSubnetId": null
+}
+>>> end   | 010-create-functionapp.up: Sun Jul 10 07:49:42 UTC 2022 |---------------------
+>>> start | 011-assign-role-to-functionapp.up: Sun Jul 10 07:49:42 UTC 2022 |---------------------
+. Principal ID: e9a03a0e-40f9-43f8-95d8-738521cd8ac7
+. Role Definition ID: 8f39a3d2-6a9e-4f83-a336-d265563ee935
+{
+  "id": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb/sqlRoleAssignments/f836731a-4121-4bca-a9e3-09f116675d2a",
+  "name": "f836731a-4121-4bca-a9e3-09f116675d2a",
+  "principalId": "e9a03a0e-40f9-43f8-95d8-738521cd8ac7",
+  "resourceGroup": "tutorialAzureFuncCosmosCSS",
+  "roleDefinitionId": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb/sqlRoleDefinitions/8f39a3d2-6a9e-4f83-a336-d265563ee935",
+  "scope": "/subscriptions/2ee96cab-57d3-472f-9d74-b9a9dc556def/resourceGroups/tutorialAzureFuncCosmosCSS/providers/Microsoft.DocumentDB/databaseAccounts/tafccdb",
+  "type": "Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignments"
+}
+>>> end   | 011-assign-role-to-functionapp.up: Sun Jul 10 07:50:18 UTC 2022 |---------------------

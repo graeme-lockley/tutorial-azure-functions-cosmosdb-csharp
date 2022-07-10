@@ -3,3 +3,9 @@
 003-create-cosmos-db.up=Sun Jul 10 07:23:53 UTC 2022
 004-create-CLIRole.up=Sun Jul 10 07:24:25 UTC 2022
 005-role-assignment-to-principal.up=Sun Jul 10 07:24:59 UTC 2022
+006-populate-cosmos-content.up=Sun Jul 10 07:48:08 UTC 2022
+007-create-app-insights.up=Sun Jul 10 07:48:23 UTC 2022
+008-create-storage-account.up=Sun Jul 10 07:48:48 UTC 2022
+009-create-app-service-plan.up=Sun Jul 10 07:49:01 UTC 2022
+010-create-functionapp.up=Sun Jul 10 07:49:42 UTC 2022
+011-assign-role-to-functionapp.up=Sun Jul 10 07:50:18 UTC 2022
