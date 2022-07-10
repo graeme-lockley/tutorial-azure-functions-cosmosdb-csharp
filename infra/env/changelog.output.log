@@ -685,3 +685,9 @@ Message: The Resource 'Microsoft.Web/sites/tafccsmi' under resource group 'tutor
   "type": "Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignments"
 }
 >>> end   | 011-assign-role-to-managed-identity.up: Sun Jul  3 09:42:44 SAST 2022 |---------------------
+>>> start | 005-role-assignment-to-principal.up: Sun Jul 10 06:58:31 UTC 2022 |---------------------
+. Account Name: tafccdb
+. Resource Group: tutorialAzureFuncCosmosCSS
+ERROR: (ResourceGroupNotFound) Resource group 'tutorialAzureFuncCosmosCSS' could not be found.
+Code: ResourceGroupNotFound
+Message: Resource group 'tutorialAzureFuncCosmosCSS' could not be found.
