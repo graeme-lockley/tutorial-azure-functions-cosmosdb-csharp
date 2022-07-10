@@ -256,3 +256,5 @@
 >>> end   | 005-role-assignment-to-principal.up: Sun Jul 10 07:24:59 UTC 2022 |---------------------
 >>> start | 006-populate-cosmos-content.up: Sun Jul 10 07:24:59 UTC 2022 |---------------------
 ./006-populate-cosmos-content.up: line 5: ../../scripts/build-database-content.sh: No such file or directory
+>>> start | 006-populate-cosmos-content.up: Sun Jul 10 07:41:02 UTC 2022 |---------------------
+./006-populate-cosmos-content.up: line 5: ../../scripts/build-database-content.sh: Permission denied
